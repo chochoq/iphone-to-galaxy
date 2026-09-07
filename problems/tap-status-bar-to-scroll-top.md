@@ -51,5 +51,7 @@ X에서는 거리를 조금 늘린 한 번의 플릭을 사용합니다. 다음 
 원래 One UI 동작으로 돌아갑니다.
 
 Galaxy Z Fold8 SM-F971N, Android 17, One UI 9.0에서 X, YouTube, Chrome과 Samsung 설정을
-시험했습니다. 커버 화면과 펼친 화면을 나눈 전체 회귀 검사는 아직 하지 않았습니다. 자세한 시험
-내용은 [앱 설계 인덱스](../apps/tap-to-top/docs/design/INDEX.md)에 있습니다.
+시험했습니다.
+
+커버 화면과 펼친 화면을 나눈 전체 회귀 검사는 아직 하지 않았습니다. 자세한 시험 내용은
+[앱 설계 인덱스](../apps/tap-to-top/docs/design/INDEX.md)에 있습니다.

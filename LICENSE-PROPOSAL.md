@@ -13,8 +13,9 @@
 조합도 검토할 수 있지만, 이 조합 역시 판매 자체를 금지하지는 않습니다.
 
 AirPods Glance의 제품 회전 영상은 polyman의 CC BY 4.0 모델을 바탕으로 만들었습니다. 저작자와
-원본, 라이선스는 앱의 THIRD_PARTY_NOTICES.md와 APK 안의 고지에 남겨야 합니다. HiddenApiBypass는
-Apache-2.0이며 빌드할 때 정해진 SHA-256 값을 확인한 뒤 내려받습니다.
+원본, 라이선스는 앱의 THIRD_PARTY_NOTICES.md와 APK 안의 고지에 남겨야 합니다.
+
+HiddenApiBypass는 Apache-2.0이며 빌드할 때 정해진 SHA-256 값을 확인한 뒤 내려받습니다.
 
 개인 기기의 로그와 화면 녹화, Apple과 Samsung의 공식 이미지와 로고는 저장소에 넣지 않습니다.
 공개하기 전에는 라이선스를 하나 선택하고, 이 메모를 실제 라이선스 전문과 필요한 NOTICE 문서로

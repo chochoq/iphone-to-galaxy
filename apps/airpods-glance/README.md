@@ -34,13 +34,16 @@ Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈 화면 위젯에�
 ~~~
 
 Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니다. SDK가 기본 위치에
-없다면 ANDROID_SDK_ROOT를 지정합니다. 빌드할 때 LSPosed HiddenApiBypass 6.1을 Maven Central에서
-내려받고 SHA-256 값이 맞는지 확인합니다. 만들어진 APK는 각 개발자의 확인용 키로 서명되며 공개
-배포용이 아닙니다.
+없다면 ANDROID_SDK_ROOT를 지정합니다.
+
+빌드할 때 LSPosed HiddenApiBypass 6.1을 Maven Central에서 내려받고 SHA-256 값이 맞는지
+확인합니다. 만들어진 APK는 각 개발자의 확인용 키로 서명되며 공개 배포용이 아닙니다.
 
 설계와 판단은 [설계 인덱스](docs/design/INDEX.md), 구현 항목은 [작업 기록](docs/tasks/TASKS.md),
-기기에서 시험한 내용은 docs/results/에 있습니다. 비교에 사용한 iPhone 촬영물과 Apple 공식
-이미지, 다른 앱의 APK는 재배포 권리를 확인할 수 없어 저장소에 넣지 않았습니다.
+기기에서 시험한 내용은 docs/results/에 있습니다.
+
+비교에 사용한 iPhone 촬영물과 Apple 공식 이미지, 다른 앱의 APK는 재배포 권리를 확인할 수 없어
+저장소에 넣지 않았습니다.
 
 ## 권한과 개인정보
 
@@ -49,8 +52,10 @@ Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니�
 않습니다.
 
 CAPod, Podsify와 GreenPods는 AirPods 통신 방식을 교차 확인하는 자료로만 살펴봤으며 코드는
-복사하지 않았습니다. 제품 회전 영상은 polyman의 ‘Airpods Pro With Magsafe Charging Case Ios15’
-3D 모델을 바탕으로 만들었습니다. 저작자와 라이선스는
+복사하지 않았습니다.
+
+제품 회전 영상은 polyman의 ‘Airpods Pro With Magsafe Charging Case Ios15’ 3D 모델을 바탕으로
+만들었습니다. 저작자와 라이선스는
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 표시했습니다.
 
 되돌리려면 앱에서 감시와 큰 연결 화면을 끕니다. 다른 앱 위 표시, 알림과 근처 기기 권한을
