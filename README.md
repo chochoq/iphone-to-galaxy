@@ -1,5 +1,10 @@
 # iPhone to Galaxy
 
+> **English summary:** An open-source, problem-first record of translating a long-time iPhone
+> user's familiar interactions to Samsung Galaxy with the smallest reversible solution—settings,
+> Good Lock, automation, or a custom app only when necessary. Current device validation is limited
+> to Galaxy Z Fold8 (`SM-F971N`), Android 17, One UI 9.0.
+
 아이폰 장기 사용자의 습관을 Galaxy에서 안전하고 되돌릴 수 있는 방식으로 번역하는
 오픈소스 사용성 실험 프로젝트입니다.
 
@@ -87,3 +92,6 @@ AirPods, Galaxy와 One UI 등의 명칭은 비교 대상과 호환성 범위를 
 공개 전 최종 확인할 제안은 코드 Apache-2.0, 문서 CC BY 4.0입니다. 제3자 자산은 각 원저작자의
 라이선스를 유지합니다. 현재 staging에는 아직 프로젝트 전체 라이선스 승인을 적용하지 않았습니다.
 자세한 범위는 [라이선스 제안](LICENSE-PROPOSAL.md)을 봅니다.
+
+공개 순서, 첫 release 범위와 community 운영은 [GitHub 공개 전략](docs/PUBLISHING.md), 다음 검증은
+[Roadmap](ROADMAP.md)에 있습니다.
