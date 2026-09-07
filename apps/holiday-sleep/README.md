@@ -27,8 +27,9 @@
 ~~~
 
 Android SDK Platform 36, Build Tools 36.0.0과 JDK가 필요합니다. SDK가 기본 위치에 없다면
-ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 각 개발자의 확인용 키로 서명되며
-공개 배포용이 아닙니다.
+ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 각 개발자의 테스트용 키로 서명돼
+설치할 수 있습니다. APK를 만들어 실기기에서 시험했으며, GitHub의 다운로드용 APK 제공과 공식
+배포용 서명·업데이트 체계는 아직 준비 중입니다.
 
 ## 권한과 삭제 방법
 

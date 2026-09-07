@@ -37,7 +37,8 @@ chmod +x build.sh
 
 APK는 build/tap-to-top.apk에 생성됩니다. Android SDK Platform 36, Build Tools 36.0.0과 JDK가
 필요합니다. SDK가 기본 위치에 없다면 ANDROID_SDK_ROOT를 지정합니다. 만들어진 APK는 각 개발자의
-확인용 키로 서명되며 공개 배포용이 아닙니다.
+테스트용 키로 서명돼 설치할 수 있습니다. APK를 만들어 실기기에서 시험했지만, GitHub에 다운로드용
+APK를 첨부하거나 공식 배포용 서명·업데이트 체계를 마련하지는 않았습니다.
 
 되돌리려면 설정의 접근성 설치 앱에서 ‘맨 위로 톡’을 끄고 앱을 삭제합니다. 권한과 앱별 한계는
 [문제 문서](../../problems/tap-status-bar-to-scroll-top.md)에서 확인할 수 있습니다.
