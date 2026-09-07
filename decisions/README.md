@@ -7,3 +7,4 @@
 - [ADR-0001 — 문제 중심 단일 저장소](0001-problem-first-monorepo.md)
 - [ADR-0002 — 첫 공개는 source-first](0002-source-first.md)
 - [ADR-0003 — 경험 기준과 호환 범위 분리](0003-experience-vs-compatibility.md)
+- [ADR-0004 — 공개 저자 alias와 package namespace 유지](0004-public-author-identity.md)

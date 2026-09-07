@@ -7,6 +7,16 @@
 - 릴리스·debug 서명 키, 기기 로그와 개인 위치는 저장소에 올리지 않습니다.
 - 권한은 문제 문서와 앱 README에서 이유·부작용·철회 방법을 설명합니다.
 
+## 의도적으로 공개하는 식별 정보
+
+- GitHub 저자 alias: `chochoq`
+- 기존 Android package namespace: `com.chocho...`
+- 검증 기기·OS와 익명화된 시험 날짜
+
+저장소 소유자가 `chochoq`는 자신의 공개 GitHub nickname이라 유지해도 된다고 확인했습니다. 커밋은
+개인 email 대신 GitHub noreply 주소를 사용합니다. 이 범위는 공개 저자 표시이며 집·회사 위치,
+기기·Bluetooth 식별자, 개인 제품명과 계정 정보의 공개를 허용한다는 뜻이 아닙니다.
+
 ## 민감한 기능
 
 Tap to Top의 접근성 서비스는 다른 앱의 스크롤 가능한 노드를 찾고 한 번의 동작을 실행합니다.

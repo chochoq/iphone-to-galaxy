@@ -53,5 +53,9 @@ setup-android v4.0.1의 immutable commit SHA로 고정했고 Dependabot monthly 
 1. 코드 Apache-2.0 / 문서 CC BY 4.0 제안을 소유자가 확정한다.
 2. GitHub 계정·저장소 URL과 최초 공개를 source-only로 할지 정한다.
 
+후속 확인에서 저장소 소유자는 `chochoq`가 자신의 공개 GitHub nickname이라 유지해도 된다고
+결정했다. 이에 따라 author alias와 `com.chocho...` namespace는 의도적 공개 정보로 확정했고 개인
+email은 noreply로 유지한다. 남은 사람의 결정은 프로젝트 license와 Public 전환 시점이다.
+
 회의 루틴의 녹음 시작과 One Hand Operation+의 방향별 mapping은 기기에서 다시 읽은 기록이 없어
 추측하지 않았다. 공개 문서에는 `재확인 필요`로 남겼으며 이는 build gate와 별개의 콘텐츠 보강이다.
