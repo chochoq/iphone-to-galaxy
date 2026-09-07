@@ -59,6 +59,17 @@ Tap to Top, Holiday Sleep, AirPods Glance 순서는 제품 중요도가 아니�
 
 ### 3.1 사용자가 앱 이름을 몰라도 입구를 찾게 한다
 
+#### 3.1.0 직접 앱의 기존 공개 대안을 다시 조사한다 — 완료
+
+공개 직전 “기능 하나씩 보면 이미 비슷한 GitHub가 많지 않겠느냐”는 소유자의 질문을 가설로 두고
+repository search와 README·license를 확인했다. AirPods companion은 LibrePods, CAPod, OpenPods,
+Podsify 등 성숙한 대안이 있었고, 같은 목적의 TapToTop 접근성 앱도 찾았다. 한국 공휴일 수면 연장과
+문제 중심 전환 저장소의 명확한 대응물은 이번 검색에서 찾지 못했지만 부재로 확정하지 않는다.
+
+이 결과로 AirPods Glance와 Tap to Top을 최초·범용 제품으로 소개하지 않고, 기존 대안과 다른 설계
+trade-off를 가진 단일 기기 사례로 낮춰 표현했다. 새 직접 앱 전의 landscape 확인을 공개 gate에
+추가했다.
+
 #### 3.1.1 README 문제 지도와 여섯 문제 문서를 연결한다 — 완료
 
 각 문서는 iPhone 경험, Galaxy 차이, 검토 단계, 선택, 권한·부작용, 되돌리기, 검증 범위와 미확정을

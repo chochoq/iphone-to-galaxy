@@ -59,3 +59,15 @@ email은 noreply로 유지한다. 남은 사람의 결정은 프로젝트 licens
 
 회의 루틴의 녹음 시작과 One Hand Operation+의 방향별 mapping은 기기에서 다시 읽은 기록이 없어
 추측하지 않았다. 공개 문서에는 `재확인 필요`로 남겼으며 이는 build gate와 별개의 콘텐츠 보강이다.
+
+## 기존 프로젝트 조사 후 공개 주장 수정
+
+소유자가 개별 기능과 비슷한 GitHub가 이미 많을 것 같다고 지적해 repository search와 현재 README,
+license를 다시 확인했다. AirPods on Android에는 LibrePods·CAPod·OpenPods 등 규모와 기능이 훨씬 큰
+GPL-3.0 프로젝트가 있고, Podsify는 Apache-2.0으로 battery·widget을 제공한다. 상태 표시줄 tap에는
+반복 swipe 기반 `twelvehouse/TapToTop`이 있었다.
+
+따라서 `우리 앱이라서 가치 있다`는 암묵적 전제를 제거했다. README와 문제 문서는 기존 대안을 먼저
+보여주고, 우리 구현은 광고 없는 개인 요구, 단일 gesture의 interruptibility, DND·상태 이미지 검증과
+실패 history가 남는 사례로 재정의했다. 전체 iPhone→Galaxy 전환 지도와 한국 공휴일 수면 조합은 이번
+검색에서 뚜렷한 대응물을 찾지 못했지만 독창성이나 부재를 증명했다고 쓰지 않는다.
