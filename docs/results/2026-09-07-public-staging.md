@@ -41,6 +41,8 @@ idsig, MP4/MOV/WebM과 log는 0개다. Markdown 상대 링크, shell syntax, Git
 첫 private GitHub CI는 전체 build를 통과했지만 checkout/setup actions의 Node 20 폐기 경고가
 나왔다. 공식 latest release를 API로 확인해 checkout v7.0.1, setup-java v6.0.0,
 setup-android v4.0.1의 immutable commit SHA로 고정했고 Dependabot monthly 확인을 추가했다.
+수정 뒤 두 번째 private GitHub clean-runner 검증은 1분 4초에 public-tree 검사, 세 앱 build,
+262,649 assertions와 AirPods APK policy를 모두 통과했고 이전 Node 20 annotation도 사라졌다.
 
 ## 피드백 분석과 설계 반영
 
