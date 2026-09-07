@@ -1,0 +1,46 @@
+# 라이선스 범위
+
+Copyright © 2026 chochoq
+
+이 저장소에는 우리가 만든 코드와 문서뿐 아니라, 원래 라이선스를 그대로 따라야 하는 외부
+저작물도 들어 있습니다. 파일 종류에 따라 다음 조건을 적용합니다.
+
+## 우리가 만든 코드
+
+앱 소스, 테스트, 빌드 도구, 자동 검사, Android XML 리소스와 GitHub 설정처럼 실행이나 빌드에
+쓰이는 파일은 [GNU General Public License v3.0 or later](../LICENSE)를 따릅니다.
+SPDX 식별자는 `GPL-3.0-or-later`입니다.
+
+이 라이선스는 상업적 이용과 판매를 금지하지 않습니다. 다만 수정한 프로그램을 다른 사람에게
+배포하면, 그 사람에게도 대응하는 소스와 같은 GPL 권리를 제공해야 합니다.
+
+## 우리가 쓴 문서
+
+README, 문제 해결 기록, 설정 방법, 설계·작업·시험 기록과 직접 만든 도표는
+[Creative Commons Attribution-ShareAlike 4.0 International](CC-BY-SA-4.0.txt)을 따릅니다.
+SPDX 식별자는 `CC-BY-SA-4.0`입니다.
+
+문서를 복사하거나 고쳐서 공유할 때는 저작자를 표시하고, 변경 여부를 밝히며, 같은 라이선스로
+공유해야 합니다.
+
+## 외부 저작물과 예외
+
+다음 네 파일은 polyman의 3D 모델을 바탕으로 만든 렌더이며
+[`CC BY 4.0`](CC-BY-4.0.txt)을 그대로 따릅니다.
+
+- `apps/airpods-glance/res/drawable-nodpi/airpods_case_closed_render_v3.png`
+- `apps/airpods-glance/res/drawable-nodpi/airpods_case_closed_turntable_3d_v3.webp`
+- `apps/airpods-glance/res/drawable-nodpi/airpods_pair_render.png`
+- `apps/airpods-glance/res/drawable-nodpi/airpods_pair_turntable_3d.webp`
+
+정확한 저작자, 원본 주소와 변경 내용은
+[`THIRD_PARTY_NOTICES.md`](../apps/airpods-glance/THIRD_PARTY_NOTICES.md)에 있습니다.
+
+AirPods Glance가 빌드할 때 내려받는 HiddenApiBypass 6.1은
+[`Apache-2.0`](Apache-2.0.txt)을 따릅니다. 해당 바이너리는 이 저장소에 넣지 않았습니다.
+라이선스와 고지는 만들어지는 APK에도 포함됩니다.
+
+`LICENSE`, `LICENSES/*.txt`와 제3자 고지는 각각 적혀 있는 원래 조건을 따릅니다. Apple과
+Samsung의 상표는 각 소유자에게 있으며, 프로젝트 라이선스가 상표 사용권을 주지는 않습니다.
+
+파일의 출처나 적용 조건이 분명하지 않다면 재사용하기 전에 Issue로 확인해 주세요.

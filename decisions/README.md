@@ -8,3 +8,4 @@
 - [ADR-0002: 첫 공개에는 소스만 포함](0002-source-first.md)
 - [ADR-0003: 익숙한 아이폰과 시험한 Galaxy를 구분](0003-experience-vs-compatibility.md)
 - [ADR-0004: 공개 GitHub 이름과 기존 Android 패키지 이름 유지](0004-public-author-identity.md)
+- [ADR-0005: 코드와 문서에 서로 맞는 카피레프트 라이선스 적용](0005-copyleft-license.md)

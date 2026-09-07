@@ -15,6 +15,11 @@ HIDDEN_API_JAR="$DEPS_DIR/hiddenapibypass-$HIDDEN_API_VERSION.jar"
 HIDDEN_API_URL="https://repo1.maven.org/maven2/org/lsposed/hiddenapibypass/hiddenapibypass/$HIDDEN_API_VERSION/hiddenapibypass-$HIDDEN_API_VERSION.aar"
 HIDDEN_API_SHA256=e3161dd21c97a4540b1698a33f7062aeaa1450008e1e2176070e5380f7a6324c
 
+cmp "$PROJECT_DIR/../../LICENSES/Apache-2.0.txt" \
+  "$PROJECT_DIR/res/raw/apache_license_2_0.txt"
+cmp "$PROJECT_DIR/../../LICENSES/CC-BY-4.0.txt" \
+  "$PROJECT_DIR/res/raw/cc_by_4_0_license.txt"
+
 rm -rf "$BUILD_DIR"
 mkdir -p "$CLASSES_DIR" "$DEX_DIR" "$DEPS_DIR"
 

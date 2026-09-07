@@ -30,5 +30,12 @@ xml=$("$AAPT" dump xmltree "$APK" AndroidManifest.xml)
 printf '%s\n' "$xml" | grep -F '.AirPodsWidgetProvider' >/dev/null
 printf '%s\n' "$xml" | grep -F 'foregroundServiceType' >/dev/null
 
+unzip -p "$APK" res/raw/apache_license_2_0.txt \
+  | cmp - "$PROJECT_DIR/../../LICENSES/Apache-2.0.txt"
+unzip -p "$APK" res/raw/cc_by_4_0_license.txt \
+  | cmp - "$PROJECT_DIR/../../LICENSES/CC-BY-4.0.txt"
+unzip -p "$APK" res/raw/third_party_notices.txt \
+  | cmp - "$PROJECT_DIR/res/raw/third_party_notices.txt"
+
 "$ANDROID_BUILD_TOOLS/apksigner" verify "$APK"
 printf 'APK policy checks passed\n'

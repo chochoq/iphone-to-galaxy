@@ -37,7 +37,11 @@ Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니�
 없다면 ANDROID_SDK_ROOT를 지정합니다.
 
 빌드할 때 LSPosed HiddenApiBypass 6.1을 Maven Central에서 내려받고 SHA-256 값이 맞는지
-확인합니다. 만들어진 APK는 각 개발자의 확인용 키로 서명되며 공개 배포용이 아닙니다.
+확인합니다. APK 안에는 HiddenApiBypass의 Apache 2.0 전문과 AirPods 렌더의 CC BY 4.0 전문,
+저작자 고지도 함께 들어갑니다.
+
+만들어진 APK는 각 개발자의 확인용 키로 서명되며 공개 배포용이
+아닙니다.
 
 설계와 판단은 [설계 인덱스](docs/design/INDEX.md), 구현 항목은 [작업 기록](docs/tasks/TASKS.md),
 기기에서 시험한 내용은 docs/results/에 있습니다.

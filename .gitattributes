@@ -1,0 +1,2 @@
+LICENSES/*.txt whitespace=-blank-at-eof
+apps/airpods-glance/res/raw/*_license.txt whitespace=-blank-at-eof

@@ -6,8 +6,10 @@ by polyman (https://sketchfab.com/ely.haddad), licensed under CC BY 4.0
 (https://creativecommons.org/licenses/by/4.0/).
 
 The application distributes offline-rendered product animation frames derived from the model.
+The full license text is bundled as res/raw/cc_by_4_0_license.txt.
 
 HiddenApiBypass 6.1
 
 Project: https://github.com/LSPosed/AndroidHiddenApiBypass
 License: Apache License 2.0
+The full license text is bundled as res/raw/apache_license_2_0.txt.
