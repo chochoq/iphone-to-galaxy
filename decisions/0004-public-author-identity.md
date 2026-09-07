@@ -1,22 +1,22 @@
-# ADR-0004 — 공개 저자 alias와 package namespace를 유지한다
+# ADR-0004: 공개 GitHub 이름과 기존 Android 패키지 이름 유지
 
 - 상태: 채택
 - 날짜: 2026-09-07
 
-## 맥락
+## 배경
 
-개인정보 감사에서 GitHub 소유자 `chochoq`와 Android package namespace `com.chocho`가 개인 식별
-가능한 문자열로 남아 있음을 별도로 알렸다. 이를 중립 namespace로 바꾸면 공개 저자와 설치된 앱의
-identity가 갈라지고, 기존 설치본의 update 경로도 끊어진다.
+개인정보를 검사하면서 GitHub 이름 chochoq와 Android 패키지 이름 com.chocho가 소스에 남아 있는
+것을 확인했습니다. 패키지 이름을 중립적인 값으로 바꾸면 공개 저자와 이미 설치한 앱의 이름이
+달라지고 기존 앱을 그대로 업데이트할 수도 없습니다.
 
 ## 결정
 
-저장소 소유자는 `chochoq`가 자신의 GitHub nickname이므로 공개되어도 괜찮다고 확인했다.
-`chochoq`와 기존 `com.chocho...` package namespace를 의도적인 공개 저자 식별자로 유지한다.
-커밋 email은 계속 GitHub noreply 주소만 사용한다.
+저장소 소유자는 chochoq가 이미 공개해서 사용하는 GitHub 이름이므로 남겨도 된다고 확인했습니다.
+chochoq와 com.chocho로 시작하는 기존 패키지 이름을 유지합니다. 커밋에는 계속 GitHub의 noreply
+이메일만 사용합니다.
 
 ## 결과
 
-이 alias를 집·회사 위치, Bluetooth 주소, serial, 개인 제품명, email 같은 제거 대상 사생활 정보와
-구분한다. package를 중립 이름으로 복사해 서로 다른 앱을 만들지 않으며, 향후 rename이 필요하면
-Android application ID migration으로 별도 설계한다.
+공개하기로 한 이름은 집과 회사 위치, Bluetooth 주소, 기기 일련번호, 개인 제품명과 이메일처럼
+지워야 할 사생활 정보와 구분합니다. 같은 앱을 중립적인 패키지 이름으로 복사하지 않습니다.
+나중에 이름을 바꿔야 한다면 Android 애플리케이션 ID를 이전하는 작업으로 따로 설계합니다.

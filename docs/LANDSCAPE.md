@@ -1,61 +1,71 @@
-# 기존 GitHub 프로젝트와 겹치는 범위
+# 비슷한 프로젝트를 찾아본 기록
 
-- 조사일: 2026-09-07
-- 방법: GitHub repository search와 각 저장소의 현재 README·license 확인
-- 한계: 이름과 공개 설명으로 찾는 검색이므로 전체 GitHub나 비공개·스토어 앱을 망라하지 않는다.
+- 조사한 날: 2026년 9월 7일
+- 살펴본 곳: GitHub 저장소 검색, 각 프로젝트의 README와 라이선스
+- 주의할 점: 이름과 공개 설명으로 검색했기 때문에 GitHub 전체나 비공개 프로젝트, 앱 스토어의 모든 앱을 확인한 것은 아닙니다.
 
-## 결론
+## 먼저 내린 결론
 
-개별 기능은 새롭지 않다. AirPods on Android는 이미 성숙하고 큰 프로젝트가 여러 개이며, 상태
-표시줄을 탭해 위로 스크롤하는 Android 접근성 앱도 존재한다. 현재 검색에서는 한국 공휴일을 Samsung
-수면 DND 종료와 연결하는 앱이나, iPhone 장기 사용자의 Galaxy 전환 문제를 해결 수준별로 묶은
-저장소는 뚜렷한 대응물을 찾지 못했다. `없다`는 증명이 아니라 이번 검색에서의 관찰이다.
+기능 하나씩 보면 이미 비슷한 프로젝트가 있습니다. Android에서 AirPods 배터리를 보여주는 앱은
+여러 개이고, 상태 표시줄을 눌러 위로 이동하는 접근성 앱도 찾았습니다.
 
-따라서 이 저장소의 주장은 “처음 만든 기능”이 아니다. 기존 해법을 먼저 보여주고, 한 사용자의 실제
-문제에서 왜 설정·공식 도구·기존 앱·자동화·직접 앱 중 하나를 골랐는지, 어떤 반례로 설계를 바꿨는지
-기록하는 것이 중심이다.
+이번 검색에서는 한국 법정공휴일에 맞춰 Samsung 수면 모드의 종료 시각을 연장하는 앱이나, 아이폰
+장기 사용자의 Galaxy 전환 과정을 문제별로 모은 저장소는 뚜렷하게 찾지 못했습니다. 이것은 그런
+프로젝트가 없다는 증거가 아닙니다. 이번에 사용한 검색어로 찾지 못했다는 뜻입니다.
 
-## AirPods on Android
+따라서 개별 기능을 처음 만들었다고 소개하지 않습니다. 이미 좋은 해결책이 있으면 먼저 알려주고,
+제가 왜 그 방법을 쓰거나 쓰지 않았는지 기록합니다. 직접 만든 앱의 가치는 새로움보다 실제 사용
+중 겪은 문제와 설계를 고쳐 간 과정에 있습니다.
 
-| 프로젝트 | 공개 범위 | 2026-09-07 관찰 | 우리와의 관계 |
-|---|---|---|---|
-| [LibrePods](https://github.com/librepods-org/librepods) | Android/Linux, battery·ANC·ear detection·설정 등 광범위 | 약 29.7k stars, GPL-3.0 | 기능 폭과 protocol 연구가 훨씬 큼. 범용 대안으로 먼저 소개 |
-| [CAPod](https://github.com/d4rken-org/capod) | battery·charging·popup·widget·auto connect 등 | 약 1.1k stars, GPL-3.0, ad-free이며 일부 기능은 구매 | 일반 사용자의 강한 기존 대안 |
-| [OpenPods](https://github.com/adolfintel/OpenPods) | AirPods monitoring | 약 1.2k stars, GPL-3.0 | 공개 BLE monitoring의 선행 프로젝트 |
-| [Podsify](https://github.com/Tanexc/Podsify) | battery·widget·background monitoring | Apache-2.0 | 작고 현대적인 UI의 기존 대안 |
-| [GreenPods](https://github.com/andrewkomkov/GreenPods) | BLE/AAP, control과 진단 | Android 17 hidden API 경계를 문서화 | 비슷한 최신 Android AAP 연구가 이미 존재 |
+## Android용 AirPods 앱
 
-AirPods Glance의 battery·widget·popup 자체는 독창성 주장이 될 수 없다. 남길 이유는 사용자가 광고와
-반복 안내 없이 자기 기기에서 필요한 최소 표면을 직접 통제하려 했던 과정, DND와 지속 카드, 잘못된
-이미지 interpolation, 실제 iOS 상태 재확인으로 제품 구성을 여러 번 고친 history에 있다.
+| 프로젝트 | 제공하는 기능 | 조사 당시 확인한 내용 |
+|---|---|---|
+| [LibrePods](https://github.com/librepods-org/librepods) | Android와 Linux에서 배터리, 소음 제어, 착용 감지와 설정 | 약 29,700개 스타, GPL-3.0. 기능과 통신 규약 연구 범위가 가장 넓었습니다. |
+| [CAPod](https://github.com/d4rken-org/capod) | 배터리, 충전 상태, 팝업, 위젯과 자동 연결 | 약 1,100개 스타, GPL-3.0. 광고가 없고 일부 기능은 유료입니다. |
+| [OpenPods](https://github.com/adolfintel/OpenPods) | AirPods 상태 확인 | 약 1,200개 스타, GPL-3.0. Bluetooth 저전력 광고를 읽는 선행 프로젝트입니다. |
+| [Podsify](https://github.com/Tanexc/Podsify) | 배터리, 위젯과 백그라운드 감시 | Apache-2.0. 비교적 작고 현대적인 화면을 제공합니다. |
+| [GreenPods](https://github.com/andrewkomkov/GreenPods) | BLE와 AAP, 제어와 진단 | Android 17에서 숨은 API를 사용하는 경계를 문서화했습니다. |
 
-일반 사용자에게는 위 기존 앱을 먼저 비교하도록 안내하고, AirPods Glance는 `실험적·단일 기기
-검증` 사례로 둔다. 특히 LibrePods/CAPod/OpenPods의 GPL 코드를 복사하지 않았으며, protocol 동작을
-교차 확인한 출처는 앱 문서에 표시한다.
+AirPods Glance의 배터리, 위젯과 연결 화면은 새로운 기능이 아닙니다. 이 앱에는 광고와 반복
+안내 없이 제 기기에 필요한 화면만 직접 조절하려 했던 과정이 남아 있습니다. 수면 모드 중 연결
+화면을 어떻게 띄울지, 잘못 만든 애니메이션을 왜 버렸는지, iOS를 다시 보고 제품 구성을 어떻게
+고쳤는지도 기록했습니다.
 
-## 상태 표시줄 탭으로 위로 스크롤
+일반 사용자에게는 위 앱들을 먼저 살펴보도록 안내합니다. AirPods Glance는 Galaxy Z Fold8 한 대와
+한 종류의 AirPods에서 시험한 실험으로 남겨 둡니다. GPL 프로젝트의 코드는 복사하지 않았으며,
+통신 동작을 확인할 때 참고한 출처는 앱 문서에 표시했습니다.
 
-[twelvehouse/TapToTop](https://github.com/twelvehouse/TapToTop)은 2026-01-20 생성된 Android
-접근성 앱으로, 상단 invisible overlay와 반복 upward swipe, 반복 횟수·속도 설정을 제공한다고 현재
-README에 설명한다. GitHub license API에서는 라이선스를 찾지 못했으므로 소스를 재사용할 권리가
-있다고 가정하지 않는다.
+## 상태 표시줄을 눌러 위로 이동하는 앱
 
-목적과 overlay/accessibility 구조는 우리 Tap to Top과 겹친다. 핵심 차이는 우리가 실제 피드백에서
-반복 swipe의 재가속과 사용자 입력 탈취를 실패로 판정해 제거했다는 점이다. 현재 구현은 절대 top을
-덜 보장하더라도 한 번의 interruptible gesture를 우선하며 X의 긴 feed 한계를 숨기지 않는다. 이
-차이는 최초성보다 설계 trade-off다.
+[twelvehouse/TapToTop](https://github.com/twelvehouse/TapToTop)은 2026년 1월 20일에 만들어진
+Android 접근성 앱입니다. README에 따르면 화면 위에 보이지 않는 터치 영역을 두고, 위쪽
+스와이프를 정해진 횟수와 속도로 반복합니다. GitHub에서는 라이선스를 확인할 수 없어서 코드를
+사용할 수 있다고 가정하지 않았습니다.
 
-## iPhone에서 Galaxy로 전환
+화면 위의 터치 영역과 접근성 서비스를 사용한다는 점은 맨 위로 톡과 같습니다. 움직이는 방법은
+다릅니다. 우리도 반복 스와이프를 시험했지만 화면이 빠르게 움직였다 느려진 뒤 다시 빨라졌고,
+사용자가 중간에 아래로 내려도 계속 위로 움직였습니다. 그래서 아주 긴 피드의 처음까지 한 번에
+닿지 않더라도, 언제든 손으로 멈출 수 있는 한 번의 움직임을 선택했습니다. 이것은 최초성의 차이가
+아니라 서로 다른 사용성 선택입니다.
 
-`iPhone to Galaxy`, `iPhone to Android migration UX` 검색은 연락처 변환기 등 데이터 이동 도구
-위주였고, 설정→Good Lock→기존 앱→ADB→직접 앱을 문제별로 연결하는 현재와 같은 공개 여정은 이번
-검색에서 찾지 못했다. Samsung Smart Switch와 Good Lock이 각각 데이터 이전과 일반 customization을
-담당하므로, 우리의 입구는 그 사이의 “이 iPhone 행동을 Galaxy에서는 어떻게 번역하지?”다.
+## 아이폰에서 Galaxy로 옮기는 프로젝트
 
-## 이 조사로 바뀐 공개 전략
+GitHub에서 iPhone to Galaxy와 iPhone to Android migration UX를 검색했을 때에는 연락처 변환기와
+데이터 이동 도구가 주로 나왔습니다. Samsung의 Smart Switch는 사진, 연락처와 메시지 같은 데이터를
+옮기고, Good Lock은 Galaxy 화면과 조작을 바꾸는 도구입니다.
 
-1. README에서 앱 개수나 최초성을 성과로 내세우지 않는다.
-2. 각 문제 문서에 성숙한 기존 대안을 먼저 연결한다.
-3. 더 나은 기존 앱이 있는 사용자에게 직접 앱 설치를 권하지 않는다.
-4. 우리의 구현은 단일 기기 실험과 설계 history로 표시한다.
-5. 새 기능을 만들기 전 GitHub·F-Droid·Play Store의 기존 해법 확인을 공개 gate에 추가한다.
+우리 기록은 그 사이에 남는 질문에서 시작합니다.
+
+> 아이폰에서 늘 하던 이 행동을 Galaxy에서는 어떻게 해야 할까?
+
+같은 질문에 설정, Good Lock, 다른 앱, 자동화와 직접 만든 앱 중 어느 방법이 맞았는지를 하나씩
+연결합니다.
+
+## 조사 뒤 바꾼 점
+
+1. README에서 앱의 개수와 최초성을 성과처럼 말하지 않습니다.
+2. 쓸 만한 기존 앱이 있으면 문제 문서에서 먼저 소개합니다.
+3. 기존 앱으로 충분한 사람에게 직접 만든 앱을 권하지 않습니다.
+4. 직접 만든 앱은 한 기기에서 진행한 실험과 수정 기록으로 설명합니다.
+5. 새 앱을 만들기 전에 GitHub, F-Droid와 Play Store에서 이미 해결된 문제인지 확인합니다.

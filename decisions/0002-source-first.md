@@ -1,20 +1,20 @@
-# ADR-0002 — 첫 공개는 source-first로 한다
+# ADR-0002: 첫 공개에는 소스만 포함
 
 - 상태: 채택
 - 날짜: 2026-09-07
 
-## 맥락
+## 배경
 
-Tap to Top은 접근성, Holiday Sleep은 캘린더·DND, AirPods Glance는 overlay와 숨은 Bluetooth API를
-쓴다. 설치는 편하지만 단일 Galaxy에서만 검증한 APK를 먼저 배포하면 권한·서명·업데이트 책임이
-문제 설명보다 앞선다.
+맨 위로 톡은 접근성 서비스, Holiday Sleep은 캘린더와 방해 금지 설정, AirPods Glance는 다른 앱
+위 표시와 숨은 Bluetooth API를 사용합니다. 아직 Galaxy 한 대에서만 시험했기 때문에 APK부터
+배포하면 사용자가 기능보다 권한과 서명, 업데이트 문제를 먼저 떠안게 됩니다.
 
 ## 결정
 
-0.1에는 buildable source와 검증 history를 공개하되 GitHub Release APK는 첨부하지 않는다. 각
-개발자가 생성하는 debug key는 `.local/`에만 있고 Git에서 제외한다.
+0.1에서는 다시 빌드할 수 있는 소스와 시험 기록을 공개하고 GitHub Release에는 APK를 첨부하지
+않습니다. 각 개발자가 만드는 확인용 서명 키는 .local 디렉터리에만 두고 Git에서 제외합니다.
 
 ## 결과
 
-비개발자의 즉시 설치는 어렵다. 대신 source audit, 다기기 결과와 배포 요구를 먼저 모을 수 있으며
-production key와 업데이트 정책을 성급히 고정하지 않는다.
+개발자가 아닌 사용자는 바로 설치하기 어렵습니다. 대신 먼저 소스를 검토받고 다른 기기의 결과와
+실제 배포 요청을 모을 수 있습니다. 배포용 서명 키와 업데이트 방법은 그다음에 결정합니다.

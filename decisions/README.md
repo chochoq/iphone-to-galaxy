@@ -1,10 +1,10 @@
-# 결정과 반증 이력
+# 결정을 내린 과정
 
-완성된 결론만 남기지 않습니다. 어떤 가설을 세웠고, 무엇으로 검증했으며, 어떤 반례 때문에
-설계나 구현을 바꿨는지 인덱스화합니다. 일반 사용자를 위한 짧은 적용법과 개발자가 재현할 수 있는
-상세 이력을 분리하되, 상세 과정이 요약 속에서 사라지지 않게 합니다.
+마지막 결론만 남기면 나중에 같은 문제를 다시 만났을 때 왜 그렇게 했는지 알 수 없습니다. 여기에는
+처음 세운 가정, 확인한 사실, 반례와 그 때문에 바꾼 설계를 함께 적습니다. 짧은 사용법은 문제와
+설정 문서에 두고, 개발자가 다시 따라가야 할 과정은 이 문서와 각 앱의 설계 기록에 남깁니다.
 
-- [ADR-0001 — 문제 중심 단일 저장소](0001-problem-first-monorepo.md)
-- [ADR-0002 — 첫 공개는 source-first](0002-source-first.md)
-- [ADR-0003 — 경험 기준과 호환 범위 분리](0003-experience-vs-compatibility.md)
-- [ADR-0004 — 공개 저자 alias와 package namespace 유지](0004-public-author-identity.md)
+- [ADR-0001: 문제별로 찾아보는 하나의 저장소](0001-problem-first-monorepo.md)
+- [ADR-0002: 첫 공개에는 소스만 포함](0002-source-first.md)
+- [ADR-0003: 익숙한 아이폰과 시험한 Galaxy를 구분](0003-experience-vs-compatibility.md)
+- [ADR-0004: 공개 GitHub 이름과 기존 Android 패키지 이름 유지](0004-public-author-identity.md)

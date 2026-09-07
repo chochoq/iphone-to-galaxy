@@ -1,27 +1,28 @@
-# Roadmap
+# 앞으로 할 일
 
-## 0.1 — source preview
+## 0.1: 소스 첫 공개
 
-- [x] private room과 공개 repository 분리
-- [x] 문제 중심 README와 해결 단계
-- [x] 세 앱 source, 설계·task·결과 이관
-- [x] 공통 build와 로컬 검증
-- [x] privacy·binary audit, CI와 issue forms
-- [ ] 프로젝트 코드·문서 license 확정
-- [ ] GitHub public repository와 clean-runner CI 확인
+- [x] 비공개 작업 공간과 공개할 저장소 분리
+- [x] 문제별로 찾아볼 수 있는 README 작성
+- [x] 세 앱의 소스와 설계·작업·결과 기록 이관
+- [x] 공통 빌드 방법과 로컬 검사 마련
+- [x] 개인정보와 배포 금지 파일 검사, 자동 검사와 Issue 양식 추가
+- [ ] 코드와 문서의 라이선스 결정
+- [ ] 공개 전환 뒤 깨끗한 GitHub 환경에서 자동 검사 재확인
 
-## 0.2 — multi-device evidence
+## 0.2: 다른 기기에서 확인
 
-- [ ] Fold8 cover/main 화면별 검증 행 분리
-- [ ] 다른 Galaxy bar phone 최소 1대의 Tap to Top 결과
-- [ ] 다른 One UI 버전의 Holiday Sleep provider·DND 정책 결과
-- [ ] 다른 AirPods 세대의 unknown/partial battery 행동 기록
-- [ ] 회의 모드와 One Hand Operation+의 현재 기기 mapping 재확인
-- [ ] deprecated Android API 조사와 필요 시 설계 갱신
+- [ ] Fold8의 커버 화면과 펼친 화면 결과를 따로 기록
+- [ ] 일반 막대형 Galaxy 한 대 이상에서 맨 위로 톡 시험
+- [ ] 다른 One UI에서 Holiday Sleep의 캘린더와 방해 금지 동작 확인
+- [ ] 다른 AirPods 세대에서 배터리를 전부 또는 일부만 읽는 경우 기록
+- [ ] 현재 회의 모드와 One Hand Operation+의 방향별 설정 재확인
+- [ ] Android에서 곧 사라질 API를 조사하고 필요하면 설계 수정
 
-## APK release를 고려하기 전
+## APK를 배포하기 전에
 
-- [ ] production signing·업데이트·hash 정책
-- [ ] 최소 두 기기의 설치와 rollback
-- [ ] 접근성·overlay·숨은 API 고지 재검토
-- [ ] 외부 배포 정책 검토
+- [ ] 배포용 서명 키의 보관·교체와 업데이트 방법 결정
+- [ ] 설치 파일 해시와 다시 만들 수 있는 배포 빌드 마련
+- [ ] Galaxy 두 기기 이상에서 설치와 삭제 확인
+- [ ] 접근성 권한, 다른 앱 위 표시와 숨은 API 안내 재검토
+- [ ] Android 외부 배포 정책 확인

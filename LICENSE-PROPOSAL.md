@@ -1,16 +1,21 @@
-# 공개 라이선스 제안 — 확정 전
+# 라이선스 검토 메모
 
-이 문서는 공개 전에 저장소 소유자가 확인할 제안이며, 그 자체로 라이선스를 부여하지 않습니다.
+아직 프로젝트 라이선스를 정하지 않았습니다. 따라서 이 문서는 소스와 문서를 사용할 권한을
+부여하지 않습니다.
+
+처음에는 다음 조합을 검토했습니다.
 
 - 앱과 도구의 소스 코드: Apache License 2.0
-- Markdown 문서와 직접 만든 도표: Creative Commons Attribution 4.0 International
-- 제3자 코드·모델·파생 렌더: 원저작자의 라이선스와 표시 유지
-- 개인 기기에서 생성한 로그·화면 녹화: 배포하지 않음
-- Apple·Samsung의 공식 이미지와 로고: 저장소에 복제하지 않음
+- 직접 작성한 문서와 도표: Creative Commons Attribution 4.0 International
 
-AirPods Glance의 런타임 turntable은 polyman의 CC BY 4.0 모델을 바탕으로 합니다. 정확한
-저작자·원본·라이선스 표시는 앱의 `THIRD_PARTY_NOTICES.md`와 APK 안의 notice에 있습니다.
-HiddenApiBypass는 Apache-2.0이며 빌드 시 고정 checksum으로 내려받습니다.
+두 라이선스 모두 다른 사람이 상업적으로 사용하는 것을 허용합니다. 상업적 재사용이 불편하다는
+의견이 있어 아직 동의하지 않았습니다. GPLv3와 CC BY-SA처럼 수정본도 같은 조건으로 공개하게 하는
+조합도 검토할 수 있지만, 이 조합 역시 판매 자체를 금지하지는 않습니다.
 
-공개 직전에는 이 제안을 실제 라이선스 전문과 `NOTICE`로 교체하고, README의 staging 문구를
-제거해야 합니다.
+AirPods Glance의 제품 회전 영상은 polyman의 CC BY 4.0 모델을 바탕으로 만들었습니다. 저작자와
+원본, 라이선스는 앱의 THIRD_PARTY_NOTICES.md와 APK 안의 고지에 남겨야 합니다. HiddenApiBypass는
+Apache-2.0이며 빌드할 때 정해진 SHA-256 값을 확인한 뒤 내려받습니다.
+
+개인 기기의 로그와 화면 녹화, Apple과 Samsung의 공식 이미지와 로고는 저장소에 넣지 않습니다.
+공개하기 전에는 라이선스를 하나 선택하고, 이 메모를 실제 라이선스 전문과 필요한 NOTICE 문서로
+바꿔야 합니다.
