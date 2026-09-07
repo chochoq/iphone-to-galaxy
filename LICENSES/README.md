@@ -16,7 +16,7 @@ SPDX 식별자는 `GPL-3.0-or-later`입니다.
 
 ## 우리가 쓴 문서
 
-README, 문제 해결 기록, 설정 방법, 설계·작업·시험 기록과 직접 만든 도표는
+README, 문제 해결 기록, 설정 방법, 설계·작업·시험 기록과 직접 만든 도표·문서용 화면 녹화는
 [Creative Commons Attribution-ShareAlike 4.0 International](CC-BY-SA-4.0.txt)을 따릅니다.
 SPDX 식별자는 `CC-BY-SA-4.0`입니다.
 
@@ -35,6 +35,9 @@ SPDX 식별자는 `CC-BY-SA-4.0`입니다.
 
 정확한 저작자, 원본 주소와 변경 내용은
 [`THIRD_PARTY_NOTICES.md`](../apps/airpods-glance/THIRD_PARTY_NOTICES.md)에 있습니다.
+
+[`연결 카드 데모`](../docs/images/airpods-card-demo.gif)에 보이는 제품 렌더에도 같은 예외가
+적용됩니다. 화면 녹화·편집과 포함된 제품 렌더의 출처는 [영상 안내](../docs/images/)에 구분했습니다.
 
 AirPods Glance가 빌드할 때 내려받는 HiddenApiBypass 6.1은
 [`Apache-2.0`](Apache-2.0.txt)을 따릅니다. 해당 바이너리는 이 저장소에 넣지 않았습니다.
