@@ -1,0 +1,37 @@
+name: iPhone 사용 습관 제안
+description: Galaxy에서 번역하고 싶은 구체적인 iPhone 행동을 제안합니다.
+title: "[habit] "
+labels: ["habit"]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: iPhone에서 하던 행동
+      description: 앱 이름보다 시작 상황, 손동작, 기대 결과를 순서대로 적어 주세요.
+    validations:
+      required: true
+  - type: input
+    id: iphone
+    attributes:
+      label: 익숙한 iPhone / iOS
+      placeholder: iPhone 14 Pro / iOS 26.6.1
+    validations:
+      required: true
+  - type: input
+    id: galaxy
+    attributes:
+      label: 시험한 Galaxy / Android / One UI
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: 이미 시험한 방법과 실패
+      description: 기본 설정, Good Lock, 기존 앱, ADB 순으로 적어 주세요.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 개인정보 확인
+      options:
+        - label: serial, Bluetooth 주소, 위치, SSID, 계정과 전화번호를 제거했습니다.
+          required: true

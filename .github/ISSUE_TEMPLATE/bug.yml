@@ -1,0 +1,33 @@
+name: 버그와 안전 문제
+description: 재현 가능한 오작동, 권한 또는 원상복구 문제를 알립니다.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: impact
+    attributes:
+      label: 무슨 일이 있었나요?
+      description: 잘못된 탭, 입력 방해, Bluetooth 끊김, 알림·통화 영향처럼 실제 영향을 먼저 적습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 최소 재현 순서
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 기기 / Android / One UI / 앱 version / 화면 상태
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: 기능을 끄거나 원상복구할 수 있었나요?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: 보안 취약점이나 개인 데이터 노출은 공개 issue에 원문을 붙이지 말고 SECURITY.md를 확인하세요.

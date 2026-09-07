@@ -1,0 +1,13 @@
+AirPods Pro 3D model attribution
+
+This work is based on "Airpods Pro With Magsafe Charging Case Ios15"
+(https://sketchfab.com/3d-models/airpods-pro-with-magsafe-charging-case-ios15-52e5f28b37f94f05b6c0768773137689)
+by polyman (https://sketchfab.com/ely.haddad), licensed under CC BY 4.0
+(https://creativecommons.org/licenses/by/4.0/).
+
+The application distributes offline-rendered product animation frames derived from the model.
+
+HiddenApiBypass 6.1
+
+Project: https://github.com/LSPosed/AndroidHiddenApiBypass
+License: Apache License 2.0

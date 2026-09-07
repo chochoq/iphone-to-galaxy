@@ -1,0 +1,47 @@
+name: 호환성 결과
+description: 다른 Galaxy 또는 화면 상태에서 성공·실패한 결과를 기록합니다.
+title: "[compat] "
+labels: ["compatibility"]
+body:
+  - type: input
+    id: solution
+    attributes:
+      label: 앱 또는 레시피와 version
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Galaxy 모델 / Android / One UI / 지역
+    validations:
+      required: true
+  - type: dropdown
+    id: display
+    attributes:
+      label: 화면 상태
+      options:
+        - 일반 bar phone
+        - Fold 커버 화면
+        - Fold 펼친 메인 화면
+        - 기타
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 재현 순서와 실제 결과
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: 원상복구 결과
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 개인정보 확인
+      options:
+        - label: screenshot와 로그에서 serial, 주소, 위치, SSID와 계정을 제거했습니다.
+          required: true
