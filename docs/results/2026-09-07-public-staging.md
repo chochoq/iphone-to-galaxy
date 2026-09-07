@@ -34,6 +34,14 @@ idsig, MP4/MOV/WebM과 log는 0개다. Markdown 상대 링크, shell syntax, Git
 경로가 발견돼 일반 표현과 공통 SDK 탐색으로 바꿨다. 집·회사 주소와 Bluetooth 주소는 공개 후보에
 들어오지 않았다. 검사 자체가 금지 패턴을 포함하므로 검사 스크립트 파일만 text scan에서 제외한다.
 
+추가 binary metadata 검사에서 animated WebP는 animation/transparency 외 EXIF·XMP·ICC feature가
+없었다. 두 static PNG에는 Blender가 넣은 camera·render date metadata가 있었으나 개인 위치나 작성자
+정보는 없었다. 그래도 최소 공개 원칙에 따라 pixel 0개 변경을 확인하며 metadata를 제거했다.
+
+첫 private GitHub CI는 전체 build를 통과했지만 checkout/setup actions의 Node 20 폐기 경고가
+나왔다. 공식 latest release를 API로 확인해 checkout v7.0.1, setup-java v6.0.0,
+setup-android v4.0.1의 immutable commit SHA로 고정했고 Dependabot monthly 확인을 추가했다.
+
 ## 피드백 분석과 설계 반영
 
 예상과 실제는 일치했다. 공개 repository와 private room을 별도 디렉터리로 둔 결정은 유지한다.
