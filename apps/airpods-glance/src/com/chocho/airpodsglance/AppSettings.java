@@ -26,6 +26,23 @@ public final class AppSettings {
     public String selectedAddress() { return prefs.getString(ADDRESS, null); }
     public String selectedName() { return prefs.getString(NAME, null); }
 
+    public UserOptions options() {
+        java.util.Map<String,?> values=prefs.getAll();
+        return UserOptions.restore(values.get("card_seconds"),values.get("bud_threshold"),values.get("case_threshold"));
+    }
+
+    public boolean saveOptions(UserOptions value) {
+        UserOptions previous=options();
+        if (writeOptions(value).commit()) return true;
+        writeOptions(previous).apply(); // Restore the in-memory view too if durable write failed.
+        return false;
+    }
+
+    private SharedPreferences.Editor writeOptions(UserOptions value) {
+        return prefs.edit().putInt("card_seconds",value.cardSeconds)
+                .putInt("bud_threshold",value.budThreshold).putInt("case_threshold",value.caseThreshold);
+    }
+
     public void selectDevice(String address, String name) {
         prefs.edit().putString(ADDRESS, address).putString(NAME, name).commit();
     }

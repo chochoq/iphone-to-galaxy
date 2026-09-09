@@ -39,6 +39,13 @@ public final class MainActivity extends Activity {
     private TextView permissionStatus;
     private TextView diagnostics;
     private ConnectionPopupOverlay previewOverlay;
+    private SettingsUi ui;
+    private TextView cardTimeValue, budThresholdValue, caseThresholdValue;
+    private TextView permissionSummary;
+    private LinearLayout extraDetails;
+    private boolean detailsExpanded;
+    private Button detailsButton;
+    private Switch monitorToggle;
 
     private final Runnable refreshTask = new Runnable() {
         @Override public void run() {
@@ -68,6 +75,13 @@ public final class MainActivity extends Activity {
         super.onPause();
     }
 
+    @Override public void onWindowFocusChanged(boolean focused) {
+        super.onWindowFocusChanged(focused);
+        // Dialogs don't pause their activity. Don't keep changing accessibility text behind a picker.
+        handler.removeCallbacks(refreshTask);
+        if(focused && !isFinishing()) handler.post(refreshTask);
+    }
+
     @Override
     protected void onDestroy() {
         if (previewOverlay != null) previewOverlay.dismissImmediately();
@@ -83,108 +97,110 @@ public final class MainActivity extends Activity {
     }
 
     private void buildScreen() {
-        ScrollView scroll = new ScrollView(this);
-        scroll.setFillViewport(true);
-        scroll.setBackgroundColor(getColor(R.color.cream));
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(22), dp(22), dp(22), dp(40));
-        root.setOnApplyWindowInsetsListener((view, insets) -> {
-            android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars());
-            view.setPadding(dp(22) + bars.left, dp(22) + bars.top,
-                    dp(22) + bars.right, dp(40) + bars.bottom);
-            return insets;
+        ui=new SettingsUi(this,"에어팟 한눈에","배터리와 연결 카드를 내 방식으로");
+        AppSettings settings=new AppSettings(this);
+        LinearLayout battery=ui.group(null);
+        deviceStatus=ui.text("AirPods",20,SettingsUi.INK,true); battery.addView(deviceStatus);
+        freshness=ui.note(battery,"아직 확인한 배터리가 없어요");
+        ui.separator(battery);
+        LinearLayout row=new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL); row.setPadding(0,dp(16),0,dp(12));
+        leftValue=batteryColumn(row,"왼쪽");
+        rightValue=batteryColumn(row,"오른쪽");
+        caseValue=batteryColumn(row,"케이스");
+        battery.addView(row);
+        precisionInfo=ui.note(battery,"");
+        ui.separator(battery);
+        ui.row(battery,"연결 카드 미리보기  ›",this::previewLargeCard);
+        ui.note(battery,"미리보기는 마지막으로 확인한 배터리를 보여줘요.");
+
+        LinearLayout connection=ui.group("연결과 카드");
+        monitorToggle=ui.toggle(connection,"연결 중 배터리 확인",settings.monitorEnabled(),value->{
+            settings.setMonitorEnabled(value);
+            if(!value) stopMonitoringFromUi();
         });
-        scroll.addView(root, new ScrollView.LayoutParams(
-                ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.WRAP_CONTENT));
+        ui.separator(connection);
+        ui.toggle(connection,"연결될 때 알려주기",settings.popupEnabled(),settings::setPopupEnabled);
+        ui.separator(connection);
+        cardTimeValue=ui.setting(connection,"카드 닫는 방식",this::chooseCardDismiss);
+        ui.note(connection,"변경한 닫기 방식은 다음 카드부터 적용돼요. 직접 닫기는 화면을 누르거나 ×를 누르면 돼요.");
 
-        TextView title = text("에어팟 한눈에", 30, Color.rgb(23, 32, 54), true);
-        root.addView(title);
-        TextView subtitle = text("광고 없이, 연결된 동안만 배터리를 확인해요.",
-                15, Color.rgb(74, 82, 104), false);
-        subtitle.setPadding(0, dp(4), 0, dp(18));
-        root.addView(subtitle);
+        LinearLayout low=ui.group("배터리 부족 알림");
+        ui.toggle(low,"배터리 부족 알림",settings.lowBatteryEnabled(),settings::setLowBatteryEnabled);
+        ui.separator(low);
+        budThresholdValue=ui.setting(low,"이어버드 기준",()->chooseThreshold(true));
+        ui.separator(low);
+        caseThresholdValue=ui.setting(low,"케이스 기준",()->chooseThreshold(false));
+        ui.note(low,"다음 배터리 수신부터 적용해요. 같은 낮은 잔량으로 알림을 반복하지 않아요.");
 
-        LinearLayout deviceCard = card();
-        deviceStatus = text("AirPods를 찾는 중", 16, Color.WHITE, true);
-        deviceCard.addView(deviceStatus);
-        freshness = text("아직 확인한 배터리가 없어요", 13, getColor(R.color.text_muted), false);
-        freshness.setPadding(0, dp(5), 0, 0);
-        deviceCard.addView(freshness);
-        root.addView(deviceCard, cardParams());
+        LinearLayout tools=ui.group("사용 도구");
+        ui.row(tools,"배터리 지금 확인  ›",this::startMonitoringFromUi);
+        ui.separator(tools);
+        ui.row(tools,"홈 화면에 위젯 추가  ›",this::requestWidgetPin);
+        ui.separator(tools);
+        ui.row(tools,"조절값 기본값으로",()->ui.confirmReset(()->saveOptions(UserOptions.defaults())));
 
-        LinearLayout batteryCard = lightCard();
-        TextView batteryTitle = text("배터리", 18, getColor(R.color.navy), true);
-        batteryCard.addView(batteryTitle);
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setPadding(0, dp(14), 0, dp(8));
-        leftValue = batteryColumn(row, "왼쪽");
-        rightValue = batteryColumn(row, "오른쪽");
-        caseValue = batteryColumn(row, "케이스");
-        batteryCard.addView(row);
-        precisionInfo = text("연결 후 실제 값을 확인해요.",
-                12, Color.rgb(92, 99, 117), false);
-        batteryCard.addView(precisionInfo);
-        root.addView(batteryCard, cardParams());
-
-        AppSettings appSettings = new AppSettings(this);
-        LinearLayout settingsCard = lightCard();
-        settingsCard.addView(text("자동화", 18, getColor(R.color.navy), true));
-        settingsCard.addView(switchRow("연결 중 자동으로 확인", appSettings.monitorEnabled(),
-                value -> {
-                    appSettings.setMonitorEnabled(value);
-                    if (!value) stopMonitoringFromUi();
-                }));
-        settingsCard.addView(switchRow("연결될 때 한 번 알려주기", appSettings.popupEnabled(),
-                appSettings::setPopupEnabled));
-        settingsCard.addView(switchRow("배터리 부족 알림 (이어버드 20% · 케이스 15%)",
-                appSettings.lowBatteryEnabled(), appSettings::setLowBatteryEnabled));
-        root.addView(settingsCard, cardParams());
-
-        LinearLayout permissionCard = lightCard();
-        permissionCard.addView(text("권한과 시작", 18, getColor(R.color.navy), true));
-        permissionStatus = text("", 13, Color.rgb(74, 82, 104), false);
-        permissionStatus.setPadding(0, dp(8), 0, dp(10));
-        permissionCard.addView(permissionStatus);
-        Button bluetoothPermission = button("1. Bluetooth 권한 허용");
-        bluetoothPermission.setOnClickListener(v -> requestBluetoothPermissions());
-        permissionCard.addView(bluetoothPermission);
-        Button notificationPermission = button("2. 알림 권한 허용");
-        notificationPermission.setOnClickListener(v -> requestNotificationPermission());
-        permissionCard.addView(notificationPermission);
-        Button overlayPermission = button("3. 큰 연결 카드 권한 허용");
-        overlayPermission.setOnClickListener(v -> requestOverlayPermission());
-        permissionCard.addView(overlayPermission);
-        Button preview = button("큰 연결 카드 미리보기");
-        preview.setOnClickListener(v -> previewLargeCard());
-        permissionCard.addView(preview);
-        Button start = button("배터리 지금 확인");
-        start.setOnClickListener(v -> startMonitoringFromUi());
-        permissionCard.addView(start);
-        Button widget = button("홈 화면에 위젯 추가");
-        widget.setOnClickListener(v -> requestWidgetPin());
-        permissionCard.addView(widget);
-        Button bluetoothSettings = button("Bluetooth 설정 열기");
-        bluetoothSettings.setOnClickListener(v ->
-                startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS)));
-        permissionCard.addView(bluetoothSettings);
-        root.addView(permissionCard, cardParams());
-
-        LinearLayout privacyCard = lightCard();
-        privacyCard.addView(text("개인정보와 진단", 18, getColor(R.color.navy), true));
-        TextView privacy = text("인터넷·위치·마이크·접근성 권한을 사용하지 않아요. "
-                        + "선택 권한인 ‘다른 앱 위에 표시’는 직접 닫는 연결 카드에만 사용해요. "
-                        + "Bluetooth 주소와 원시 패킷도 화면이나 로그에 표시하지 않아요.",
-                13, Color.rgb(74, 82, 104), false);
-        privacy.setPadding(0, dp(8), 0, dp(10));
-        privacyCard.addView(privacy);
-        diagnostics = text("", 13, Color.rgb(74, 82, 104), false);
-        privacyCard.addView(diagnostics);
-        root.addView(privacyCard, cardParams());
-
-        setContentView(scroll);
+        LinearLayout info=ui.group("권한 및 정보");
+        permissionSummary=ui.note(info,"");
+        detailsButton=ui.row(info,"권한 및 진단 보기  ∨",()->{
+            detailsExpanded=!detailsExpanded; refreshDetails();
+        });
+        extraDetails=new LinearLayout(this); extraDetails.setOrientation(LinearLayout.VERTICAL);
+        info.addView(extraDetails);
+        permissionStatus=ui.note(extraDetails,"");
+        ui.row(extraDetails,"Bluetooth 권한",this::requestBluetoothPermissions);
+        ui.row(extraDetails,"알림 권한",this::requestNotificationPermission);
+        ui.row(extraDetails,"다른 앱 위에 표시",this::requestOverlayPermission);
+        ui.row(extraDetails,"Bluetooth 설정 열기",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS)));
+        ui.note(extraDetails,"인터넷·위치·마이크·접근성 권한을 사용하지 않아요. 다른 앱 위에 표시 권한은 연결 카드에만 사용해요.");
+        diagnostics=ui.note(extraDetails,"");
+        refreshDetails();
+        ui.install();
         refreshValues();
+    }
+
+    private void refreshDetails() {
+        extraDetails.setVisibility(detailsExpanded?View.VISIBLE:View.GONE);
+        detailsButton.setText(detailsExpanded?"권한 및 진단 접기  ∧":"권한 및 진단 보기  ∨");
+    }
+
+    private void chooseCardDismiss() {
+        UserOptions options=new AppSettings(this).options();
+        new android.app.AlertDialog.Builder(this).setTitle("카드 닫는 방식")
+                .setItems(new String[]{"직접 닫기","시간을 정해 자동 닫기"},(d,which)->{
+                    if(which==0) {
+                        UserOptions current=new AppSettings(this).options();
+                        saveOptions(new UserOptions(0,current.budThreshold,current.caseThreshold));
+                    } else ui.number("자동으로 닫기","3–60초 후 닫아요. 미리보기에서도 시험할 수 있어요.",
+                            options.cardSeconds==0?10:options.cardSeconds,3,60,seconds->{
+                                UserOptions current=new AppSettings(this).options();
+                                return saveOptions(new UserOptions(seconds,current.budThreshold,current.caseThreshold));
+                            });
+                }).setNegativeButton("취소",null).show();
+    }
+
+    private void chooseThreshold(boolean buds) {
+        UserOptions options=new AppSettings(this).options();
+        ui.number(buds?"이어버드 알림 기준":"케이스 알림 기준","5–50% 중 고르세요. 이 값 이하일 때 알려줘요.",
+                buds?options.budThreshold:options.caseThreshold,5,50,value->{
+                    UserOptions current=new AppSettings(this).options();
+                    return saveOptions(new UserOptions(current.cardSeconds,
+                            buds?value:current.budThreshold,buds?current.caseThreshold:value));
+                });
+    }
+
+    private boolean saveOptions(UserOptions options) {
+        boolean saved=new AppSettings(this).saveOptions(options);
+        refreshOptionLabels();
+        Toast.makeText(this,saved?"설정을 저장했어요.":"저장하지 못했어요.",Toast.LENGTH_SHORT).show();
+        return saved;
+    }
+
+    private void refreshOptionLabels() {
+        UserOptions options=new AppSettings(this).options();
+        cardTimeValue.setText(options.cardSeconds==0?"직접 닫기  ›":options.cardSeconds+"초 후  ›");
+        budThresholdValue.setText(options.budThreshold+"%  ›");
+        caseThresholdValue.setText(options.caseThreshold+"%  ›");
     }
 
     private void resolveDeviceIfPossible() {
@@ -216,6 +232,12 @@ public final class MainActivity extends Activity {
         freshness.setText(freshnessText(snapshot, now));
         permissionStatus.setText(permissionText());
         diagnostics.setText(new DiagnosticsStore(this).summary());
+        permissionSummary.setText(hasBluetoothPermissions() && Settings.canDrawOverlays(this)
+                && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)==PackageManager.PERMISSION_GRANTED
+                ? "필요한 권한이 허용되어 있어요." : "일부 권한이 필요해요. 아래에서 확인해 주세요.");
+        refreshOptionLabels();
+        boolean monitor=new AppSettings(this).monitorEnabled();
+        if(monitorToggle.isChecked()!=monitor) monitorToggle.setChecked(monitor);
     }
 
     private String connectionText(AirPodsSnapshot snapshot) {
@@ -255,7 +277,7 @@ public final class MainActivity extends Activity {
 
     private String precisionText(AirPodsSnapshot.Source source) {
         if (source == AirPodsSnapshot.Source.AAP_EXACT_PERCENT) {
-            return "연결된 AirPods에서 직접 확인한 1% 단위 값이에요.";
+            return "에어팟이 보낸 1% 단위 배터리 값이에요.";
         }
         if (source == AirPodsSnapshot.Source.BLE_PUBLIC_DECILE) {
             return "공개 Bluetooth 정보라 10% 단위로 표시돼요.";
@@ -387,7 +409,8 @@ public final class MainActivity extends Activity {
         column.setOrientation(LinearLayout.VERTICAL);
         column.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
         TextView labelView = text(label, 13, Color.rgb(92, 99, 117), false);
-        TextView value = text("—", 25, getColor(R.color.navy), true);
+        labelView.setGravity(android.view.Gravity.CENTER);
+        TextView value = text("—", 25, SettingsUi.INK, true);
         value.setGravity(android.view.Gravity.CENTER);
         value.setPadding(0, dp(4), 0, 0);
         column.addView(labelView);

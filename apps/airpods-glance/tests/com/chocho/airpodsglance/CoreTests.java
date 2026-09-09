@@ -16,6 +16,7 @@ public final class CoreTests {
         rejectsMalformedAndNonBatteryAapPackets();
         freshnessHidesCachedCharging();
         lowBatteryAlertsOnlyOnEdges();
+        userOptionsAndLiveThresholds();
         largeConnectionCardRespectsAttentionBoundaries();
         appleLikeSheetPreservesRealComponentTruth();
         productMotionRespectsSystemAnimationSetting();
@@ -196,6 +197,29 @@ public final class CoreTests {
         check(AapBatteryDecoder.decode(hex("04 00 04 00 04 00 02 04 01 50 01 01")).rejection
                 == AapBatteryDecoder.Rejection.MALFORMED_ENTRIES,
                 "truncated AAP entries rejected");
+    }
+
+    private static void userOptionsAndLiveThresholds() {
+        UserOptions defaults=UserOptions.restore(null,null,null);
+        check(defaults.cardSeconds==0 && defaults.budThreshold==20 && defaults.caseThreshold==15,"migration preserves defaults");
+        UserOptions invalid=UserOptions.restore(2,"wrong",100);
+        check(invalid.cardSeconds==0 && invalid.budThreshold==20 && invalid.caseThreshold==15,"invalid storage repaired on read");
+        for(int s=-5;s<=65;s++) {
+            boolean valid=s==0 || (s>=3 && s<=60);
+            check(UserOptions.validCardSeconds(s)==valid,"card range "+s);
+            check(ConnectionPopupPolicy.shouldAutoDismiss(false,s)==(s>=3&&s<=60),"automatic timeout "+s);
+            check(ConnectionPopupPolicy.shouldAutoDismiss(true,s)==(s>=3&&s<=60),"preview timeout "+s);
+            if(valid) check(new UserOptions(s,20,15).dismissMillis()==s*1000L,"seconds conversion "+s);
+        }
+        for(int p=-5;p<=105;p++) check(UserOptions.validThreshold(p)==(p>=5&&p<=50),"battery range "+p);
+        LowBatteryPolicy policy=new LowBatteryPolicy(20,15);
+        check(policy.evaluate(snapshot(true,25,false,1)).isEmpty(),"initial value above old threshold");
+        policy.updateThresholds(30,15);
+        check(policy.evaluate(snapshot(true,25,false,2)).contains(LowBatteryPolicy.Part.LEFT),"updated threshold consumed");
+        policy.updateThresholds(35,15);
+        check(policy.evaluate(snapshot(true,25,false,3)).isEmpty(),"settings change doesn't reset edge latch");
+        check(policy.evaluate(snapshot(false,5,false,4)).isEmpty(),"cached disconnected data doesn't warn");
+        check(policy.evaluate(snapshot(true,5,true,5)).isEmpty(),"charging suppressed after option change");
     }
 
     private static void lowBatteryAlertsOnlyOnEdges() {

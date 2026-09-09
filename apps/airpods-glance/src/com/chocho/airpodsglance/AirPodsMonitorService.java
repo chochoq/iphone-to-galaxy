@@ -277,6 +277,8 @@ public final class AirPodsMonitorService extends Service {
         }
         store.save(snapshot);
 
+        UserOptions options=settings.options();
+        lowBatteryPolicy.updateThresholds(options.budThreshold,options.caseThreshold);
         List<LowBatteryPolicy.Part> warnings = settings.lowBatteryEnabled()
                 ? lowBatteryPolicy.evaluate(snapshot) : Collections.emptyList();
         if (!warnings.isEmpty()) {

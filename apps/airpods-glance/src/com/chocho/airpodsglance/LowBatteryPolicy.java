@@ -8,8 +8,8 @@ import java.util.List;
 public final class LowBatteryPolicy {
     public enum Part { LEFT, RIGHT, CASE }
 
-    private final int budThreshold;
-    private final int caseThreshold;
+    private int budThreshold;
+    private int caseThreshold;
     private boolean leftLatched;
     private boolean rightLatched;
     private boolean caseLatched;
@@ -17,6 +17,13 @@ public final class LowBatteryPolicy {
     public LowBatteryPolicy(int budThreshold, int caseThreshold) {
         this.budThreshold = budThreshold;
         this.caseThreshold = caseThreshold;
+    }
+
+    /** Preserve edge latches when settings change; don't replay a warning for every preference edit. */
+    public void updateThresholds(int buds, int caseValue) {
+        if (!UserOptions.validThreshold(buds) || !UserOptions.validThreshold(caseValue))
+            throw new IllegalArgumentException("Invalid battery warning threshold");
+        budThreshold=buds; caseThreshold=caseValue;
     }
 
     public List<Part> evaluate(AirPodsSnapshot snapshot) {

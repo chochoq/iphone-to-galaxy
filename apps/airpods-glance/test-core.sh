@@ -9,6 +9,7 @@ mkdir -p "$OUT_DIR"
 
 javac -encoding UTF-8 -source 8 -target 8 -d "$OUT_DIR" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/BatteryComponent.java" \
+  "$PROJECT_DIR/src/com/chocho/airpodsglance/UserOptions.java" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/AirPodsPacketDecoder.java" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/AapBatteryDecoder.java" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/AapPlacementDecoder.java" \

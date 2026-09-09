@@ -1,5 +1,9 @@
 # 에어팟 한눈에 — 설계 인덱스
 
+- [013 — 사용자가 바꾸는 설정과 화면](013-user-controlled-settings.md):
+  카드 닫기·배터리 부족 기준 조절, 저장·취소·기본값 복원과 밝은 설정 화면.
+  [개발 설치본 검증](../results/2026-09-08-user-settings.md) · [새 아이콘](../../assets/icon/README.md).
+
 - [012 — 상태별 제품 표현과 애니메이션](012-state-driven-product-motion.md):
   물리 배치와 표시 구성요소를 분리하고, 실패한 닫힌 case 근사를 운영 앱에서 정지시킨다.
 

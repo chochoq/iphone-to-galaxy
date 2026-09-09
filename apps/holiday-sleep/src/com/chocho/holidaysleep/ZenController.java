@@ -38,7 +38,7 @@ final class ZenController {
         try {
             String ruleId = ensureRule(context, manager);
             int state = active ? Condition.STATE_TRUE : Condition.STATE_FALSE;
-            String summary = active ? "평일 공휴일 오전 7시부터 정오까지" : "대기 중";
+            String summary = active ? activeSummary(context) : "대기 중";
             manager.setAutomaticZenRuleState(
                     ruleId, new Condition(CONDITION_URI, summary, state));
             prefs(context).edit().putBoolean(KEY_ACTIVE, active).apply();
@@ -52,8 +52,12 @@ final class ZenController {
         boolean active = isActive(context);
         return new Condition(
                 CONDITION_URI,
-                active ? "평일 공휴일 오전 7시부터 정오까지" : "대기 중",
+                active ? activeSummary(context) : "대기 중",
                 active ? Condition.STATE_TRUE : Condition.STATE_FALSE);
+    }
+
+    private static String activeSummary(Context context) {
+        return "평일 공휴일 " + ScheduleSettings.read(context).summary();
     }
 
     private static String ensureRule(Context context, NotificationManager manager) {

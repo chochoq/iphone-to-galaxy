@@ -23,6 +23,11 @@ import java.util.List;
 
 public final class MainActivity extends Activity {
     private TextView statusView;
+    private TextView tapsValue,strengthValue,distanceValue;
+    private SettingsUi ui;
+    private android.widget.Switch enabledToggle;
+    private boolean syncing;
+    private Button permissionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,84 +42,81 @@ public final class MainActivity extends Activity {
     }
 
     private View buildUi() {
-        boolean dark = (getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        int background = dark ? Color.rgb(22, 22, 25) : Color.rgb(250, 248, 252);
-        int primaryText = dark ? Color.rgb(242, 239, 246) : Color.rgb(30, 28, 32);
-        int secondaryText = dark ? Color.rgb(205, 199, 210) : Color.rgb(76, 71, 78);
-        int card = dark ? Color.rgb(42, 39, 46) : Color.rgb(238, 232, 242);
+        ui=new SettingsUi(this,"맨 위로 톡","상태 표시줄을 톡, 위쪽으로 한 번에");
+        AppSettings settings=new AppSettings(this);
+        LinearLayout status=ui.group(null);
+        enabledToggle=ui.toggle(status,"스크롤 사용",settings.enabled(),value->{
+            if(syncing) return;
+            if(!settings.setEnabled(value)) Toast.makeText(this,"저장하지 못했어요.",Toast.LENGTH_SHORT).show();
+            refreshStatus();
+        });
+        statusView=ui.note(status,"");
+        permissionButton=ui.row(status,"접근성 설정 열기  ›",this::openAccessibilitySettings);
 
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(24), dp(52), dp(24), dp(44));
-        content.setBackgroundColor(background);
+        LinearLayout gesture=ui.group("실행 방법");
+        tapsValue=ui.setting(gesture,"상단 탭 횟수",()->chooseTaps());
+        ui.note(gesture,"두 번 탭은 같은 곳을 0.35초 안에 두 번 눌러요. 아래로 끌면 기존처럼 알림창이 열려요.");
 
-        TextView title = new TextView(this);
-        title.setText("맨 위로 톡");
-        title.setTextSize(29);
-        title.setTextColor(primaryText);
-        title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        content.addView(title, matchWrap(dp(12)));
+        LinearLayout motion=ui.group("스크롤 조절");
+        strengthValue=ui.setting(motion,"스크롤 세기",()->{
+            ScrollOptions o=settings.options();
+            ui.number("스크롤 세기","60–160%. 100%는 기존 세기예요. 높일수록 더 빠르게 쓸어내려요.",
+                    o.strength,60,160,value->{
+                        ScrollOptions current=settings.options();
+                        return saveOptions(new ScrollOptions(current.taps,value,current.distance));
+                    });
+        });
+        ui.separator(motion);
+        distanceValue=ui.setting(motion,"쓸어내리는 길이",()->{
+            ScrollOptions o=settings.options();
+            ui.number("쓸어내리는 길이","대상 영역의 40–75%. 실제 목록의 이동 거리는 앱마다 달라요.",
+                    o.distance,40,75,value->{
+                        ScrollOptions current=settings.options();
+                        return saveOptions(new ScrollOptions(current.taps,current.strength,value));
+                    });
+        });
+        ui.note(motion,"변경은 다음 탭부터 적용돼요. 한 번만 움직이며 자동으로 계속 반복하지 않아요.");
 
-        TextView description = new TextView(this);
-        description.setText(
-                "아이폰처럼 화면 맨 위의 상태 표시줄을 한 번 탭하면 "
-                        + "현재 보고 있는 목록이나 웹페이지를 한 번의 자연스러운 "
-                        + "관성으로 위쪽으로 빠르게 이동합니다.\n\n"
-                        + "상태 표시줄을 아래로 끌면 기존처럼 알림창이 열립니다.");
-        description.setTextSize(17);
-        description.setTextColor(secondaryText);
-        description.setLineSpacing(0, 1.18f);
-        content.addView(description, matchWrap(dp(24)));
+        LinearLayout tools=ui.group(null);
+        ui.row(tools,"조절값 기본값으로",()->ui.confirmReset(()->saveOptions(ScrollOptions.defaults())));
+        ui.separator(tools);
+        ui.row(tools,"앱 정보  ›",()->startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("package:"+getPackageName()))));
+        LinearLayout info=ui.group("알아두기");
+        ui.note(info,"아주 긴 피드는 한 번에 맨 위까지 가지 않을 수 있어요. 앱마다 스크롤 방식이 달라 아이폰과 완전히 같지는 않아요.");
+        ui.note(info,"화면 내용과 사용 기록을 저장하거나 전송하지 않아요. 접근성 권한은 스크롤할 영역을 찾고 제스처를 실행하는 데만 사용해요.");
+        return ui.scroll;
+    }
 
-        statusView = new TextView(this);
-        statusView.setTextSize(17);
-        statusView.setTextColor(primaryText);
-        statusView.setBackgroundColor(card);
-        statusView.setPadding(dp(18), dp(18), dp(18), dp(18));
-        content.addView(statusView, matchWrap(dp(18)));
+    private void chooseTaps() {
+        final int[] selected={new AppSettings(this).options().taps};
+        new android.app.AlertDialog.Builder(this).setTitle("상단 탭 횟수")
+                .setSingleChoiceItems(new String[]{"한 번 탭","두 번 탭"},selected[0]-1,(d,w)->selected[0]=w+1)
+                .setNegativeButton("취소",null).setPositiveButton("저장",(d,w)->{
+                    ScrollOptions current=new AppSettings(this).options();
+                    saveOptions(new ScrollOptions(selected[0],current.strength,current.distance));
+                }).show();
+    }
 
-        Button settingsButton = new Button(this);
-        settingsButton.setText("접근성 설정 열기");
-        settingsButton.setTextSize(16);
-        settingsButton.setOnClickListener(v -> openAccessibilitySettings());
-        content.addView(settingsButton, matchWrap(dp(10)));
-
-        Button appInfoButton = new Button(this);
-        appInfoButton.setText("앱 정보 열기");
-        appInfoButton.setTextSize(16);
-        appInfoButton.setOnClickListener(v -> startActivity(new Intent(
-                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.parse("package:" + getPackageName()))));
-        content.addView(appInfoButton, matchWrap(dp(20)));
-
-        TextView privacy = new TextView(this);
-        privacy.setText(
-                "개인정보 보호\n"
-                        + "• 인터넷, 사진, 마이크, 위치 권한을 사용하지 않습니다.\n"
-                        + "• 접근성 권한은 스크롤 가능한 화면을 찾고 위로 이동하는 데만 사용합니다.\n"
-                        + "• 화면 내용과 사용 기록을 저장하거나 전송하지 않습니다.\n\n"
-                        + "아주 긴 X 피드처럼 앱이 맨 위 이동 기능을 외부에 제공하지 "
-                        + "않는 화면은 한 번에 완전한 처음까지 가지 않을 수 있습니다.\n\n"
-                        + "참고: 게임이나 특수한 화면처럼 일반 스크롤을 사용하지 않는 일부 앱에서는 "
-                        + "동작하지 않을 수 있습니다.");
-        privacy.setTextSize(14);
-        privacy.setTextColor(secondaryText);
-        privacy.setLineSpacing(0, 1.15f);
-        content.addView(privacy, matchWrap(0));
-
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.setFillViewport(true);
-        scrollView.setBackgroundColor(background);
-        scrollView.addView(content);
-        return scrollView;
+    private boolean saveOptions(ScrollOptions value) {
+        boolean saved=new AppSettings(this).saveOptions(value);
+        refreshStatus();
+        Toast.makeText(this,saved?"설정을 저장했어요. 다음 탭부터 적용돼요.":"저장하지 못했어요.",Toast.LENGTH_SHORT).show();
+        return saved;
     }
 
     private void refreshStatus() {
-        boolean enabled = isServiceEnabled();
-        statusView.setText(enabled
-                ? "상태: 사용 중 ✓\n상단 상태 표시줄을 한 번 탭해 보세요."
-                : "상태: 사용 준비 필요\n아래 버튼을 눌러 ‘맨 위로 톡’을 켜 주세요.");
+        AppSettings settings=new AppSettings(this);
+        boolean permission=isServiceEnabled(),enabled=settings.enabled();
+        syncing=true; enabledToggle.setChecked(enabled); syncing=false;
+        statusView.setText(!permission?"접근성 설정에서 ‘맨 위로 톡’을 켜 주세요."
+                : enabled?"사용 중 · 설정한 횟수로 상태 표시줄을 탭해 보세요."
+                : "잠시 멈췄어요. 다시 켜면 바로 사용할 수 있어요.");
+        permissionButton.setVisibility(permission?View.GONE:View.VISIBLE);
+        ScrollOptions o=settings.options();
+        tapsValue.setText(o.taps==1?"한 번  ›":"두 번  ›");
+        strengthValue.setText(o.strength+"%  ›");
+        distanceValue.setText(o.distance+"%  ›");
     }
 
     private boolean isServiceEnabled() {

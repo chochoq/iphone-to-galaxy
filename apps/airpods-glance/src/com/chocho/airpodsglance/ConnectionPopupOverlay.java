@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 /** User-authorized connection card. It remains until tapped, closed, or its session ends. */
 public final class ConnectionPopupOverlay {
-    private static final long VISIBLE_MILLIS = 6_000L;
 
     private final Context context;
     private final WindowManager windowManager;
@@ -81,8 +80,9 @@ public final class ConnectionPopupOverlay {
         card.setTranslationY(dp(48));
         card.animate().alpha(1f).translationY(0f).setDuration(280L)
                 .setInterpolator(new DecelerateInterpolator(1.6f)).start();
-        if (ConnectionPopupPolicy.shouldAutoDismiss(explicitPreview)) {
-            handler.postDelayed(autoDismiss, VISIBLE_MILLIS);
+        UserOptions options=new AppSettings(context).options();
+        if (ConnectionPopupPolicy.shouldAutoDismiss(explicitPreview,options.cardSeconds)) {
+            handler.postDelayed(autoDismiss, options.dismissMillis());
         }
         return true;
     }

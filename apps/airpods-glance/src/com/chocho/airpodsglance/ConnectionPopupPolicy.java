@@ -23,4 +23,8 @@ public final class ConnectionPopupPolicy {
     public static boolean shouldAutoDismiss(boolean explicitPreview) {
         return false;
     }
+
+    public static boolean shouldAutoDismiss(boolean explicitPreview, int seconds) {
+        return UserOptions.validCardSeconds(seconds) && seconds>0;
+    }
 }

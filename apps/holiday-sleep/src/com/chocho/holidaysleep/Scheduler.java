@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -22,8 +20,6 @@ final class Scheduler {
     private static final String KEY_ENABLED = "enabled";
     private static final int REQUEST_START = 70015;
     private static final int REQUEST_STOP = 120000;
-    private static final LocalTime START_TIME = LocalTime.of(7, 0, 15);
-    private static final LocalTime STOP_TIME = LocalTime.NOON;
 
     private Scheduler() {}
 
@@ -31,7 +27,7 @@ final class Scheduler {
         return prefs(context).getBoolean(KEY_ENABLED, true);
     }
 
-    static void setEnabled(Context context, boolean enabled) {
+    static synchronized void setEnabled(Context context, boolean enabled) {
         prefs(context).edit().putBoolean(KEY_ENABLED, enabled).apply();
         if (enabled) {
             configureAndReconcile(context);
@@ -41,42 +37,40 @@ final class Scheduler {
         }
     }
 
-    static void configureAndReconcile(Context context) {
-        if (!isEnabled(context)) return;
+    static synchronized boolean saveSchedule(Context context, ScheduleWindow window) {
+        if (!ScheduleSettings.save(context, window)) return false;
+        configureAndReconcile(context);
+        return true;
+    }
+
+    static synchronized void configureAndReconcile(Context context) {
+        if (!isEnabled(context)) {
+            cancel(context);
+            ZenController.setActive(context, false);
+            return;
+        }
         scheduleNext(context, ACTION_START);
         scheduleNext(context, ACTION_STOP);
         reconcileNow(context);
     }
 
-    static void onAlarm(Context context, String action) {
-        if (!isEnabled(context)) {
-            ZenController.setActive(context, false);
-            return;
-        }
-        scheduleNext(context, action);
-        if (ACTION_STOP.equals(action)) {
-            ZenController.setActive(context, false);
-            return;
-        }
-        if (ACTION_START.equals(action)) {
-            LocalDate today = LocalDate.now();
-            boolean shouldStart = isWeekday(today)
-                    && HolidayCalendar.isHoliday(context, today);
-            ZenController.setActive(context, shouldStart);
-        }
+    static synchronized void onAlarm(Context context, String action) {
+        if (!ACTION_START.equals(action) && !ACTION_STOP.equals(action)) return;
+        // An old or delayed STOP must not override a newly saved interval.
+        // Both events use the same current-state decision, including end exclusion.
+        configureAndReconcile(context);
     }
 
-    static void reconcileNow(Context context) {
+    static synchronized void reconcileNow(Context context) {
         if (!isEnabled(context)) {
             ZenController.setActive(context, false);
             return;
         }
         ZonedDateTime now = ZonedDateTime.now();
         LocalDate today = now.toLocalDate();
-        LocalTime time = now.toLocalTime();
-        boolean inExtensionWindow = !time.isBefore(START_TIME) && time.isBefore(STOP_TIME);
-        boolean shouldBeActive = isWeekday(today)
-                && inExtensionWindow
+        ScheduleWindow window = ScheduleSettings.read(context);
+        boolean candidate = window.shouldActivate(now, true, true);
+        boolean shouldBeActive = candidate && HolidayCalendar.hasCalendarPermission(context)
                 && HolidayCalendar.isHoliday(context, today);
         ZenController.setActive(context, shouldBeActive);
     }
@@ -88,8 +82,9 @@ final class Scheduler {
                 || manager.canScheduleExactAlarms();
     }
 
-    static String nextScheduleSummary(String action) {
-        ZonedDateTime next = nextTime(action);
+    static String nextScheduleSummary(Context context, String action) {
+        if (!isEnabled(context)) return "자동 연장이 꺼져 있어 예약하지 않음";
+        ZonedDateTime next = nextTime(context, action);
         return next.format(DateTimeFormatter.ofPattern("M월 d일(E) HH:mm:ss", Locale.KOREAN));
     }
 
@@ -98,21 +93,22 @@ final class Scheduler {
         if (manager == null) return;
         int requestCode = ACTION_START.equals(action) ? REQUEST_START : REQUEST_STOP;
         PendingIntent operation = pendingIntent(context, action, requestCode);
-        long triggerAt = nextTime(action).toInstant().toEpochMilli();
+        long triggerAt = nextTime(context, action).toInstant().toEpochMilli();
 
         if (canScheduleExact(context)) {
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, operation);
+            try {
+                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, operation);
+            } catch (SecurityException permissionChanged) {
+                manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, operation);
+            }
         } else {
             manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, operation);
         }
     }
 
-    private static ZonedDateTime nextTime(String action) {
-        LocalTime target = ACTION_START.equals(action) ? START_TIME : STOP_TIME;
-        ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime next = now.toLocalDate().atTime(target).atZone(now.getZone());
-        if (!next.isAfter(now)) next = next.plusDays(1);
-        return next;
+    private static ZonedDateTime nextTime(Context context, String action) {
+        return ScheduleSettings.read(context).nextBoundary(
+                ZonedDateTime.now(), ACTION_START.equals(action));
     }
 
     private static void cancel(Context context) {
@@ -129,11 +125,6 @@ final class Scheduler {
                 requestCode,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-    }
-
-    private static boolean isWeekday(LocalDate date) {
-        DayOfWeek day = date.getDayOfWeek();
-        return day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY;
     }
 
     private static SharedPreferences prefs(Context context) {

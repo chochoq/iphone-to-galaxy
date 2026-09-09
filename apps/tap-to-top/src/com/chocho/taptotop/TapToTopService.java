@@ -21,8 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class TapToTopService extends AccessibilityService {
-    private static final long GENERAL_FLING_DURATION_MS = 100;
-    private static final long X_FLING_DURATION_MS = 45;
+    private AppSettings settings;
+    private final TapTrigger tapTrigger=new TapTrigger();
+    private final android.content.SharedPreferences.OnSharedPreferenceChangeListener settingsListener=(p,k) -> {
+        tapTrigger.reset();
+        if("enabled".equals(k)) this.handler.post(this::installOverlay);
+    };
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     private WindowManager windowManager;
@@ -35,11 +39,14 @@ public final class TapToTopService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
+        settings=new AppSettings(this);
+        settings.prefs.registerOnSharedPreferenceChangeListener(settingsListener);
         installOverlay();
     }
 
     private void installOverlay() {
         removeOverlay();
+        if(settings==null || !settings.enabled()) return;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         if (windowManager == null) return;
 
@@ -86,17 +93,26 @@ public final class TapToTopService extends AccessibilityService {
                 long elapsed = SystemClock.uptimeMillis() - downTime;
                 if (!dragHandled && totalX < movementThreshold && totalY < movementThreshold
                         && elapsed < 500) {
-                    scrollToTop();
+                    ScrollOptions options=settings.options();
+                    if(tapTrigger.accept(SystemClock.uptimeMillis(),event.getRawX(),event.getRawY(),
+                            options.taps,dp(32))) scrollToTop();
                     view.performClick();
-                }
+                } else tapTrigger.reset();
+                return true;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                dragHandled=true;
+                tapTrigger.reset();
                 return true;
 
             case MotionEvent.ACTION_CANCEL:
+                tapTrigger.reset();
                 openNotificationsForDownwardDrag(event, notificationThreshold);
                 handler.removeCallbacksAndMessages(null);
                 return true;
 
             case MotionEvent.ACTION_OUTSIDE:
+                tapTrigger.reset();
                 handler.removeCallbacksAndMessages(null);
                 return true;
 
@@ -111,6 +127,7 @@ public final class TapToTopService extends AccessibilityService {
         float dy = event.getRawY() - downY;
         if (!dragHandled && dy > notificationThreshold && Math.abs(dy) > Math.abs(dx)) {
             dragHandled = true;
+            tapTrigger.reset();
             performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS);
         }
     }
@@ -119,10 +136,12 @@ public final class TapToTopService extends AccessibilityService {
         handler.removeCallbacksAndMessages(null);
         if (windowManager == null) return;
         AccessibilityNodeInfo target = findBestScrollableNode();
+        if(target==null || !settings.enabled()) return;
+        ScrollOptions options=settings.options();
 
         Rect bounds = gestureBounds(target);
         float x = bounds.centerX();
-        float startY = bounds.top + bounds.height() * 0.28f;
+        float startY = bounds.top + bounds.height() * options.startFraction();
         float endY = bounds.top + bounds.height() * 0.90f;
         if (endY - startY < dp(160)) return;
 
@@ -139,9 +158,9 @@ public final class TapToTopService extends AccessibilityService {
     private long flingDuration(AccessibilityNodeInfo target) {
         if (target != null && target.getPackageName() != null
                 && "com.twitter.android".contentEquals(target.getPackageName())) {
-            return X_FLING_DURATION_MS;
+            return settings.options().durationMillis(true);
         }
-        return GENERAL_FLING_DURATION_MS;
+        return settings.options().durationMillis(false);
     }
 
     private int preferredUpAction(AccessibilityNodeInfo node) {
@@ -251,14 +270,22 @@ public final class TapToTopService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+        tapTrigger.reset();
         handler.removeCallbacksAndMessages(null);
     }
 
     @Override
     public void onDestroy() {
+        if(settings!=null) settings.prefs.unregisterOnSharedPreferenceChangeListener(settingsListener);
         handler.removeCallbacksAndMessages(null);
         removeOverlay();
         super.onDestroy();
+    }
+
+    @Override public void onConfigurationChanged(android.content.res.Configuration configuration) {
+        super.onConfigurationChanged(configuration);
+        tapTrigger.reset();
+        installOverlay();
     }
 
     private static final class NodeCandidate {
