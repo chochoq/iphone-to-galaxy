@@ -48,9 +48,12 @@ sh test-core.sh
 ~~~
 
 Android SDK Platform 36, Build Tools 36.0.0과 JDK가 필요합니다. SDK가 기본 위치에 없다면
-ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 각 개발자의 테스트용 키로 서명돼
-설치할 수 있습니다. APK를 만들어 실기기에서 시험했으며, GitHub의 다운로드용 APK 제공과 공식
-배포용 서명·업데이트 체계는 아직 준비 중입니다.
+ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 개발자의 테스트용 키로 서명됩니다.
+공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.1.0-preview.1)에서 받습니다.
+[폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
+
+Android 15 이상이 필요합니다. 이전 빌드의 설치 조건은 Android 8 이상이었지만,
+실제로 사용하는 방해 금지 API의 버전에 맞춰 첫 APK 배포에서 바로잡았습니다.
 
 ## 권한과 삭제 방법
 

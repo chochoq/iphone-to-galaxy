@@ -7,11 +7,14 @@ Galaxy 기본 설정과 Good Lock을 먼저 활용하고, 부족한 기능은 �
 
 ## 앱
 
-| 앱 | 기능 |
-| --- | --- |
-| [맨 위로 톡](apps/tap-to-top/) | 상태 표시줄을 눌러 화면을 위로 스크롤. 탭 방식과 스크롤 세기 조절 |
-| [공휴일 수면 연장](apps/holiday-sleep/) | 평일인 한국 공휴일에 방해 금지 연장. 시작·종료 시간 설정 |
-| [에어팟 한눈에](apps/airpods-glance/) | AirPods 좌우·케이스 배터리, 홈 화면 위젯, 회전하는 연결 카드 |
+| 앱 | 기능 | 설치 파일 |
+| --- | --- | --- |
+| [맨 위로 톡](apps/tap-to-top/) | 상태 표시줄을 눌러 위로 스크롤. 탭 방식과 세기 조절 | [APK 받기](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.1.0-preview.1/tap-to-top-1.5.0-preview.1.apk) |
+| [공휴일 수면 연장](apps/holiday-sleep/) | 평일인 한국 공휴일에 방해 금지 연장. 시작·종료 시간 설정 | [APK 받기](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.1.0-preview.1/holiday-sleep-1.2.2-preview.1.apk) |
+| [에어팟 한눈에](apps/airpods-glance/) | AirPods 좌우·케이스 배터리, 위젯, 회전하는 연결 카드 | [APK 받기](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.1.0-preview.1/airpods-glance-1.1.0-preview.1.apk) |
+
+첫 미리보기 배포입니다. 폰에서 원하는 APK를 받아 설치하면 됩니다.
+**PC·USB·개발자 옵션은 필요하지 않습니다.** [설치와 권한 설정](docs/INSTALL.md)
 
 - 맨 위로 톡은 긴 피드에서 여러 번 눌러야 할 수 있습니다.
 - 공휴일 수면 연장은 시계 알람을 바꾸지 않습니다.
@@ -42,9 +45,11 @@ Fold8 실기기 미리보기. 배터리는 저장된 값입니다.
 **설정만 사용할 때:** [설정 가이드](recipes/)에서 원하는 항목을 선택합니다.
 PC나 USB 디버깅은 필요하지 않습니다.
 
-**앱을 사용할 때:** 현재 다운로드용 APK는 제공하지 않습니다.
-[설치 안내](docs/GETTING-STARTED.md)에 따라 PC에서 직접 빌드하고 USB로 설치합니다.
-JDK 17, Android SDK Platform 36, Build Tools 36.0.0과 Platform-Tools가 필요합니다.
+**앱을 사용할 때:** 위의 APK를 받고 [폰에서 설치하기](docs/INSTALL.md)를 따라갑니다.
+설치 출처 허용과 앱별 권한 설정이 필요합니다. 기존 테스트 APK와 서명이 다르면 덮어쓰기는 안 됩니다.
+
+**직접 빌드할 때:** [개발자용 빌드·USB 연결 안내](docs/GETTING-STARTED.md)를 참고합니다.
+JDK 17, Android SDK Platform 36과 Build Tools 36.0.0이 필요합니다.
 
 루팅이나 AI 도구는 필요하지 않습니다. 설치 후 앱별 권한을 허용하면 PC 연결 없이 사용할 수 있습니다.
 
@@ -55,7 +60,7 @@ JDK 17, Android SDK Platform 36, Build Tools 36.0.0과 Platform-Tools가 필요�
 | 익숙한 사용법의 기준 | iPhone 14 Pro · iOS 26.6.1 |
 | 실제 테스트 환경 | Galaxy Z Fold8 (SM-F971N) · Android 17 · One UI 9.0 · 한국어 |
 
-테스트한 Galaxy는 Fold8 한 대입니다. 다른 기기·OS의 동작과 화면 배치는 확인하지 않았으며,
+기능을 테스트한 Galaxy는 Fold8 한 대입니다. 다른 Galaxy의 동작과 화면 배치는 확인하지 않았으며,
 커버 화면과 펼친 화면을 나눈 전체 검증도 남아 있습니다. [기능별 확인 범위](compatibility/)
 
 ## 기여와 참고 문서

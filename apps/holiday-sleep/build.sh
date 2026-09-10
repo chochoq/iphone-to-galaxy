@@ -20,7 +20,7 @@ mkdir -p "$CLASSES_DIR" "$DEX_DIR"
   -o "$BUILD_DIR/app-unsigned.apk" \
   -I "$ANDROID_JAR" \
   --manifest "$PROJECT_DIR/AndroidManifest.xml" \
-  --min-sdk-version 26 \
+  --min-sdk-version 35 \
   --target-sdk-version 36 \
   "$BUILD_DIR/resources.zip"
 
@@ -35,7 +35,7 @@ find "$PROJECT_DIR/src" -name '*.java' -print0 \
 find "$CLASSES_DIR" -name '*.class' -print0 \
   | xargs -0 "$ANDROID_BUILD_TOOLS/d8" \
       --lib "$ANDROID_JAR" \
-      --min-api 26 \
+      --min-api 35 \
       --output "$DEX_DIR"
 
 (cd "$DEX_DIR" && zip -q -u "$BUILD_DIR/app-unsigned.apk" classes.dex)
