@@ -102,6 +102,12 @@ Fold8 연결 카드 미리보기 · 저장된 잔량
 
 ### 잠금화면에서도 한 칸으로
 
+<p>
+  <a href="docs/images/airpods-lock-widget-demo.gif"><img src="docs/images/airpods-lock-widget-demo.gif" width="480" alt="Fold8 잠금화면에서 위젯을 누를 때 왼쪽·오른쪽·케이스 아이콘과 잔량이 바뀌는 실제 시연"></a>
+</p>
+
+Fold8 잠금화면에서 직접 누르는 모습 · [촬영·편집 정보](docs/images/#잠금화면-위젯)
+
 시계 아래 원형 위젯을 누르면 **왼쪽 → 오른쪽 → 케이스** 순으로 바뀝니다.
 글자 대신 이어버드·케이스 아이콘으로 구분하고, 마지막으로 본 부품을 기억합니다.
 
