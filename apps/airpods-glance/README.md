@@ -1,5 +1,11 @@
 # 에어팟 한눈에
 
+<img src="res/drawable-nodpi/ic_launcher_art_v1.png" width="64" height="64" alt="에어팟 한눈에 아이콘">
+
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/airpods-glance-0.0.1.apk)** · [설치 안내](../../docs/INSTALL.md)
+
+Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신은 Android 17 이상
+
 Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈 화면 위젯에서 확인하는 개인용 Android
 앱입니다. AirPods가 새로 연결되면 큰 제품 화면도 띄울 수 있습니다. 광고와 분석 기능은 없으며
 앱을 사용하는 동안 서버에 접속하지 않습니다.
@@ -8,14 +14,27 @@ Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈 화면 위젯에�
 
 ![이어버드와 닫힌 케이스의 회전 애니메이션을 담은 실제 화면 녹화](../../docs/images/airpods-card-demo.gif)
 
-Fold8에서 ‘큰 연결 카드 미리보기’를 열어 녹화한 6초짜리 GIF입니다. 개인 기기 이름은 모든
-프레임에서 가렸고, 상태 표시줄과 카드 밖 화면은 잘라냈습니다.
+Fold8 연결 카드 미리보기 · 저장된 잔량 · [영상 출처](../../docs/images/)
 
-배터리는 이전에 저장된 값으로 표시했습니다. 이 영상은 회전하는 화면을 보여주기 위한 것으로,
-새 연결이나 현재 잔량 수신을 확인한 장면은 아닙니다.
-[영상 출처와 편집 내역](../../docs/images/)
+## 처음 사용하기
+
+1. 갤럭시 Bluetooth 설정에서 AirPods를 페어링합니다.
+2. 앱에서 근처 기기·알림 권한을 허용하고 사용할 AirPods를 고릅니다.
+3. 감시를 켭니다. 큰 카드를 원하면 ‘다른 앱 위에 표시’도 허용합니다.
+
+알 수 없는 잔량은 ‘—’로 표시하며 임의의 숫자로 채우지 않습니다.
+위젯의 오래되거나 연결이 끊긴 값은 회색으로 표시합니다. 케이스를 닫은 뒤에는 새 잔량이
+계속 들어오지 않을 수 있습니다. 이 앱에 케이스 소리 재생 기능은 들어 있지 않습니다.
 
 ## 앱에서 조절하기
+
+<p>
+  <a href="../../docs/images/air-home.png"><img src="../../docs/images/air-home.png" width="220" alt="배터리와 설정, AirPods 미선택 상태"></a>
+  <a href="../../docs/images/air-card.png"><img src="../../docs/images/air-card.png" width="220" alt="카드를 직접 또는 자동으로 닫기"></a>
+  <a href="../../docs/images/air-seconds.png"><img src="../../docs/images/air-seconds.png" width="220" alt="자동 닫기 시간 입력"></a>
+</p>
+
+배터리·설정 · 카드 닫는 방식 · 자동 닫기 시간 — [캡처 환경](../../docs/images/)
 
 - 연결 카드를 직접 닫거나, 3–60초 뒤 자동으로 닫도록 정할 수 있습니다.
 - 배터리 부족 알림 기준은 이어버드와 케이스 각각 5–50%에서 고를 수 있습니다.
@@ -27,13 +46,23 @@ Fold8에서 ‘큰 연결 카드 미리보기’를 열어 녹화한 6초짜리 
 
 [화면·설정 검증](docs/results/2026-09-08-user-settings.md) · [아이콘 제작 기록](assets/icon/README.md)
 
-## 홈 위젯 고르기 — 미배포 소스
+## 홈 위젯 고르기
+
+<p>
+  <a href="../../docs/images/widget-wide.png"><img src="../../docs/images/widget-wide.png" width="320" alt="3×1 가로 원형 위젯"></a>
+  <a href="../../docs/images/widget-small.png"><img src="../../docs/images/widget-small.png" width="201" alt="2×1 미니 가로 원형 위젯"></a>
+  <a href="../../docs/images/widget-single.png"><img src="../../docs/images/widget-single.png" width="81" alt="1×1 한 칸 원형 위젯"></a>
+</p>
+
+3×1 가로 · 2×1 미니 가로 · 1×1 한 칸 — 숫자는 예시입니다.
 
 앱의 ‘홈 화면에 위젯 추가’에서 가로 3×1, 미니 가로 2×1, 한 칸 원형 1×1을 선택합니다.
 3×1·2×1은 좌우·케이스 잔량을 함께 보여주고, 1×1은 한 부품씩 보여줍니다.
 1×1은 탭으로 왼쪽 → 오른쪽 → 케이스가 바뀌도록 구현했지만 실제 홈에서의 전환 확인은 남았습니다.
 
-이 변경은 다운로드용 APK에 아직 포함하지 않았습니다. 잠금화면 시계 아래 위젯도 아닙니다.
+3×1·2×1을 누르면 앱이 열립니다. 홈 격자와 글씨 설정에 따라 실제 크기가 달라집니다.
+큰 글씨로 한 칸에 내용이 들어가지 않으면 앱을 여는 방식으로 바뀝니다.
+이 위젯은 홈 화면용이며 잠금화면 시계 아래에 넣는 기능은 아닙니다.
 [위젯 설계·검증 범위](docs/design/017-compact-widgets.md)
 
 ## 확인한 환경
@@ -42,9 +71,10 @@ Fold8에서 ‘큰 연결 카드 미리보기’를 열어 녹화한 6초짜리 
 - Android 17
 - One UI 9.0
 
-이 기기에서 AirPods 연결과 음악 재생 유지, 왼쪽·오른쪽·케이스 배터리, 4×1 위젯과 큰 연결 화면을
-확인했습니다. 다른 Galaxy, Android와 One UI에서는 Bluetooth 내부 기능과 화면 배치가 달라질 수
-있습니다.
+이 기기에서 AirPods 연결과 음악 재생 유지, 좌우·케이스 잔량과 큰 연결 카드를 확인했습니다.
+작은 위젯 세 종류는 커버 화면의 추가창과 홈 표시를 확인했습니다.
+1×1의 홈 탭 전환·재부팅 후 선택 유지, 펼친 화면과 다른 런처 시험은 남아 있습니다.
+다른 Galaxy, Android와 One UI에서는 잔량 수신이나 화면 배치가 달라질 수 있습니다.
 
 ## 지금까지 확인한 결과
 
@@ -73,7 +103,7 @@ Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니�
 저작자 고지도 함께 들어갑니다.
 
 직접 빌드한 APK는 개발자의 테스트용 키로 서명됩니다. 공식 APK는
-[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.1.0-preview.1)에서 받습니다.
+[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 APK는 Android 12 이상에 설치할 수 있지만, 연결 후 AAP 배터리를 읽는 경로는 Android 17 이상에서만

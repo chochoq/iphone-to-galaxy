@@ -1,5 +1,11 @@
 # 맨 위로 톡
 
+<img src="res/drawable-nodpi/ic_launcher_art_v1.png" width="64" height="64" alt="맨 위로 톡 아이콘">
+
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/tap-to-top-0.0.1.apk)** · [설치 안내](../../docs/INSTALL.md)
+
+Android 12 이상 · 접근성 권한 필요 · 루팅·USB 불필요
+
 아이폰에서 하던 것처럼 화면 위쪽의 상태 표시줄을 누르면 보고 있던 화면이 위로 올라갑니다.
 상태 표시줄을 아래로 끌면 원래대로 알림창이 열립니다.
 
@@ -12,6 +18,18 @@ X에서는 조금 더 멀리 움직이지만 아주 긴 피드의 처음까지 �
 
 왜 이 방법을 선택했는지와 실패한 방법은 [설계 인덱스](docs/design/INDEX.md)에 기록했습니다.
 
+## 화면 둘러보기
+
+<p>
+  <a href="../../docs/images/tap-home.png"><img src="../../docs/images/tap-home.png" width="220" alt="탭 방식과 스크롤 옵션 설정"></a>
+  <a href="../../docs/images/tap-number.png"><img src="../../docs/images/tap-number.png" width="220" alt="스크롤 세기 입력과 저장·취소"></a>
+  <a href="../../docs/images/tap-reset.png"><img src="../../docs/images/tap-reset.png" width="220" alt="기본값 복원 확인"></a>
+</p>
+
+탭 방식 선택 · 스크롤 세기 조절 · 기본값 복원
+
+사진을 누르면 크게 볼 수 있습니다. [캡처 환경](../../docs/images/)
+
 ## 앱에서 조절하기
 
 - 한 번 탭 또는 두 번 탭으로 실행하기
@@ -23,8 +41,10 @@ X에서는 조금 더 멀리 움직이지만 아주 긴 피드의 처음까지 �
 움직일 거리가 아닙니다. 값을 높여도 아주 긴 피드의 처음까지 한 번에 도착한다고 보장하지 않습니다.
 숫자는 저장해야 적용되며 취소하면 이전 값을 유지합니다.
 
-설정 화면과 앱 아이콘도 함께 바꿨습니다.
-[변경과 검증 결과](docs/results/2026-09-08-user-settings.md) · [아이콘 제작 기록](assets/icon/README.md)
+처음에는 ‘사용법 및 권한’에서 접근성 설정을 열어 ‘맨 위로 톡’을 켭니다.
+한 번·두 번 탭은 누르는 즉시 적용됩니다. 숫자 편집은 ‘저장’을 눌러야 적용됩니다.
+
+[설계와 검증 기록](docs/design/INDEX.md) · [아이콘 제작 기록](assets/icon/README.md)
 
 ## 확인한 환경
 
@@ -53,7 +73,7 @@ sh test-core.sh
 APK는 build/tap-to-top.apk에 생성됩니다. Android SDK Platform 36, Build Tools 36.0.0과 JDK가
 필요합니다. SDK가 기본 위치에 없다면 ANDROID_SDK_ROOT를 지정합니다. 직접 빌드한 APK는 개발자의
 테스트용 키로 서명됩니다. 공식 APK는
-[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.1.0-preview.1)에서 받습니다.
+[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 되돌리려면 설정의 접근성 설치 앱에서 ‘맨 위로 톡’을 끄고 앱을 삭제합니다. 권한과 앱별 한계는

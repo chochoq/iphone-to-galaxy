@@ -1,5 +1,11 @@
 # 공휴일 수면 연장
 
+<img src="res/drawable-nodpi/ic_launcher_art.png" width="64" height="64" alt="공휴일 수면 연장 아이콘">
+
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/holiday-sleep-0.0.1.apk)** · [설치 안내](../../docs/INSTALL.md)
+
+Android 15 이상 · 캘린더·방해 금지·알람 및 리마인더 권한 필요
+
 평일에 법정공휴일이 오면 사용자가 정한 시간 동안 방해 금지를 이어 주는 Android 앱입니다.
 휴대폰에 동기화된 Samsung 또는 Google의 대한민국 공휴일 캘린더를 읽으며, 공휴일 정보를 받기
 위해 인터넷에 연결하지 않습니다.
@@ -13,20 +19,29 @@
 
 ## 앱에서 시간 바꾸기
 
-1. ‘시작 시간’과 ‘종료 시간’을 눌러 시간을 고릅니다.
-2. ‘변경사항 저장’을 누르면 두 시간이 함께 저장되고 다음 실행 일정도 바뀝니다.
+<p>
+  <a href="../../docs/images/sleep-home.png"><img src="../../docs/images/sleep-home.png" width="220" alt="자동 연장과 시간 구간 설정"></a>
+  <a href="../../docs/images/sleep-time.png"><img src="../../docs/images/sleep-time.png" width="220" alt="시작·종료 시간 휠 편집"></a>
+  <a href="../../docs/images/sleep-seconds.png"><img src="../../docs/images/sleep-seconds.png" width="220" alt="초 단위까지 시간 조절"></a>
+</p>
+
+자동 연장 설정 · 시간 고르기 · 초 단위 조절 — [캡처 환경](../../docs/images/)
+
+1. ‘연장 시간’을 눌러 시작·종료 시간을 고릅니다. 휠이나 ‘숫자로 입력’을 쓸 수 있습니다.
+2. ‘저장’을 누르면 두 시간이 함께 저장되고 다음 실행 일정도 바뀝니다.
 3. 저장하지 않고 돌아가려면 ‘취소’를 누릅니다.
 
-기본값은 07:00:15–12:00입니다. 기존 시작 시각의 15초는 시작 시간을 다시 고르기 전까지
-유지합니다. 시간을 다시 고르면 선택한 분의 00초로 저장됩니다. 같은 날 안에서 종료가 시작보다
-늦어야 하며, 자정을 넘기는 평소 일정과 주말 일정은 Samsung 모드에서 설정합니다.
+기본값은 07:00:15–12:00입니다. 시·분만 바꾸면 기존 초는 그대로 유지합니다.
+초도 바꾸려면 ‘초까지 조정’을 켜거나 숫자 입력에 초까지 적습니다.
+같은 날 안에서 종료가 시작보다 늦어야 합니다. 자정을 넘기는 평소 일정과 주말 일정은
+Samsung 모드에서 설정합니다.
 
 자동 연장을 꺼둔 채 시간을 저장해도 기능이 저절로 켜지지는 않습니다. Samsung 수면 모드와
 시간이 자동으로 맞춰지는 것도 아닙니다. **기상 알람을 만들거나 늦추는 앱이 아니며**, 시계 앱의
 ‘공휴일에는 알람 끄기’는 별도로 설정해야 합니다.
 
-화면은 밝은 회색 바탕과 흰 설정 구역으로 바꿨고 달·별 아이콘을 추가했습니다. 달력·권한·다음 예약은
-‘상세 상태 보기’에서 확인합니다. 권한이 부족하다는 안내는 상세를 접어도 보입니다.
+캘린더·권한·다음 예약은 ‘권한 및 상세 정보’에서 확인합니다.
+휴대폰의 대한민국 공휴일 캘린더가 동기화돼 있어야 합니다.
 
 [설계와 작업 기록](docs/design/INDEX.md) · [실기기 화면 검증](docs/results/2026-09-08-calm-interface.md)
 · [아이콘 제작 기록](assets/icon/README.md)
@@ -49,7 +64,7 @@ sh test-core.sh
 
 Android SDK Platform 36, Build Tools 36.0.0과 JDK가 필요합니다. SDK가 기본 위치에 없다면
 ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 개발자의 테스트용 키로 서명됩니다.
-공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.1.0-preview.1)에서 받습니다.
+공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 Android 15 이상이 필요합니다. 이전 빌드의 설치 조건은 Android 8 이상이었지만,
