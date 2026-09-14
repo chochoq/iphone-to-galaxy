@@ -32,7 +32,10 @@ public final class WidgetPickerActivity extends Activity {
             margin.addView(new Preview(this,variant),new FrameLayout.LayoutParams(-1,-2,Gravity.CENTER));card.addView(margin);
             page.separator(card);Button add=page.row(card,variant.title+" 추가",()->pin(variant));add.setTextColor(Ui.BLUE);
         }
-        page.footer("3×1과 2×1은 왼쪽부터 왼쪽 이어버드 · 오른쪽 이어버드 · 케이스예요. 누르면 앱이 열려요.\n1×1은 누를 때마다 표시할 부품이 바뀌어요.\n실제 잔량은 에어팟이 보낸 값으로 표시해요.");page.install();
+        page.footer("3×1과 2×1은 왼쪽부터 왼쪽 이어버드 · 오른쪽 이어버드 · 케이스예요. 누르면 앱이 열려요.\n1×1은 누를 때마다 표시할 부품이 바뀌어요.\n실제 잔량은 에어팟이 보낸 값으로 표시해요.");
+        LinearLayout lock=page.group("잠금화면 시계 아래");
+        page.note(lock,"위젯 하나를 누르면 왼쪽 → 오른쪽 → 케이스로 바뀌어요. 이어버드 아이콘에서 밝게 표시된 쪽의 잔량이에요.\n잠금화면을 길게 눌러 편집 → 시계 아래 위젯 → 에어팟 한눈에에서 처음 볼 부품 하나를 골라 주세요.");
+        page.footer("작은 시계 표시는 마지막으로 받은 잔량이라는 뜻이에요. 위젯을 눌러도 새로 측정하거나 연결하지 않아요.\n이미 넣어둔 위젯도 각각 전환되고, 마지막으로 본 부품을 기억해요.\nFold8 · One UI 9.0에서 확인한 방식이라 다른 기기에서는 목록에 없을 수 있어요.");page.install();
     }
     private void pin(WidgetVariant variant){
         AppWidgetManager manager=AppWidgetManager.getInstance(this);

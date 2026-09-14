@@ -1,0 +1,5 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:updatePeriodMillis="0" android:initialLayout="@layout/airpods_lock_case_preview" android:previewLayout="@layout/airpods_lock_case_preview"
+    android:targetCellWidth="1" android:targetCellHeight="1"
+    app:initialLayoutTiny="@layout/airpods_lock_case_preview" app:monotonePreviewLayoutTiny="@layout/airpods_lock_case_preview"
+    app:widgetSize="1" app:previewSize="1" app:widgetStyle="2" />

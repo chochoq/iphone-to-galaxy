@@ -22,7 +22,7 @@
 상태 표시줄을 누르면 보고 있던 화면이 위로 올라갑니다.
 한 번·두 번 탭과 스크롤 세기를 앱에서 고를 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/tap-to-top-0.0.2.apk)** · [사용법](apps/tap-to-top/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/tap-to-top-0.0.3.apk)** · [사용법](apps/tap-to-top/)
 
 Android 12 이상 · 접근성 권한 필요
 
@@ -44,7 +44,7 @@ Android 12 이상 · 접근성 권한 필요
 평일인 한국 공휴일에는 원하는 시간까지 방해 금지를 이어 줍니다.
 시작·종료 시간은 앱에서 바꿀 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/holiday-sleep-0.0.2.apk)** · [사용법](apps/holiday-sleep/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/holiday-sleep-0.0.3.apk)** · [사용법](apps/holiday-sleep/)
 
 Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마인더 권한 필요
 
@@ -63,10 +63,10 @@ Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마�
 
 <img src="apps/airpods-glance/res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="에어팟 한눈에 앱 아이콘">
 
-AirPods의 왼쪽·오른쪽·케이스 배터리를 앱과 홈 위젯에서 확인합니다.
+AirPods의 왼쪽·오른쪽·케이스 배터리를 앱과 홈·잠금화면 위젯에서 확인합니다.
 연결할 때는 제품이 회전하는 큰 카드도 띄울 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/airpods-glance-0.0.2.apk)** · [사용법](apps/airpods-glance/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/airpods-glance-0.0.3.apk)** · [사용법](apps/airpods-glance/)
 
 Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신은 Android 17 이상<br>
 근처 기기·알림 권한 필요 · 큰 연결 카드는 ‘다른 앱 위에 표시’도 필요
@@ -97,8 +97,20 @@ Fold8 연결 카드 미리보기 · 저장된 잔량
 1×1은 탭하면 왼쪽 → 오른쪽 → 케이스 순으로 바뀌도록 만들었습니다.
 삼성 홈에서의 탭 전환·재부팅 후 유지 확인은 아직 남아 있습니다.
 
-모르는 배터리는 ‘—’, 오래된 값은 회색으로 표시합니다.
+홈 위젯에서 모르는 배터리는 ‘—’, 오래된 값은 회색으로 표시합니다.
 다른 기종이나 OS 업데이트에서는 잔량 수신이 안 될 수 있습니다. [확인한 범위](compatibility/)
+
+### 잠금화면에서도 한 칸으로
+
+시계 아래 원형 위젯을 누르면 **왼쪽 → 오른쪽 → 케이스** 순으로 바뀝니다.
+글자 대신 이어버드·케이스 아이콘으로 구분하고, 마지막으로 본 부품을 기억합니다.
+
+잠금화면을 길게 눌러 편집 → 시계 아래 위젯 → ‘에어팟 한눈에’에서 하나를 고르세요.
+‘왼쪽부터·오른쪽부터·케이스부터’는 처음 보여 줄 부품입니다. 세 개를 모두 넣을 필요는 없습니다.
+
+숫자 옆 작은 시계는 마지막으로 받은 잔량이라는 뜻입니다. 누른다고 새 잔량을 측정하지는 않습니다.
+Fold8·One UI 9.0에서 확인했으며, 다른 기기에서는 목록에 나오지 않을 수 있습니다.
+[잠금화면 위젯 사용법](apps/airpods-glance/#잠금화면에-넣기)
 
 ## 앱 설치하기
 

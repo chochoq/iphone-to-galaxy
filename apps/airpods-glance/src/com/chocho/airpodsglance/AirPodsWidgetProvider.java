@@ -69,6 +69,7 @@ public class AirPodsWidgetProvider extends AppWidgetProvider {
             int[] ids = manager.getAppWidgetIds(provider);
             for (int id : ids) manager.updateAppWidget(id, render(context,manager.getAppWidgetOptions(id),variant,id));
         }
+        AirPodsLockWidgetProvider.updateAll(context);
     }
 
     private static RemoteViews render(Context context,Bundle options,WidgetVariant variant,int id) {

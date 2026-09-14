@@ -1,0 +1,10 @@
+<resources>
+    <string name="lock_widget_left_name">왼쪽부터 · 탭 전환</string>
+    <string name="lock_widget_right_name">오른쪽부터 · 탭 전환</string>
+    <string name="lock_widget_case_name">케이스부터 · 탭 전환</string>
+    <attr name="initialLayoutTiny" format="reference" />
+    <attr name="monotonePreviewLayoutTiny" format="reference" />
+    <attr name="widgetSize" format="integer" />
+    <attr name="previewSize" format="integer" />
+    <attr name="widgetStyle" format="integer" />
+</resources>

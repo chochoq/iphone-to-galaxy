@@ -1,0 +1,2 @@
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:scaleType="fitCenter" android:src="@drawable/lock_widget_unknown_right" android:contentDescription="오른쪽 이어버드부터, 누르면 전환" />

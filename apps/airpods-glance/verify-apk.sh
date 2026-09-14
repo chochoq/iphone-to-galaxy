@@ -28,6 +28,9 @@ printf '%s\n' "$permissions" | grep -F "android.permission.SYSTEM_ALERT_WINDOW" 
 
 xml=$("$AAPT" dump xmltree "$APK" AndroidManifest.xml)
 printf '%s\n' "$xml" | grep -F '.AirPodsWidgetProvider' >/dev/null
+for provider in 'Left' 'Right' 'Case'; do
+  printf '%s\n' "$xml" | grep -F ".AirPodsLockWidgetProvider\$$provider" >/dev/null
+done
 printf '%s\n' "$xml" | grep -F 'foregroundServiceType' >/dev/null
 
 unzip -p "$APK" res/raw/apache_license_2_0.txt \

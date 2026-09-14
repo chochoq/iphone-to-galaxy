@@ -1,6 +1,6 @@
 # GitHub에 공개하기 전 확인할 것
 
-> 2026-09-14: 현재 APK는 [v0.0.2](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.2)입니다.
+> 2026-09-14: 현재 APK는 [v0.0.3](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.3)입니다.
 > 아래는 첫 공개 당시의 계획과 후속 기록입니다. 현재 설치는 [설치 안내](INSTALL.md)를 참고하세요.
 
 > 2026-09-10 갱신: 아래 첫 공개 계획은 당시 기록으로 보존합니다.

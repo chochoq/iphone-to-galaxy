@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chocho.airpodsglance"
-    android:versionCode="4" android:versionName="0.0.2">
+    android:versionCode="5" android:versionName="0.0.3">
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
@@ -76,6 +76,18 @@
         <receiver android:name=".AirPodsSingleWidgetProvider" android:label="@string/widget_single_name" android:exported="false">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/airpods_widget_single_info" />
+        </receiver>
+        <receiver android:name=".AirPodsLockWidgetProvider$Left" android:label="@string/lock_widget_left_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/airpods_lock_left_info" />
+        </receiver>
+        <receiver android:name=".AirPodsLockWidgetProvider$Right" android:label="@string/lock_widget_right_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/airpods_lock_right_info" />
+        </receiver>
+        <receiver android:name=".AirPodsLockWidgetProvider$Case" android:label="@string/lock_widget_case_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/airpods_lock_case_info" />
         </receiver>
         <activity android:name=".WidgetPickerActivity" android:exported="false" />
     </application>

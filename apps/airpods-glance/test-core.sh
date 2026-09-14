@@ -24,6 +24,9 @@ javac -encoding UTF-8 -source 8 -target 8 -d "$OUT_DIR" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/WidgetLayout.java" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/WidgetSizing.java" \
   "$PROJECT_DIR/src/com/chocho/airpodsglance/WidgetState.java" \
+  "$PROJECT_DIR/src/com/chocho/airpodsglance/LockWidgetState.java" \
+  "$PROJECT_DIR/src/com/chocho/airpodsglance/LockWidgetSelection.java" \
+  "$PROJECT_DIR/tests/com/chocho/airpodsglance/LockWidgetTests.java" \
   "$PROJECT_DIR/tests/com/chocho/airpodsglance/CoreTests.java" \
   "$PROJECT_DIR/tests/com/chocho/airpodsglance/WidgetTests.java" \
   "$PROJECT_DIR/tests/com/chocho/airpodsglance/WidgetVariantTests.java" \
@@ -33,3 +36,4 @@ java -cp "$OUT_DIR" com.chocho.airpodsglance.CoreTests
 java -cp "$OUT_DIR" com.chocho.airpodsglance.WidgetTests
 java -cp "$OUT_DIR" com.chocho.airpodsglance.WidgetVariantTests
 java -cp "$OUT_DIR" com.chocho.airpodsglance.WidgetSizingTests
+java -cp "$OUT_DIR" com.chocho.airpodsglance.LockWidgetTests
