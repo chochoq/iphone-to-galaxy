@@ -11,7 +11,7 @@ Galaxy 설정과 Samsung 공식 도구, 이미 공개된 앱으로 원하는 동
 여기에 있다고 해서 범용 배포가 끝났다는 뜻은 아닙니다. 세 앱 모두 현재 Galaxy Z Fold8 한 대를
 중심으로 시험했습니다.
 
-세 앱의 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
+세 앱의 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.2)에서 받습니다.
 [폰에서 설치하기](../docs/INSTALL.md)를 따라가면 USB와 개발자 옵션 없이 설치할 수 있습니다.
 직접 build.sh를 실행하면 공식 배포본과 서명이 다른 테스트용 APK가 만들어집니다.
 

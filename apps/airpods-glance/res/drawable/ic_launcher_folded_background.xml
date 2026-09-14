@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 108dp adaptive layer -> 72dp viewport: preserve the full square artwork. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape><solid android:color="#D5EBD0" /></shape></item>
+    <item>
+        <inset android:insetLeft="16.666667%" android:insetTop="16.666667%"
+            android:insetRight="16.666667%" android:insetBottom="16.666667%">
+            <bitmap android:src="@drawable/ic_launcher_folded_v3"
+                android:gravity="fill" android:filter="true" />
+        </inset>
+    </item>
+</layer-list>

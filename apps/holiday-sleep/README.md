@@ -1,8 +1,8 @@
 # 공휴일 수면 연장
 
-<img src="res/drawable-nodpi/ic_launcher_art.png" width="64" height="64" alt="공휴일 수면 연장 아이콘">
+<img src="res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="공휴일 수면 연장 아이콘">
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/holiday-sleep-0.0.1.apk)** · [설치 안내](../../docs/INSTALL.md)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/holiday-sleep-0.0.2.apk)** · [설치 안내](../../docs/INSTALL.md)
 
 Android 15 이상 · 캘린더·방해 금지·알람 및 리마인더 권한 필요
 
@@ -64,7 +64,7 @@ sh test-core.sh
 
 Android SDK Platform 36, Build Tools 36.0.0과 JDK가 필요합니다. SDK가 기본 위치에 없다면
 ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 개발자의 테스트용 키로 서명됩니다.
-공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
+공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.2)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 Android 15 이상이 필요합니다. 이전 빌드의 설치 조건은 Android 8 이상이었지만,

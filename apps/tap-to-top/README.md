@@ -1,8 +1,8 @@
 # 맨 위로 톡
 
-<img src="res/drawable-nodpi/ic_launcher_art_v1.png" width="64" height="64" alt="맨 위로 톡 아이콘">
+<img src="res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="맨 위로 톡 아이콘">
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/tap-to-top-0.0.1.apk)** · [설치 안내](../../docs/INSTALL.md)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/tap-to-top-0.0.2.apk)** · [설치 안내](../../docs/INSTALL.md)
 
 Android 12 이상 · 접근성 권한 필요 · 루팅·USB 불필요
 
@@ -73,7 +73,7 @@ sh test-core.sh
 APK는 build/tap-to-top.apk에 생성됩니다. Android SDK Platform 36, Build Tools 36.0.0과 JDK가
 필요합니다. SDK가 기본 위치에 없다면 ANDROID_SDK_ROOT를 지정합니다. 직접 빌드한 APK는 개발자의
 테스트용 키로 서명됩니다. 공식 APK는
-[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.1)에서 받습니다.
+[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.2)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 되돌리려면 설정의 접근성 설치 앱에서 ‘맨 위로 톡’을 끄고 앱을 삭제합니다. 권한과 앱별 한계는

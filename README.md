@@ -17,12 +17,12 @@
 
 ## 맨 위로 톡
 
-<img src="apps/tap-to-top/res/drawable-nodpi/ic_launcher_art_v1.png" width="64" height="64" alt="맨 위로 톡 앱 아이콘">
+<img src="apps/tap-to-top/res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="맨 위로 톡 앱 아이콘">
 
 상태 표시줄을 누르면 보고 있던 화면이 위로 올라갑니다.
 한 번·두 번 탭과 스크롤 세기를 앱에서 고를 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/tap-to-top-0.0.1.apk)** · [사용법](apps/tap-to-top/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/tap-to-top-0.0.2.apk)** · [사용법](apps/tap-to-top/)
 
 Android 12 이상 · 접근성 권한 필요
 
@@ -39,12 +39,12 @@ Android 12 이상 · 접근성 권한 필요
 
 ## 공휴일 수면 연장
 
-<img src="apps/holiday-sleep/res/drawable-nodpi/ic_launcher_art.png" width="64" height="64" alt="공휴일 수면 연장 앱 아이콘">
+<img src="apps/holiday-sleep/res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="공휴일 수면 연장 앱 아이콘">
 
 평일인 한국 공휴일에는 원하는 시간까지 방해 금지를 이어 줍니다.
 시작·종료 시간은 앱에서 바꿀 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/holiday-sleep-0.0.1.apk)** · [사용법](apps/holiday-sleep/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/holiday-sleep-0.0.2.apk)** · [사용법](apps/holiday-sleep/)
 
 Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마인더 권한 필요
 
@@ -61,12 +61,12 @@ Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마�
 
 ## 에어팟 한눈에
 
-<img src="apps/airpods-glance/res/drawable-nodpi/ic_launcher_art_v1.png" width="64" height="64" alt="에어팟 한눈에 앱 아이콘">
+<img src="apps/airpods-glance/res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="에어팟 한눈에 앱 아이콘">
 
 AirPods의 왼쪽·오른쪽·케이스 배터리를 앱과 홈 위젯에서 확인합니다.
 연결할 때는 제품이 회전하는 큰 카드도 띄울 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.1/airpods-glance-0.0.1.apk)** · [사용법](apps/airpods-glance/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.2/airpods-glance-0.0.2.apk)** · [사용법](apps/airpods-glance/)
 
 Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신은 Android 17 이상<br>
 근처 기기·알림 권한 필요 · 큰 연결 카드는 ‘다른 앱 위에 표시’도 필요
