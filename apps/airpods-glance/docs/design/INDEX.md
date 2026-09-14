@@ -1,5 +1,9 @@
 # 에어팟 한눈에 — 설계 인덱스
 
+- [017 — 작게 놓고 크게 읽는 원형 위젯](017-compact-widgets.md):
+  3×1·2×1·1×1 선택, 실제 공간 기반 크기 계산, 미검증 항목을 포함한 소스 반영 기록.
+  [세 앱 공통 UI](../../../../shared/android-ui/README.md).
+
 - [013 — 사용자가 바꾸는 설정과 화면](013-user-controlled-settings.md):
   카드 닫기·배터리 부족 기준 조절, 저장·취소·기본값 복원과 밝은 설정 화면.
   [개발 설치본 검증](../results/2026-09-08-user-settings.md) · [새 아이콘](../../assets/icon/README.md).

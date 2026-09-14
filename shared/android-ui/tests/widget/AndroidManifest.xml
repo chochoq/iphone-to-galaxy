@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.chocho.widgettest">
+  <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36" />
+  <application android:theme="@android:style/Theme.Material.Light.NoActionBar" android:debuggable="true" android:label="Widget isolated test">
+    <activity android:name="com.chocho.widgettest.MainActivity" android:exported="true" />
+  </application>
+  <instrumentation android:name="com.chocho.widgettest.WidgetChecks" android:targetPackage="com.chocho.widgettest" />
+  <instrumentation android:name="com.chocho.widgettest.PreviewExport" android:targetPackage="com.chocho.widgettest" />
+  <instrumentation android:name="com.chocho.widgettest.DensityChecks" android:targetPackage="com.chocho.widgettest" />
+</manifest>

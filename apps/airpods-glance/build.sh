@@ -42,7 +42,7 @@ unzip -p "$HIDDEN_API_AAR" classes.jar > "$HIDDEN_API_JAR"
   --target-sdk-version 36 \
   "$BUILD_DIR/resources.zip"
 
-find "$PROJECT_DIR/src" "$BUILD_DIR/generated" -name '*.java' -print0 \
+find "$PROJECT_DIR/../../shared/android-ui/src" "$PROJECT_DIR/src" "$BUILD_DIR/generated" -name '*.java' -print0 \
   | xargs -0 javac \
       -encoding UTF-8 \
       -source 8 \

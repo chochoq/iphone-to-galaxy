@@ -21,6 +21,8 @@ jobs:
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Check public tree
         run: ./tools/check-public-tree.sh
+      - name: Test shared settings UI models
+        run: sh ./shared/android-ui/test-core.sh
       - name: Test and build Tap to Top
         run: |
           sh ./apps/tap-to-top/test-core.sh

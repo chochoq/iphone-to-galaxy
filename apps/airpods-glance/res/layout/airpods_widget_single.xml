@@ -1,0 +1,9 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_background" android:padding="4dp" android:importantForAccessibility="yes">
+    <LinearLayout android:id="@+id/widget_parts" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="horizontal" android:gravity="center_vertical" android:importantForAccessibility="noHideDescendants" />
+    <ImageView android:id="@+id/widget_refresh" android:layout_width="48dp" android:layout_height="48dp" android:visibility="gone" />
+    <TextView android:id="@+id/widget_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="gone" />
+    <TextView android:id="@+id/widget_open" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:importantForAccessibility="no" />
+</FrameLayout>

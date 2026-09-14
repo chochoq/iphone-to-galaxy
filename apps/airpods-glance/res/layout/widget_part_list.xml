@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_part" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="6dp">
+    <ImageView android:id="@+id/part_ring" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" android:importantForAccessibility="no"/>
+    <TextView android:id="@+id/part_label" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+        android:text="왼쪽" android:textSize="14sp" android:textColor="@color/widget_muted" android:includeFontPadding="false" android:maxLines="1"/>
+    <TextView android:id="@+id/part_percent" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="—" android:textSize="20sp" android:fontFamily="sans-serif-medium" android:fontFeatureSettings="tnum"
+        android:textColor="@color/widget_ink" android:includeFontPadding="false" android:maxLines="1"/>
+</LinearLayout>

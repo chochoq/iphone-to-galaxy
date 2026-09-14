@@ -1,12 +1,12 @@
 package com.chocho.holidaysleep;
 
 import android.content.Context;
+import com.chocho.ui.SettingsSheet;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.widget.Switch;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -44,8 +44,7 @@ final class UiStyle {
         b.setTypeface(Typeface.create("sans-serif-medium",Typeface.NORMAL));
         b.setMinWidth(0); b.setMinimumWidth(0); b.setMinHeight(dp(c,48));
         b.setStateListAnimator(null); b.setPadding(dp(c,12),dp(c,10),dp(c,12),dp(c,10));
-        b.setBackground(new RippleDrawable(ColorStateList.valueOf(0x22007aff),
-                rounded(c,primary?BLUE:TINT,12),null));
+        b.setBackground(SettingsSheet.pressed(c,primary?BLUE:TINT,12));
         b.setTextColor(new ColorStateList(new int[][]{new int[]{-android.R.attr.state_enabled},new int[]{}},
                 new int[]{0xff8e8e93,primary?SURFACE:BLUE}));
         return b;
@@ -68,7 +67,7 @@ final class UiStyle {
             super.setChecked(checked);
             float destination=checked?1f:0f;
             if(animation!=null) animation.cancel();
-            if(!isLaidOut()) { position=destination; invalidate(); return; }
+            if(!isLaidOut() || !android.animation.ValueAnimator.areAnimatorsEnabled()) { position=destination; invalidate(); return; }
             animation=android.animation.ValueAnimator.ofFloat(position,destination);
             animation.setDuration(180);
             animation.addUpdateListener(a -> { position=(float)a.getAnimatedValue(); invalidate(); });

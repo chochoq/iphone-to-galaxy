@@ -24,7 +24,7 @@ mkdir -p "$CLASSES_DIR" "$DEX_DIR"
   --target-sdk-version 36 \
   "$BUILD_DIR/resources.zip"
 
-find "$PROJECT_DIR/src" -name '*.java' -print0 \
+find "$PROJECT_DIR/../../shared/android-ui/src" "$PROJECT_DIR/src" -name '*.java' -print0 \
   | xargs -0 javac \
       -encoding UTF-8 \
       -source 8 \

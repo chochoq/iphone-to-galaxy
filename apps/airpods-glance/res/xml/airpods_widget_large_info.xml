@@ -1,0 +1,4 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_large_description" android:initialLayout="@layout/widget_initial" android:previewImage="@drawable/widget_preview_large_image"
+    android:minWidth="200dp" android:minHeight="48dp" android:minResizeWidth="130dp" android:minResizeHeight="48dp"
+    android:resizeMode="horizontal|vertical" android:targetCellWidth="3" android:targetCellHeight="1" android:widgetFeatures="hide_from_picker" android:updatePeriodMillis="0" android:widgetCategory="home_screen" />

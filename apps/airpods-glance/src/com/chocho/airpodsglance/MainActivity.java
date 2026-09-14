@@ -23,9 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.chocho.ui.SettingsSheet;
+import com.chocho.ui.EditorDialog;
+import com.chocho.ui.DetailsScreen;
+import com.chocho.ui.DetailsContent;
+import com.chocho.ui.SaveJobs;
+import com.chocho.ui.Ui;
 
-public final class MainActivity extends Activity {
+public final class MainActivity extends Activity implements EditorDialog.Host,DetailsScreen.Host {
     private static final int REQUEST_BLUETOOTH = 101;
     private static final int REQUEST_NOTIFICATIONS = 102;
 
@@ -36,8 +41,8 @@ public final class MainActivity extends Activity {
     private TextView caseValue;
     private TextView precisionInfo;
     private TextView freshness;
-    private TextView permissionStatus;
-    private TextView diagnostics;
+    private DetailsContent.Summary permissionStatus;
+    private DetailsContent.Summary diagnostics;
     private ConnectionPopupOverlay previewOverlay;
     private SettingsUi ui;
     private TextView cardTimeValue, budThresholdValue, caseThresholdValue;
@@ -97,110 +102,87 @@ public final class MainActivity extends Activity {
     }
 
     private void buildScreen() {
-        ui=new SettingsUi(this,"에어팟 한눈에","배터리와 연결 카드를 내 방식으로");
+        ui=new SettingsUi(this,"에어팟 한눈에","");
         AppSettings settings=new AppSettings(this);
         LinearLayout battery=ui.group(null);
-        deviceStatus=ui.text("AirPods",20,SettingsUi.INK,true); battery.addView(deviceStatus);
+        deviceStatus=ui.text("AirPods",20,SettingsUi.INK,true);
+        deviceStatus.setPadding(dp(16),dp(16),dp(16),0);battery.addView(deviceStatus);
         freshness=ui.note(battery,"아직 확인한 배터리가 없어요");
-        ui.separator(battery);
         LinearLayout row=new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL); row.setPadding(0,dp(16),0,dp(12));
-        leftValue=batteryColumn(row,"왼쪽");
-        rightValue=batteryColumn(row,"오른쪽");
-        caseValue=batteryColumn(row,"케이스");
-        battery.addView(row);
-        precisionInfo=ui.note(battery,"");
-        ui.separator(battery);
+        row.setOrientation(LinearLayout.HORIZONTAL);row.setPadding(dp(16),dp(16),dp(16),dp(12));
+        leftValue=batteryColumn(row,"왼쪽");rightValue=batteryColumn(row,"오른쪽");caseValue=batteryColumn(row,"케이스");battery.addView(row);
+        precisionInfo=ui.note(battery,"");ui.separator(battery);
         ui.row(battery,"연결 카드 미리보기  ›",this::previewLargeCard);
-        ui.note(battery,"미리보기는 마지막으로 확인한 배터리를 보여줘요.");
+        ui.footer("미리보기는 마지막으로 확인한 배터리를 보여줘요.");
 
         LinearLayout connection=ui.group("연결과 카드");
         monitorToggle=ui.toggle(connection,"연결 중 배터리 확인",settings.monitorEnabled(),value->{
-            settings.setMonitorEnabled(value);
-            if(!value) stopMonitoringFromUi();
+            settings.setMonitorEnabled(value);if(!value)stopMonitoringFromUi();
         });
-        ui.separator(connection);
-        ui.toggle(connection,"연결될 때 알려주기",settings.popupEnabled(),settings::setPopupEnabled);
-        ui.separator(connection);
-        cardTimeValue=ui.setting(connection,"카드 닫는 방식",this::chooseCardDismiss);
-        ui.note(connection,"변경한 닫기 방식은 다음 카드부터 적용돼요. 직접 닫기는 화면을 누르거나 ×를 누르면 돼요.");
+        ui.separator(connection);ui.toggle(connection,"연결될 때 알려주기",settings.popupEnabled(),settings::setPopupEnabled);
+        ui.separator(connection);cardTimeValue=ui.setting(connection,"카드 닫는 방식",()->EditorDialog.card(this));
+        ui.footer("다음에 연결 카드가 표시될 때 적용돼요.");
 
         LinearLayout low=ui.group("배터리 부족 알림");
         ui.toggle(low,"배터리 부족 알림",settings.lowBatteryEnabled(),settings::setLowBatteryEnabled);
-        ui.separator(low);
-        budThresholdValue=ui.setting(low,"이어버드 기준",()->chooseThreshold(true));
-        ui.separator(low);
-        caseThresholdValue=ui.setting(low,"케이스 기준",()->chooseThreshold(false));
-        ui.note(low,"다음 배터리 수신부터 적용해요. 같은 낮은 잔량으로 알림을 반복하지 않아요.");
+        ui.separator(low);budThresholdValue=ui.setting(low,"이어버드 기준",()->chooseThreshold(true));
+        ui.separator(low);caseThresholdValue=ui.setting(low,"케이스 기준",()->chooseThreshold(false));
+        ui.footer("다음 배터리 수신부터 적용해요.\n같은 낮은 잔량으로 알림을 반복하지 않아요.");
 
-        LinearLayout tools=ui.group("사용 도구");
-        ui.row(tools,"배터리 지금 확인  ›",this::startMonitoringFromUi);
-        ui.separator(tools);
-        ui.row(tools,"홈 화면에 위젯 추가  ›",this::requestWidgetPin);
-        ui.separator(tools);
-        ui.row(tools,"조절값 기본값으로",()->ui.confirmReset(()->saveOptions(UserOptions.defaults())));
-
-        LinearLayout info=ui.group("권한 및 정보");
-        permissionSummary=ui.note(info,"");
-        detailsButton=ui.row(info,"권한 및 진단 보기  ∨",()->{
-            detailsExpanded=!detailsExpanded; refreshDetails();
-        });
-        extraDetails=new LinearLayout(this); extraDetails.setOrientation(LinearLayout.VERTICAL);
-        info.addView(extraDetails);
-        permissionStatus=ui.note(extraDetails,"");
-        ui.row(extraDetails,"Bluetooth 권한",this::requestBluetoothPermissions);
-        ui.row(extraDetails,"알림 권한",this::requestNotificationPermission);
-        ui.row(extraDetails,"다른 앱 위에 표시",this::requestOverlayPermission);
-        ui.row(extraDetails,"Bluetooth 설정 열기",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS)));
-        ui.note(extraDetails,"인터넷·위치·마이크·접근성 권한을 사용하지 않아요. 다른 앱 위에 표시 권한은 연결 카드에만 사용해요.");
-        diagnostics=ui.note(extraDetails,"");
-        refreshDetails();
-        ui.install();
-        refreshValues();
+        LinearLayout tools=ui.group("도구 및 정보");
+        ui.row(tools,"배터리 지금 확인  ›",this::startMonitoringFromUi);ui.separator(tools);
+        ui.row(tools,"홈 화면에 위젯 추가  ›",this::requestWidgetPin);ui.separator(tools);
+        ui.row(tools,"조절값 기본값으로",()->{
+            UserOptions d=UserOptions.defaults();
+            EditorDialog.reset(this,new int[]{d.cardSeconds,d.budThreshold,d.caseThreshold},
+                    "직접 닫기 · 이어버드 20%\n케이스 15%로 돌아가요.\n\n사용 여부·권한은 유지해요.\n기기와 배터리 기록도 남아요.");
+        }).setTextColor(Ui.RED);
+        ui.separator(tools);ui.row(tools,"권한 및 진단  ›",()->DetailsScreen.open(this));
+        permissionSummary=ui.footer("");
+        ui.install();refreshValues();
     }
-
-    private void refreshDetails() {
-        extraDetails.setVisibility(detailsExpanded?View.VISIBLE:View.GONE);
-        detailsButton.setText(detailsExpanded?"권한 및 진단 접기  ∧":"권한 및 진단 보기  ∨");
-    }
-
-    private void chooseCardDismiss() {
-        UserOptions options=new AppSettings(this).options();
-        new android.app.AlertDialog.Builder(this).setTitle("카드 닫는 방식")
-                .setItems(new String[]{"직접 닫기","시간을 정해 자동 닫기"},(d,which)->{
-                    if(which==0) {
-                        UserOptions current=new AppSettings(this).options();
-                        saveOptions(new UserOptions(0,current.budThreshold,current.caseThreshold));
-                    } else ui.number("자동으로 닫기","3–60초 후 닫아요. 미리보기에서도 시험할 수 있어요.",
-                            options.cardSeconds==0?10:options.cardSeconds,3,60,seconds->{
-                                UserOptions current=new AppSettings(this).options();
-                                return saveOptions(new UserOptions(seconds,current.budThreshold,current.caseThreshold));
-                            });
-                }).setNegativeButton("취소",null).show();
-    }
-
     private void chooseThreshold(boolean buds) {
-        UserOptions options=new AppSettings(this).options();
-        ui.number(buds?"이어버드 알림 기준":"케이스 알림 기준","5–50% 중 고르세요. 이 값 이하일 때 알려줘요.",
-                buds?options.budThreshold:options.caseThreshold,5,50,value->{
-                    UserOptions current=new AppSettings(this).options();
-                    return saveOptions(new UserOptions(current.cardSeconds,
-                            buds?value:current.budThreshold,buds?current.caseThreshold:value));
-                });
+        EditorDialog.number(this,buds?"buds":"case",buds?"이어버드 알림 기준":"케이스 알림 기준",
+                5,50,"%","이 값 이하일 때 알려줘요.\n다음 유효 배터리 수신부터 적용돼요.");
     }
-
-    private boolean saveOptions(UserOptions options) {
-        boolean saved=new AppSettings(this).saveOptions(options);
-        refreshOptionLabels();
-        Toast.makeText(this,saved?"설정을 저장했어요.":"저장하지 못했어요.",Toast.LENGTH_SHORT).show();
-        return saved;
-    }
-
     private void refreshOptionLabels() {
         UserOptions options=new AppSettings(this).options();
-        cardTimeValue.setText(options.cardSeconds==0?"직접 닫기  ›":options.cardSeconds+"초 후  ›");
-        budThresholdValue.setText(options.budThreshold+"%  ›");
-        caseThresholdValue.setText(options.caseThreshold+"%  ›");
+        cardTimeValue.setText(options.cardSeconds==0?"직접 닫기":options.cardSeconds+"초 후");
+        budThresholdValue.setText(options.budThreshold+"% 이하");
+        caseThresholdValue.setText(options.caseThreshold+"% 이하");
+    }
+    @Override public int[] editorValues(String key){return optionValues(new AppSettings(this).options(),key);}
+    private static int[] optionValues(UserOptions o,String key){
+        if("card".equals(key))return new int[]{o.cardSeconds};
+        if("buds".equals(key))return new int[]{o.budThreshold};
+        if("case".equals(key))return new int[]{o.caseThreshold};
+        if("reset".equals(key))return new int[]{o.cardSeconds,o.budThreshold,o.caseThreshold};
+        throw new IllegalArgumentException(key);
+    }
+    @Override public java.util.concurrent.Callable<SaveJobs.Result> editorSave(String key,int[] before,int[] selected){
+        android.content.Context context=getApplicationContext();
+        return ()->{synchronized(AppSettings.class){
+            AppSettings settings=new AppSettings(context);UserOptions current=settings.options();
+            if(!java.util.Arrays.equals(before,optionValues(current,key)))return SaveJobs.Result.failed("다른 변경이 있어요. 취소한 뒤 다시 열어 주세요.");
+            UserOptions next="reset".equals(key)?new UserOptions(selected[0],selected[1],selected[2]):
+                    new UserOptions("card".equals(key)?selected[0]:current.cardSeconds,
+                            "buds".equals(key)?selected[0]:current.budThreshold,
+                            "case".equals(key)?selected[0]:current.caseThreshold);
+            return settings.saveOptions(next)?SaveJobs.Result.saved("설정을 저장했어요."):SaveJobs.Result.failed("저장하지 못했어요. 값을 확인하고 다시 시도해 주세요.");
+        }};
+    }
+    @Override public void editorUpdated(){if(deviceStatus!=null&&!isDestroyed())refreshValues();}
+    @Override public View createDetails(){
+        DetailsContent content=new DetailsContent(this);LinearLayout permissions=content.section("권한 설정");
+        content.action(permissions,"Bluetooth 권한",this::requestBluetoothPermissions);
+        content.action(permissions,"알림 권한",this::requestNotificationPermission);
+        content.action(permissions,"다른 앱 위에 표시",this::requestOverlayPermission);
+        content.action(permissions,"Bluetooth 설정 열기",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS)));
+        permissionStatus=content.summary(content.section("허용 상태"),permissionText());
+        LinearLayout privacy=content.section("개인정보");
+        content.paragraph(privacy,"필요한 권한만 사용해요","Bluetooth는 내 AirPods 선택과 배터리 수신에, 다른 앱 위에 표시 권한은 연결 카드에 사용해요. 인터넷·위치·마이크·접근성 권한은 사용하지 않아요.");
+        diagnostics=content.summary(content.section("진단 정보"),new DiagnosticsStore(this).summary());
+        return content;
     }
 
     private void resolveDeviceIfPossible() {
@@ -230,11 +212,11 @@ public final class MainActivity extends Activity {
         caseValue.setText(componentText(snapshot, snapshot.caseBattery, now));
         precisionInfo.setText(precisionText(snapshot.source));
         freshness.setText(freshnessText(snapshot, now));
-        permissionStatus.setText(permissionText());
-        diagnostics.setText(new DiagnosticsStore(this).summary());
+        if(permissionStatus!=null)permissionStatus.setText(permissionText());
+        if(diagnostics!=null)diagnostics.setText(new DiagnosticsStore(this).summary());
         permissionSummary.setText(hasBluetoothPermissions() && Settings.canDrawOverlays(this)
                 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)==PackageManager.PERMISSION_GRANTED
-                ? "필요한 권한이 허용되어 있어요." : "일부 권한이 필요해요. 아래에서 확인해 주세요.");
+                ? "필요한 권한이 허용되어 있어요." : "일부 권한이 필요해요. ‘권한 및 진단’에서 확인해 주세요.");
         refreshOptionLabels();
         boolean monitor=new AppSettings(this).monitorEnabled();
         if(monitorToggle.isChecked()!=monitor) monitorToggle.setChecked(monitor);
@@ -267,12 +249,11 @@ public final class MainActivity extends Activity {
     }
 
     private String permissionText() {
-        String bluetooth = hasBluetoothPermissions() ? "Bluetooth ✓" : "Bluetooth 필요";
+        String bluetooth = hasBluetoothPermissions() ? "Bluetooth: 허용" : "Bluetooth: 필요";
         String notification = checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
-                == PackageManager.PERMISSION_GRANTED ? "알림 ✓" : "알림 필요";
-        String overlay = Settings.canDrawOverlays(this) ? "큰 카드 ✓" : "큰 카드 권한 필요";
-        return bluetooth + " · " + notification + " · " + overlay
-                + "\nBluetooth는 내 AirPods 선택과 배터리 수신에만 사용해요.";
+                == PackageManager.PERMISSION_GRANTED ? "알림: 허용" : "알림: 필요";
+        String overlay = Settings.canDrawOverlays(this) ? "연결 카드: 허용" : "연결 카드: 권한 필요";
+        return bluetooth + "\n" + notification + "\n" + overlay;
     }
 
     private String precisionText(AirPodsSnapshot.Source source) {
@@ -299,8 +280,7 @@ public final class MainActivity extends Activity {
 
     private void requestOverlayPermission() {
         if (Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "큰 연결 카드 권한이 이미 허용되어 있어요.",
-                    Toast.LENGTH_SHORT).show();
+            SettingsSheet.message(this,"큰 연결 카드 권한이 이미 허용되어 있어요.");
             return;
         }
         Intent settings = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -310,41 +290,39 @@ public final class MainActivity extends Activity {
 
     private void previewLargeCard() {
         if (!Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "먼저 큰 연결 카드 권한을 허용해 주세요.",
-                    Toast.LENGTH_LONG).show();
+            SettingsSheet.message(this,"먼저 큰 연결 카드 권한을 허용해 주세요.");
             requestOverlayPermission();
             return;
         }
         AirPodsSnapshot snapshot = new BatteryStateStore(this).load();
         if (snapshot.left == null && snapshot.right == null && snapshot.caseBattery == null) {
-            Toast.makeText(this, "미리 볼 배터리 값이 아직 없어요.", Toast.LENGTH_LONG).show();
+            SettingsSheet.message(this,"미리 볼 배터리 값이 아직 없어요.");
             return;
         }
         if (previewOverlay == null) previewOverlay = new ConnectionPopupOverlay(this);
         if (!previewOverlay.show(snapshot, true)) {
-            Toast.makeText(this, "큰 카드를 표시하지 못했어요.", Toast.LENGTH_LONG).show();
+            SettingsSheet.message(this,"큰 카드를 표시하지 못했어요.");
         }
     }
 
     private void startMonitoringFromUi() {
         if (!hasBluetoothPermissions()) {
-            Toast.makeText(this, "먼저 Bluetooth 권한을 허용해 주세요.", Toast.LENGTH_SHORT).show();
+            SettingsSheet.message(this,"먼저 Bluetooth 권한을 허용해 주세요.");
             return;
         }
         PairedAirPodsResolver.Resolution result = new PairedAirPodsResolver(this).resolve();
         if (result.status != PairedAirPodsResolver.Status.SELECTED) {
-            Toast.makeText(this, "페어링된 AirPods를 찾지 못했어요.", Toast.LENGTH_SHORT).show();
+            SettingsSheet.message(this,"페어링된 AirPods를 찾지 못했어요.");
             return;
         }
         new AppSettings(this).setMonitorEnabled(true);
         new ConnectionSessionStore(this).beginIfNeeded();
         try {
             AirPodsMonitorService.startManualDirect(this);
-            Toast.makeText(this, "현재 배터리를 확인해요. 직접 연결은 30초 뒤 자동 종료돼요.",
-                    Toast.LENGTH_LONG).show();
+            SettingsSheet.message(this,"현재 배터리를 확인해요. 직접 연결은 30초 뒤 자동 종료돼요.");
         } catch (RuntimeException error) {
             new DiagnosticsStore(this).increment("service_start_failed");
-            Toast.makeText(this, "배터리 확인을 시작하지 못했어요.", Toast.LENGTH_LONG).show();
+            SettingsSheet.message(this,"배터리 확인을 시작하지 못했어요.");
         }
     }
 
@@ -357,16 +335,7 @@ public final class MainActivity extends Activity {
     }
 
     private void requestWidgetPin() {
-        AppWidgetManager manager = AppWidgetManager.getInstance(this);
-        if (!manager.isRequestPinAppWidgetSupported()) {
-            Toast.makeText(this, "홈 화면을 길게 눌러 위젯에서 추가해 주세요.", Toast.LENGTH_LONG).show();
-            return;
-        }
-        ComponentName provider = new ComponentName(this, AirPodsWidgetProvider.class);
-        Intent successIntent = new Intent(this, MainActivity.class);
-        PendingIntent success = PendingIntent.getActivity(this, 701, successIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        manager.requestPinAppWidget(provider, null, success);
+        startActivity(new Intent(this,WidgetPickerActivity.class));
     }
 
     private boolean hasBluetoothPermissions() {
@@ -418,29 +387,6 @@ public final class MainActivity extends Activity {
         row.addView(column, new LinearLayout.LayoutParams(0,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
         return value;
-    }
-
-    private View switchRow(String label, boolean checked, OnToggle listener) {
-        Switch toggle = new Switch(this);
-        toggle.setText(label);
-        toggle.setTextSize(14);
-        toggle.setTextColor(getColor(R.color.navy));
-        toggle.setPadding(0, dp(10), 0, dp(4));
-        toggle.setChecked(checked);
-        toggle.setOnCheckedChangeListener((button, value) -> listener.changed(value));
-        return toggle;
-    }
-
-    private Button button(String label) {
-        Button button = new Button(this);
-        button.setText(label);
-        button.setAllCaps(false);
-        button.setTextSize(14);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, dp(50));
-        params.setMargins(0, dp(5), 0, 0);
-        button.setLayoutParams(params);
-        return button;
     }
 
     private TextView text(String value, int sp, int color, boolean bold) {
