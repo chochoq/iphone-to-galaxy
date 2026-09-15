@@ -42,6 +42,7 @@ public final class ConnectionReceiver extends BroadcastReceiver {
     }
 
     private static void disconnect(Context context) {
+        AapHub.get(context).disconnect();
         AppSettings settings = new AppSettings(context);
         new BatteryStateStore(context).markConnected(false, settings.selectedName());
         new ConnectionSessionStore(context).end();

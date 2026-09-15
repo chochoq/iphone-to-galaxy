@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,16 +21,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
 /**
- * Minimal, read-only Apple Accessory Protocol client for exact AirPods battery state.
+ * Bounded Apple Accessory Protocol transport for battery reports and explicit noise control.
  *
  * This research adapter first checks Android 17's public BluetoothSocketSettings API and uses a
- * narrowly-scoped hidden L2CAP fallback only during an explicit foreground experiment. Raw AAP
+ * narrowly-scoped hidden L2CAP fallback in a shared, time-limited connection. Raw AAP
  * frames live only for the duration of one decoder call and are never logged or stored.
  */
 public final class AapClient {
     public interface Listener {
         void onStage(String stage);
         void onBattery(AapBatteryDecoder.Decoded battery);
+        default void onReady() { }
+        default void onListening(ListeningProtocol.Report report, long receivedAt) { }
+        default void onClosed() { }
     }
 
     private static final int MIN_PUBLIC_API = 37;
@@ -59,10 +63,14 @@ public final class AapClient {
     private final Listener listener;
     private final Handler watchdog = new Handler(Looper.getMainLooper());
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService writer = Executors.newSingleThreadExecutor();
     private final AtomicBoolean started = new AtomicBoolean(false);
     private final AtomicBoolean stopped = new AtomicBoolean(false);
     private final AtomicBoolean connected = new AtomicBoolean(false);
     private final AtomicBoolean handshakeReady = new AtomicBoolean(false);
+    private final AtomicBoolean initialized = new AtomicBoolean(false);
+    private final Object writeLock = new Object();
+    private volatile OutputStream modeOutput;
     private final Object socketLock = new Object();
     private BluetoothSocket socket;
 
@@ -94,6 +102,8 @@ public final class AapClient {
         if (!started.compareAndSet(false, true)) return;
         if (selectedAddress == null || selectedAddress.length() == 0) {
             report("no_selected_device");
+            listener.onClosed();
+            stop();
             return;
         }
         executor.execute(new Runnable() {
@@ -107,11 +117,36 @@ public final class AapClient {
         watchdog.removeCallbacks(handshakeTimeout);
         closeSocket();
         executor.shutdownNow();
+        writer.shutdownNow();
+    }
+
+    /** No arbitrary commands, replay queue or optimistic state assignment. */
+    public boolean sendListeningMode(ListeningProtocol.Mode mode) {
+        if (!ListeningProtocol.canWrite(mode) || stopped.get() || !initialized.get()) return false;
+        try {
+            writer.execute(() -> {
+                try {
+                    synchronized (writeLock) {
+                        if (stopped.get() || !initialized.get() || modeOutput == null) return;
+                        modeOutput.write(ListeningProtocol.command(mode));
+                        modeOutput.flush();
+                        report("listening_sent_" + mode.name().toLowerCase(java.util.Locale.ROOT));
+                    }
+                } catch (Exception error) {
+                    report("listening_write_failed");
+                    listener.onClosed();
+                    stop();
+                }
+            });
+            return true;
+        } catch (java.util.concurrent.RejectedExecutionException ended) { return false; }
     }
 
     private void runClient() {
         if (Build.VERSION.SDK_INT < MIN_PUBLIC_API) {
             report("public_api_unavailable");
+            listener.onClosed();
+            stop();
             return;
         }
         report("public_api_ready");
@@ -163,6 +198,8 @@ public final class AapClient {
             watchdog.removeCallbacks(connectTimeout);
             watchdog.removeCallbacks(handshakeTimeout);
             closeSocket();
+            if (!stopped.get()) listener.onClosed();
+            stop();
         }
     }
 
@@ -215,19 +252,30 @@ public final class AapClient {
             if (count == 0) continue;
             report("packet_received");
             byte[] frame = Arrays.copyOf(buffer, count);
+            long receivedAt = SystemClock.elapsedRealtime();
             if (isConnectResponse(frame)) {
                 if (littleEndian16(frame, 2) == 0x0004
                         && littleEndian16(frame, 4) == 0x0000) {
-                    handshakeReady.set(true);
+                    if (!handshakeReady.compareAndSet(false, true)) continue;
                     watchdog.removeCallbacks(handshakeTimeout);
                     report("handshake_ok");
                     sendPostHandshake(output);
+                    modeOutput = output;
+                    initialized.set(true);
+                    if (!stopped.get()) listener.onReady();
                 } else {
                     report("handshake_rejected");
                     closeSocket();
                     return;
                 }
                 continue;
+            }
+
+            if (initialized.get() && !stopped.get()) {
+                ListeningProtocol.Report listening = ListeningProtocol.decode(frame);
+                if (listening.kind != ListeningProtocol.Kind.OTHER) {
+                    listener.onListening(listening, receivedAt);
+                }
             }
 
             if (handshakeReady.get() && !stopped.get()
@@ -274,6 +322,8 @@ public final class AapClient {
     }
 
     private void closeSocket() {
+        initialized.set(false);
+        modeOutput = null;
         BluetoothSocket current;
         synchronized (socketLock) {
             current = socket;

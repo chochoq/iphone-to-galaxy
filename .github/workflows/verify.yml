@@ -34,5 +34,6 @@ jobs:
       - name: Test and build AirPods Glance
         run: |
           ./apps/airpods-glance/test-core.sh
+          sh ./apps/airpods-glance/test-listening.sh
           ./apps/airpods-glance/build.sh
           ./apps/airpods-glance/verify-apk.sh

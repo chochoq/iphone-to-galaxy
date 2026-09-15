@@ -16,6 +16,38 @@ Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈·잠금화면 위
 
 Fold8 연결 카드 미리보기 · 저장된 잔량 · [영상 출처](../../docs/images/)
 
+## 소음 제어 — 다음 업데이트
+
+**현재 다운로드 APK에는 아직 없는 기능입니다.** 아래는 다음 업데이트를 준비하며 만든 화면 자료입니다.
+
+AirPods를 갤럭시에 연결한 뒤, 배터리 아래의 ‘소음 제어’에서 원하는 모드를 누릅니다.<br>
+AirPods의 응답을 받으면 선택 표시가 바뀝니다.
+
+### 노이즈 캔슬링
+
+<a href="../../docs/images/air-listening-anc.png"><img src="../../docs/images/air-listening-anc.png" width="600" alt="실제 소음 제어 UI 예시: 사람을 감싼 실선 아이콘의 노이즈 캔슬링이 선택됨"></a>
+
+### 적응형
+
+<a href="../../docs/images/air-listening-adaptive.png"><img src="../../docs/images/air-listening-adaptive.png" width="600" alt="실제 소음 제어 UI 예시: 사람 옆 반짝임 아이콘의 적응형이 선택됨"></a>
+
+### 주변음 허용
+
+<a href="../../docs/images/air-listening-transparency.png"><img src="../../docs/images/air-listening-transparency.png" width="600" alt="실제 소음 제어 UI 예시: 사람을 감싼 점선 아이콘의 주변음 허용이 선택됨"></a>
+
+사진은 실제 앱의 소음 제어 영역을 실행한 **선택 상태 예시**입니다.
+개인 기기 정보와 알림은 넣지 않았습니다. [화면 자료 출처](../../docs/images/#소음-제어--다음-업데이트)
+
+- 처음에는 현재 모드를 읽습니다. ‘적용 확인 중’일 때는 응답을 기다려 주세요.
+- ‘마지막 확인’은 이전에 받은 상태입니다. 현재 상태를 다시 읽으려면 ‘현재 상태 확인’을 누릅니다.
+- Android 17 이상에서 연결된 AirPods에 사용합니다. 적응형은 이를 지원하는 AirPods가 필요합니다.
+- Fold8·Android 17·One UI 9.0에서 세 모드 전환을 확인했고, 사용자는 음악 끊김이 없었다고 확인했습니다.
+
+다른 휴대폰과 AirPods 모델은 확인하지 않았습니다.
+적응 강도 조절·대화 인지·개인 맞춤형 음량 설정은 아직 포함하지 않습니다.
+
+[소음 제어 설계·구현 과정·검증 범위](docs/design/021-listening-controls.md)
+
 ## 처음 사용하기
 
 1. 갤럭시 Bluetooth 설정에서 AirPods를 페어링합니다.
@@ -117,6 +149,7 @@ Fold8·Android 17·One UI 9.0에서 목록·표시를 확인했고, 사용자가
 
 ~~~sh
 ./test-core.sh
+sh ./test-listening.sh
 ./build.sh
 ./verify-apk.sh
 ~~~

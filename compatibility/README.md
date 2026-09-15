@@ -49,6 +49,13 @@
 밝은 배경의 대비, 재부팅 뒤 실제 잠금화면 복원, TalkBack 음성 탐색은 확인이 남았습니다.
 [설계·검사 범위](../apps/airpods-glance/docs/design/018-lock-screen-widgets.md)
 
+## 2026년 9월 15일 — 소음 제어 개발본
+
+Fold8·Android 17·One UI 9.0에서 앱의 노캔·주변음 허용·적응형 전환과 기기 응답, 커버 화면의 표시를
+확인했습니다. 사용자는 전환 뒤 음악 끊김이나 튐이 없었다고 확인했습니다. 다른 휴대폰·AirPods 모델과
+환경별 적응 효과는 검증하지 않았습니다. 현재 공개 APK에 들어 있는 기능은 아닙니다.
+[설계와 검증 범위](../apps/airpods-glance/docs/design/021-listening-controls.md)
+
 ## 다른 기기의 결과를 알려주실 때
 
 ~~~text

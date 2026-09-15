@@ -23,6 +23,10 @@ GitHub의 noreply 주소를 사용합니다. 이 확인은 집과 회사 위치,
 AirPods Glance의 직접 배터리 읽기는 숨은 Bluetooth API를 보조 수단으로 사용합니다. Holiday
 Sleep은 휴대폰의 캘린더를 읽고 앱 전용 방해 금지 규칙을 관리합니다.
 
+다음 업데이트의 AirPods 소음 제어는 배터리 읽기와 달리 기기에 모드 변경 명령을 보냅니다.
+앱 화면에서 사용자가 누른 노캔·적응형·주변음 선택만 처리하며, 연결이 끊긴 뒤 이전 요청을 자동으로
+다시 보내지 않습니다. 현재 공개 APK에는 아직 포함하지 않았습니다.
+
 권한의 의미를 이해하지 못했다면 설치하지 않는 편이 안전합니다.
 
 보안 문제는 GitHub의 [비공개 취약점 신고](https://github.com/chochoq/iphone-to-galaxy/security/advisories/new)로

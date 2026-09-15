@@ -51,6 +51,7 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
     private boolean detailsExpanded;
     private Button detailsButton;
     private Switch monitorToggle;
+    private ListeningController listening;
 
     private final Runnable refreshTask = new Runnable() {
         @Override public void run() {
@@ -70,12 +71,14 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
     protected void onResume() {
         super.onResume();
         resolveDeviceIfPossible();
+        listening.start();
         handler.removeCallbacks(refreshTask);
         handler.post(refreshTask);
     }
 
     @Override
     protected void onPause() {
+        listening.stop();
         handler.removeCallbacks(refreshTask);
         super.onPause();
     }
@@ -89,6 +92,7 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
 
     @Override
     protected void onDestroy() {
+        if(listening!=null)listening.stop();
         if (previewOverlay != null) previewOverlay.dismissImmediately();
         super.onDestroy();
     }
@@ -97,7 +101,7 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_BLUETOOTH) resolveDeviceIfPossible();
+        if (requestCode == REQUEST_BLUETOOTH) { resolveDeviceIfPossible(); listening.permissionsChanged(); }
         refreshValues();
     }
 
@@ -114,6 +118,10 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
         precisionInfo=ui.note(battery,"");ui.separator(battery);
         ui.row(battery,"연결 카드 미리보기  ›",this::previewLargeCard);
         ui.footer("미리보기는 마지막으로 확인한 배터리를 보여줘요.");
+
+        ListeningControlsView listeningView=new ListeningControlsView(this,ui);
+        listening=new ListeningController(this,listeningView);
+        listeningView.bind(listening);
 
         LinearLayout connection=ui.group("연결과 카드");
         monitorToggle=ui.toggle(connection,"연결 중 배터리 확인",settings.monitorEnabled(),value->{
@@ -180,7 +188,7 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
         content.action(permissions,"Bluetooth 설정 열기",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS)));
         permissionStatus=content.summary(content.section("허용 상태"),permissionText());
         LinearLayout privacy=content.section("개인정보");
-        content.paragraph(privacy,"필요한 권한만 사용해요","Bluetooth는 내 AirPods 선택과 배터리 수신에, 다른 앱 위에 표시 권한은 연결 카드에 사용해요. 인터넷·위치·마이크·접근성 권한은 사용하지 않아요.");
+        content.paragraph(privacy,"필요한 권한만 사용해요","Bluetooth는 내 AirPods 선택·배터리 수신·소음 제어에, 다른 앱 위에 표시 권한은 연결 카드에 사용해요. 인터넷·위치·마이크·접근성 권한은 사용하지 않아요.");
         diagnostics=content.summary(content.section("진단 정보"),new DiagnosticsStore(this).summary());
         return content;
     }

@@ -33,7 +33,7 @@ public final class AirPodsMonitorService extends Service {
     private static final long MIN_RENDER_INTERVAL = 60_000L;
 
     private BluetoothLeScanner scanner;
-    private AapClient aapClient;
+    private long aapLease;
     private ConnectionPopupOverlay connectionPopupOverlay;
     private boolean scanning;
     private boolean exactFrameSeen;
@@ -48,10 +48,9 @@ public final class AirPodsMonitorService extends Service {
     };
 
     private final Runnable directWindowTimeout = () -> {
-        if (aapClient == null) return;
+        if (aapLease == 0) return;
         noteDiagnostic("aap_direct_window_closed");
-        aapClient.stop();
-        aapClient = null;
+        releaseAap();
     };
 
     private final Runnable diagnosticsFlush = new Runnable() {
@@ -150,19 +149,24 @@ public final class AirPodsMonitorService extends Service {
     }
 
     private void startAap(final AppSettings settings) {
-        if (aapClient != null) return;
-        aapClient = new AapClient(this, settings.selectedAddress(), new AapClient.Listener() {
-            @Override public void onStage(String stage) {
+        AapHub hub=AapHub.get(this);
+        if (hub.contains(aapLease) || settings.selectedAddress()==null) return;
+        long acquired=hub.acquire(settings.selectedAddress(), false, new AapConnectionOwner.Listener() {
+            @Override public void stage(String stage) {
                 noteDiagnostic("aap_" + stage);
             }
 
-            @Override public void onBattery(final AapBatteryDecoder.Decoded battery) {
-                handler.post(new Runnable() {
-                    @Override public void run() { handleAapBattery(settings, battery); }
-                });
+            @Override public void battery(final AapConnectionOwner.BatteryReport battery) {
+                handleAapBattery(settings, battery.value, battery.observedAtEpochMillis);
             }
+            @Override public void state(ListeningState.Snapshot state) { if(!state.live())aapLease=0; }
         });
-        aapClient.start();
+        aapLease=hub.contains(acquired)?acquired:0;
+    }
+
+    private void releaseAap() {
+        long old=aapLease;aapLease=0;
+        if(old!=0)AapHub.get(this).release(old);
     }
 
     private void startScan() {
@@ -253,14 +257,15 @@ public final class AirPodsMonitorService extends Service {
         acceptSnapshot(settings, snapshot);
     }
 
-    private void handleAapBattery(AppSettings settings, AapBatteryDecoder.Decoded value) {
+    private void handleAapBattery(AppSettings settings, AapBatteryDecoder.Decoded value,long observedAt) {
         BatteryStateStore store = new BatteryStateStore(this);
         AirPodsSnapshot previous = store.load();
+        if(previous.source==AirPodsSnapshot.Source.AAP_EXACT_PERCENT&&previous.observedAtEpochMillis>=observedAt)return;
         BatteryComponent left = value.left != null ? value.left : value.single;
         AirPodsSnapshot snapshot = new AirPodsSnapshot(
                 settings.selectedName(), true, AirPodsSnapshot.IdentityConfidence.EXACT,
                 previous.modelId, left, value.right, value.caseBattery,
-                System.currentTimeMillis(), AirPodsSnapshot.Source.AAP_EXACT_PERCENT);
+                observedAt, AirPodsSnapshot.Source.AAP_EXACT_PERCENT);
         exactFrameSeen = true;
         handler.removeCallbacks(manualTimeout);
         acceptSnapshot(settings, snapshot);
@@ -311,10 +316,7 @@ public final class AirPodsMonitorService extends Service {
 
     private void stopMonitoring(boolean explicitDisconnect) {
         if (connectionPopupOverlay != null) connectionPopupOverlay.dismissImmediately();
-        if (aapClient != null) {
-            aapClient.stop();
-            aapClient = null;
-        }
+        releaseAap();
         handler.removeCallbacks(directWindowTimeout);
         handler.removeCallbacksAndMessages(null);
         flushDiagnostics();
@@ -336,10 +338,7 @@ public final class AirPodsMonitorService extends Service {
     @Override
     public void onDestroy() {
         if (connectionPopupOverlay != null) connectionPopupOverlay.dismissImmediately();
-        if (aapClient != null) {
-            aapClient.stop();
-            aapClient = null;
-        }
+        releaseAap();
         handler.removeCallbacks(directWindowTimeout);
         handler.removeCallbacksAndMessages(null);
         flushDiagnostics();

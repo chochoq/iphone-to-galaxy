@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.chocho.listeninguitest">
+  <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36" />
+  <application android:label="Listening UI isolated checks" android:debuggable="true" android:theme="@android:style/Theme.Material.Light.NoActionBar">
+    <activity android:name=".MainActivity" android:exported="true" />
+  </application>
+  <instrumentation android:name=".Checks" android:targetPackage="com.chocho.listeninguitest" />
+  <instrumentation android:name=".Gallery" android:targetPackage="com.chocho.listeninguitest" />
+</manifest>
