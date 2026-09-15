@@ -1,0 +1,3 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/listening_lock_preview" android:contentDescription="소음 제어, 누르면 다음 모드로 전환"/>
+</FrameLayout>

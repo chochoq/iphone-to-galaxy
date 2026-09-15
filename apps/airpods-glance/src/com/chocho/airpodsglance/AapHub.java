@@ -35,7 +35,11 @@ public final class AapHub {
                 public void onListening(ListeningProtocol.Report report,long at){handler.post(()->{
                     // Enum names and monotonic time only. Never log addresses, frames or names.
                     Log.i("AirPodsListening","report_"+report.kind+"_"+report.mode+" at="+at);
+                    int before=owner.snapshot().reports;
                     receiver.listening(report,at);
+                    ListeningState.Snapshot accepted=owner.snapshot();
+                    if(report.kind==ListeningProtocol.Kind.MODE&&accepted.reports>before&&accepted.receivedAt==at
+                            &&new ListeningWidgetStore(context).record(address,report.mode,at))ListeningWidgetProvider.updateAll(context);
                 });}
                 public void onClosed(){handler.post(receiver::failed);}
             });

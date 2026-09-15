@@ -1,0 +1,9 @@
+<resources>
+    <color name="listening_widget_surface">#FAFAFA</color>
+    <string name="listening_widget_wide">소음 제어 · 가로 3×1</string>
+    <string name="listening_widget_small">소음 제어 · 미니 2×1</string>
+    <string name="listening_widget_single">소음 제어 · 한 칸 1×1</string>
+    <string name="listening_widget_lock">소음 제어 · 잠금 한 칸</string>
+    <string name="listening_widget_direct_description">노캔·적응형·주변음을 아이콘으로 바로 선택해요.</string>
+    <string name="listening_widget_cycle_description">누르면 앱에서 고른 순서대로 모드를 바꿔요. 표시는 마지막으로 확인한 모드예요.</string>
+</resources>

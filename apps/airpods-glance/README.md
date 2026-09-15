@@ -48,6 +48,65 @@ AirPods의 응답을 받으면 선택 표시가 바뀝니다.
 
 [소음 제어 설계·구현 과정·검증 범위](docs/design/021-listening-controls.md)
 
+## 소음 제어 위젯 — 개발 중
+
+**아직 다운로드 APK에는 없습니다.** 개발 소스에서는 배터리와 소음 제어 위젯을 따로 고릅니다.
+소음 제어는 Android 17 이상에서 연결된 AirPods에 사용합니다. 적응형은 이를 지원하는 AirPods가 필요합니다.
+
+<picture>
+  <source media="(max-width: 600px)" srcset="../../docs/images/air-listening-widgets-light-stacked.png">
+  <img src="../../docs/images/air-listening-widgets-light.png" width="880" alt="밝은 화면의 소음 제어 3×1, 2×1, 1×1 위젯. 모드 아이콘만 있고 새로고침 표시는 없습니다.">
+</picture>
+
+- **3×1:** 아이콘과 이름으로 노캔·적응형·주변음을 바로 선택합니다.
+- **2×1:** 세 아이콘으로 원하는 모드를 선택합니다.
+- **1×1:** 한 번 누를 때마다 설정한 순서의 다음 모드로 바꿉니다.
+
+<details>
+<summary>어두운 화면 보기</summary>
+
+<picture>
+  <source media="(max-width: 600px)" srcset="../../docs/images/air-listening-widgets-dark-stacked.png">
+  <img src="../../docs/images/air-listening-widgets-dark.png" width="880" alt="어두운 배경의 소음 제어 위젯 세 크기. 흰 아이콘과 파란 노캔 표시입니다.">
+</picture>
+
+</details>
+
+### 한 칸형의 모드와 순서
+
+1. 앱에서 ‘홈 화면에 위젯 추가’를 엽니다.
+2. ‘한 칸 위젯 설정’ → ‘기본 전환 순서’를 고릅니다.
+3. 행을 눌러 사용할 모드를 두 개 이상 체크합니다.
+4. 오른쪽 손잡이를 끌어 순서를 바꾼 뒤 저장합니다.
+
+<p>
+  <a href="../../docs/images/air-listening-settings-three-modes.png"><img src="../../docs/images/air-listening-settings-three-modes.png" width="360" alt="세 모드를 모두 체크한 전환 순서 화면. 작은 상단 제목 아래 한 목록에서 손잡이로 순서를 바꿉니다."></a>
+  <a href="../../docs/images/air-listening-settings-two-modes.png"><img src="../../docs/images/air-listening-settings-two-modes.png" width="360" alt="노캔과 주변음만 체크한 예시. 제외한 적응형은 목록 아래에 있고 이동 손잡이가 없습니다."></a>
+</p>
+
+세 모드 사용 · 노캔과 주변음만 사용 — [화면 자료 출처](../../docs/images/#소음-제어-위젯과-전환-순서)
+
+선택과 순서 변경은 한 목록에서 끝납니다. 제외한 모드를 다시 선택하면 순서 끝에 붙습니다.
+화면 읽기의 ‘앞으로 이동·뒤로 이동’ 동작이나 손잡이에 포커스를 둔 키보드 방향키로도 정렬할 수 있습니다.
+저장 전에는 실제 위젯 설정을 바꾸지 않으며, 취소하면 이전 설정을 유지합니다.
+이미 추가한 한 칸 위젯마다 다른 순서를 정할 수도 있습니다.
+
+위젯은 마지막으로 받은 모드를 표시합니다. 누르면 실제 상태를 먼저 확인하고 전환하도록 만들었습니다.
+연결이 없으면 안내만 표시하며, 여러 번 누른 명령을 쌓아 뒀다가 나중에 보내지 않습니다.
+
+잠금화면용 ‘소음 제어 · 잠금 한 칸’도 별도로 준비했습니다.
+**실제로 잠긴 화면에서 소음이 제어되는지는 아직 확인하지 않았습니다.**
+
+### 확인한 범위
+
+기존 위젯 개발본은 Fold8·Android 17·One UI 9.0에서 설치·홈 표시·연결 없음 안내를 확인했습니다.
+새 한 목록 편집기는 Android 15 격리 환경에서 화면·실제 터치 정렬·저장·취소·화면 재생성을 검사했습니다.
+이 편집기는 아직 Fold8에 설치하지 않았습니다. 사진 속 선택은 테스트용 예시이며 실제 소음 전환 장면이 아닙니다.
+
+위젯으로 실제 모드가 바뀌는지, 음악이 유지되는지, 잠긴 화면에서 제어되는지는 추가 확인이 필요합니다.
+앱 안 소음 제어 버튼에서 확인한 결과와 구분합니다.
+[설계·태스크·검증 기록](docs/design/025-listening-widgets.md)
+
 ## 처음 사용하기
 
 1. 갤럭시 Bluetooth 설정에서 AirPods를 페어링합니다.

@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">에어팟 한눈에</string>
     <string name="widget_description">AirPods 좌우와 케이스 배터리</string>
-    <string name="widget_small_name">미니 가로 · 2×1</string>
-    <string name="widget_wide_name">가로 원형 · 3×1</string>
+    <string name="widget_small_name">배터리 · 미니 2×1</string>
+    <string name="widget_wide_name">배터리 · 가로 3×1</string>
     <string name="widget_large_name">이전 큰 원형</string>
     <string name="widget_small_description">두 칸에 양쪽 이어버드와 케이스의 원형 잔량을 표시해요.</string>
     <string name="widget_wide_description">세 칸에 원과 잔량을 나란히 표시해요.</string>
     <string name="widget_large_description">이전에 추가한 위젯을 위한 호환용 형태예요.</string>
-    <string name="widget_single_name">한 칸 원형 · 1×1</string>
+    <string name="widget_single_name">배터리 · 한 칸 1×1</string>
     <string name="widget_single_description">한 부품의 잔량을 크게. 누를 때마다 왼쪽·오른쪽·케이스로 바뀌어요.</string>
 </resources>

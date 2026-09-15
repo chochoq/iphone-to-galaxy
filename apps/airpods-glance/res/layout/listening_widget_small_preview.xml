@@ -1,0 +1,5 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal" android:gravity="center" android:background="@drawable/listening_widget_background">
+    <ImageView android:layout_width="0dp" android:layout_weight="1" android:layout_height="40dp" android:src="@drawable/listening_anc_preview" android:contentDescription="노캔"/>
+    <ImageView android:layout_width="0dp" android:layout_weight="1" android:layout_height="40dp" android:src="@drawable/listening_adaptive_preview" android:contentDescription="적응형"/>
+    <ImageView android:layout_width="0dp" android:layout_weight="1" android:layout_height="40dp" android:src="@drawable/listening_transparency_preview" android:contentDescription="주변음"/>
+</LinearLayout>

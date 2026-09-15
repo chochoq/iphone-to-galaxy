@@ -96,6 +96,21 @@ Fold8 연결 카드 미리보기 · 저장된 잔량
 
 ### 홈 공간에 맞게 위젯 고르기
 
+소음 제어 위젯도 별도로 준비하고 있습니다. **아래 소음 위젯은 아직 다운로드 APK에 없습니다.**
+
+<picture>
+  <source media="(max-width: 600px)" srcset="docs/images/air-listening-widgets-light-stacked.png">
+  <img src="docs/images/air-listening-widgets-light.png" width="880" alt="소음 제어 위젯: 이름과 아이콘의 3×1, 아이콘만 있는 2×1, 누를 때마다 다음 모드로 바꾸는 원형 1×1">
+</picture>
+
+3×1·2×1은 원하는 모드를 바로 선택하고, 1×1은 앱에서 정한 순서로 전환하도록 만들었습니다.
+한 목록에서 사용할 모드를 체크하고 손잡이를 끌어 순서를 바꿉니다. 노캔↔주변음 두 모드만 남길 수도 있습니다.
+[설정 화면과 확인한 범위](apps/airpods-glance/#소음-제어-위젯--개발-중)
+
+위 그림은 실제 UI에 예시 상태를 넣은 화면입니다. 실제 위젯 소음 전환·음악 유지·잠긴 화면 제어는 추가 확인이 필요합니다.
+
+**아래는 현재 APK에서 사용하는 배터리 위젯입니다.**
+
 <p>
   <a href="docs/images/widget-wide.png"><img src="docs/images/widget-wide.png" width="320" alt="3×1 가로 원형 위젯: 왼쪽·오른쪽·케이스 잔량"></a>
   <a href="docs/images/widget-small.png"><img src="docs/images/widget-small.png" width="201" alt="2×1 미니 가로 위젯: 세 부품을 더 좁은 공간에 표시"></a>

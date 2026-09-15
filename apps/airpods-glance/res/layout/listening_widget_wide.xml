@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@drawable/listening_widget_background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal" android:gravity="center" android:baselineAligned="false">
+        <LinearLayout android:id="@+id/listening_anc" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@drawable/listening_widget_pressed" android:focusable="true" android:clickable="true">
+            <ImageView android:id="@+id/listening_anc_icon" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/listening_anc_preview" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/listening_anc_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="노캔" android:textSize="11sp" android:includeFontPadding="false" android:importantForAccessibility="no" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/listening_adaptive" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@drawable/listening_widget_pressed" android:focusable="true" android:clickable="true">
+            <ImageView android:id="@+id/listening_adaptive_icon" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/listening_adaptive_preview" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/listening_adaptive_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="적응형" android:textSize="11sp" android:includeFontPadding="false" android:importantForAccessibility="no" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/listening_transparency" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@drawable/listening_widget_pressed" android:focusable="true" android:clickable="true">
+            <ImageView android:id="@+id/listening_transparency_icon" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/listening_transparency_preview" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/listening_transparency_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="주변음" android:textSize="11sp" android:includeFontPadding="false" android:importantForAccessibility="no" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:id="@+id/listening_history" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingBottom="5dp" android:text="소음 제어" android:textSize="10sp" android:maxLines="1" android:includeFontPadding="false" android:importantForAccessibility="no" />
+</LinearLayout>

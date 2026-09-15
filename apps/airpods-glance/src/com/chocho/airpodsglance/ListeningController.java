@@ -17,7 +17,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import com.chocho.airpodsglance.ListeningProtocol.Mode;
 
-/** Foreground-only intent. Nothing persists or executes after a Bluetooth/lifecycle boundary. */
+/** A resumed screen or explicit short foreground service owns start/stop. Requests never persist. */
 public final class ListeningController {
     public interface Screen { void render(ListeningState.Snapshot state,String message,boolean enabled,Mode pending); }
     private final Context context;private final Screen screen;private final AapHub hub;
@@ -59,6 +59,7 @@ public final class ListeningController {
         if(registered){context.unregisterReceiver(receiver);registered=false;}
     }
     public void permissionsChanged(){if(foreground){stop();start();}}
+    public boolean isCheckingConnection(){return verifying||pending!=Mode.UNKNOWN;}
     public void refresh(){if(foreground&&!verifying&&pending==Mode.UNKNOWN&&!applying())verify(Mode.UNKNOWN);}
     public void choose(Mode mode){
         if(!foreground||verifying||pending!=Mode.UNKNOWN||applying()||!ListeningProtocol.canWrite(mode))return;

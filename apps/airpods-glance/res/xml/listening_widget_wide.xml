@@ -1,0 +1,5 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/listening_widget_direct_description" android:initialLayout="@layout/listening_widget_wide" android:previewLayout="@layout/listening_widget_wide"
+    android:minWidth="200dp" android:minHeight="48dp" android:minResizeWidth="144dp" android:minResizeHeight="48dp"
+    android:resizeMode="horizontal|vertical" android:targetCellWidth="3" android:targetCellHeight="1"
+    android:updatePeriodMillis="0" android:widgetCategory="home_screen" />

@@ -1,5 +1,26 @@
 # 앱 화면과 데모 영상
 
+## 소음 제어 위젯과 전환 순서
+
+[밝은 위젯](air-listening-widgets-light.png) · [어두운 위젯](air-listening-widgets-dark.png) ·
+[세 모드 설정](air-listening-settings-three-modes.png) · [두 모드 설정](air-listening-settings-two-modes.png)
+
+2026-09-15 AOSP ATD Android 15 에뮬레이터에서 실제 제품 RemoteViews와 전환 순서 편집기를 실행했습니다.
+별도 테스트 앱에는 Bluetooth·인터넷 권한이 없습니다. 노캔 표시와 설정은 예시 입력입니다.
+실제 소음 전환이나 삼성 잠금화면 조작을 촬영한 장면은 아닙니다.
+
+위젯은 한 비교 그림 안에서 같은 배율로 배치했고 문서용 제목·배경만 바깥에 더했습니다.
+가로 그림과 좁은 화면용 세로 그림을 각각 제공합니다. 실제 홈의 크기는 격자·런처에 따라 다릅니다.
+설정은 제품 Activity의 390dp 화면 내용을 출력했습니다. 상태 표시줄·내비게이션 바와 아래의 빈 공간은 제외했습니다.
+앞선 두 목록 설정 화면이 아닌, 체크와 손잡이가 있는 한 목록 편집기입니다.
+
+개인 배경·알림·계정·기기명·주소·배터리 숫자를 넣지 않았습니다.
+Apple 원본 이미지·폰트·SF Symbols를 복사하지 않았으며 제품의 자체 제작 도형을 사용했습니다.
+PNG에는 텍스트·EXIF 메타데이터가 없습니다. 현재 공개 APK에는 아직 없는 개발 화면입니다.
+[렌더 재현 방법](../../apps/airpods-glance/tests/listening-widget-render/README.md)
+
+직접 만든 문서용 이미지에는 [CC BY-SA 4.0](../../LICENSES/CC-BY-SA-4.0.txt)을 적용합니다.
+
 ## 소음 제어 — 다음 업데이트
 
 [노이즈 캔슬링](air-listening-anc.png) · [적응형](air-listening-adaptive.png) · [주변음 허용](air-listening-transparency.png)

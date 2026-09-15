@@ -2,8 +2,6 @@ package com.chocho.airpodsglance;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.view.Gravity;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -87,40 +85,10 @@ public final class ListeningControlsView implements ListeningController.Screen {
     }
     private int d(float value){return Ui.dp(context,value);}
     private static final class ModeIcon extends View {
-        private final Mode mode;private final Paint paint=new Paint(3);int color=Ui.INK;
-        private final Path shoulders=new Path(),largeSparkle=new Path(),smallSparkle=new Path();
-        ModeIcon(Context c,Mode mode){
-            super(c);this.mode=mode;paint.setStrokeCap(Paint.Cap.ROUND);paint.setStrokeJoin(Paint.Join.ROUND);
-            // One independently drawn person silhouette, shared by all three listening modes.
-            shoulders.moveTo(4.2f,22.2f);shoulders.cubicTo(4.2f,18.4f,8.3f,16.4f,13,16.4f);
-            shoulders.cubicTo(17.7f,16.4f,21.8f,18.4f,21.8f,22.2f);
-            shoulders.quadTo(21.8f,23.1f,20.9f,23.1f);shoulders.lineTo(5.1f,23.1f);
-            shoulders.quadTo(4.2f,23.1f,4.2f,22.2f);shoulders.close();
-            sparkle(largeSparkle,21,5.7f,3.3f);sparkle(smallSparkle,16.3f,2.7f,1.25f);
-        }
-        private static void sparkle(Path path,float x,float y,float radius){
-            float waist=radius*0.14f;
-            path.moveTo(x,y-radius);path.quadTo(x+waist,y-waist,x+radius,y);
-            path.quadTo(x+waist,y+waist,x,y+radius);path.quadTo(x-waist,y+waist,x-radius,y);
-            path.quadTo(x-waist,y-waist,x,y-radius);path.close();
-        }
+        private final Mode mode;private final ListeningArtwork artwork=new ListeningArtwork();int color=Ui.INK;
+        ModeIcon(Context c,Mode mode){super(c);this.mode=mode;}
         @Override protected void onDraw(Canvas canvas){
-            super.onDraw(canvas);canvas.save();canvas.scale(getWidth()/26f,getHeight()/26f);
-            paint.setColor(color);paint.setStyle(Paint.Style.FILL);
-            canvas.drawCircle(13,10.2f,3.85f,paint);canvas.drawPath(shoulders,paint);
-            if(mode==Mode.ANC){
-                // Leave the lower arc open: the enclosure must not touch the shoulders.
-                paint.setStyle(Paint.Style.STROKE);paint.setStrokeWidth(1.75f);
-                canvas.drawArc(4.8f,2.1f,21.2f,18.5f,150,240,false,paint);
-            }else if(mode==Mode.TRANSPARENCY){
-                for(int i=0;i<11;i++){
-                    double angle=Math.toRadians(150+i*24);
-                    canvas.drawCircle(13+8.2f*(float)Math.cos(angle),10.3f+8.2f*(float)Math.sin(angle),0.95f,paint);
-                }
-            }else if(mode==Mode.ADAPTIVE){
-                canvas.drawPath(largeSparkle,paint);canvas.drawPath(smallSparkle,paint);
-            }
-            canvas.restore();
+            super.onDraw(canvas);artwork.draw(canvas,mode,color,getWidth(),getHeight());
         }
     }
 }

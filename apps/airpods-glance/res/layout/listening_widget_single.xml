@@ -1,0 +1,3 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/listening_single" android:layout_width="72dp" android:layout_height="72dp" android:layout_gravity="center" android:scaleType="fitCenter" android:src="@drawable/listening_single_preview" android:contentDescription="소음 제어, 누르면 다음 모드로 전환" android:background="@drawable/listening_widget_pressed" android:focusable="true" android:clickable="true" />
+</FrameLayout>

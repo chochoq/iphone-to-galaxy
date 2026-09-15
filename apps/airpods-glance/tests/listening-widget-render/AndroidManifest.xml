@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.chocho.listeningwidgetrender">
+    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36"/>
+    <application android:label="소음 위젯 렌더 검사" android:debuggable="true" android:theme="@style/AppTheme" android:allowBackup="false">
+        <activity android:name="com.chocho.airpodsglance.ListeningWidgetConfigActivity" android:exported="false"/>
+    </application>
+    <instrumentation android:name="com.chocho.listeningwidgetrender.Checks" android:targetPackage="com.chocho.listeningwidgetrender"/>
+    <instrumentation android:name="com.chocho.listeningwidgetrender.DocGallery" android:targetPackage="com.chocho.listeningwidgetrender"/>
+    <instrumentation android:name="com.chocho.listeningwidgetrender.OrderChecks" android:targetPackage="com.chocho.listeningwidgetrender"/>
+</manifest>

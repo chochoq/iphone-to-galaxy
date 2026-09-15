@@ -1,0 +1,6 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/listening_widget_cycle_description" android:initialLayout="@layout/listening_widget_single" android:previewLayout="@layout/listening_widget_single"
+    android:minWidth="48dp" android:minHeight="48dp" android:minResizeWidth="48dp" android:minResizeHeight="48dp"
+    android:resizeMode="none" android:targetCellWidth="1" android:targetCellHeight="1"
+    android:configure="com.chocho.airpodsglance.ListeningWidgetConfigActivity" android:widgetFeatures="reconfigurable|configuration_optional"
+    android:updatePeriodMillis="0" android:widgetCategory="home_screen" />
