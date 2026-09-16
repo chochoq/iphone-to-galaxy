@@ -2,9 +2,9 @@
 
 <img src="res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="에어팟 한눈에 아이콘">
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/airpods-glance-0.0.3.apk)** · [설치 안내](../../docs/INSTALL.md)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.4/airpods-glance-0.0.4.apk)** · [설치 안내](../../docs/INSTALL.md)
 
-Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신은 Android 17 이상
+Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신·소음 제어는 Android 17 이상
 
 Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈·잠금화면 위젯에서 확인하는 개인용 Android
 앱입니다. AirPods가 새로 연결되면 큰 제품 화면도 띄울 수 있습니다. 광고와 분석 기능은 없으며
@@ -16,9 +16,9 @@ Galaxy에 연결된 AirPods의 배터리를 앱, 알림과 홈·잠금화면 위
 
 Fold8 연결 카드 미리보기 · 저장된 잔량 · [영상 출처](../../docs/images/)
 
-## 소음 제어 — 다음 업데이트
+## 소음 제어
 
-**현재 다운로드 APK에는 아직 없는 기능입니다.** 아래는 다음 업데이트를 준비하며 만든 화면 자료입니다.
+0.0.4부터 노이즈 캔슬링·적응형·주변음 허용을 앱에서 고를 수 있습니다.
 
 AirPods를 갤럭시에 연결한 뒤, 배터리 아래의 ‘소음 제어’에서 원하는 모드를 누릅니다.<br>
 AirPods의 응답을 받으면 선택 표시가 바뀝니다.
@@ -36,7 +36,7 @@ AirPods의 응답을 받으면 선택 표시가 바뀝니다.
 <a href="../../docs/images/air-listening-transparency.png"><img src="../../docs/images/air-listening-transparency.png" width="600" alt="실제 소음 제어 UI 예시: 사람을 감싼 점선 아이콘의 주변음 허용이 선택됨"></a>
 
 사진은 실제 앱의 소음 제어 영역을 실행한 **선택 상태 예시**입니다.
-개인 기기 정보와 알림은 넣지 않았습니다. [화면 자료 출처](../../docs/images/#소음-제어--다음-업데이트)
+개인 기기 정보와 알림은 넣지 않았습니다. [화면 자료 출처](../../docs/images/#소음-제어)
 
 - 처음에는 현재 모드를 읽습니다. ‘적용 확인 중’일 때는 응답을 기다려 주세요.
 - ‘마지막 확인’은 이전에 받은 상태입니다. 현재 상태를 다시 읽으려면 ‘현재 상태 확인’을 누릅니다.
@@ -48,9 +48,9 @@ AirPods의 응답을 받으면 선택 표시가 바뀝니다.
 
 [소음 제어 설계·구현 과정·검증 범위](docs/design/021-listening-controls.md)
 
-## 소음 제어 위젯 — 개발 중
+## 소음 제어 위젯
 
-**아직 다운로드 APK에는 없습니다.** 개발 소스에서는 배터리와 소음 제어 위젯을 따로 고릅니다.
+0.0.4부터 배터리와 소음 제어 위젯을 따로 고릅니다.
 소음 제어는 Android 17 이상에서 연결된 AirPods에 사용합니다. 적응형은 이를 지원하는 AirPods가 필요합니다.
 
 <picture>
@@ -221,7 +221,7 @@ Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니�
 저작자 고지도 함께 들어갑니다.
 
 직접 빌드한 APK는 개발자의 테스트용 키로 서명됩니다. 공식 APK는
-[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.3)에서 받습니다.
+[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.4)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 APK는 Android 12 이상에 설치할 수 있지만, 연결 후 AAP 배터리를 읽는 경로는 Android 17 이상에서만

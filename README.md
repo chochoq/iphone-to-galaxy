@@ -13,7 +13,7 @@
 
 - [화면 위를 눌러 위로 스크롤](#맨-위로-톡)
 - [평일 공휴일에는 조금 더 조용히](#공휴일-수면-연장)
-- [AirPods 배터리와 연결 카드](#에어팟-한눈에)
+- [AirPods 배터리·소음 제어·연결 카드](#에어팟-한눈에)
 
 ## 맨 위로 톡
 
@@ -22,7 +22,7 @@
 상태 표시줄을 누르면 보고 있던 화면이 위로 올라갑니다.
 한 번·두 번 탭과 스크롤 세기를 앱에서 고를 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/tap-to-top-0.0.3.apk)** · [사용법](apps/tap-to-top/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.4/tap-to-top-0.0.4.apk)** · [사용법](apps/tap-to-top/)
 
 Android 12 이상 · 접근성 권한 필요
 
@@ -44,7 +44,7 @@ Android 12 이상 · 접근성 권한 필요
 평일인 한국 공휴일에는 원하는 시간까지 방해 금지를 이어 줍니다.
 시작·종료 시간은 앱에서 바꿀 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/holiday-sleep-0.0.3.apk)** · [사용법](apps/holiday-sleep/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.4/holiday-sleep-0.0.4.apk)** · [사용법](apps/holiday-sleep/)
 
 Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마인더 권한 필요
 
@@ -66,9 +66,9 @@ Android 15 이상 · 캘린더 읽기·방해 금지 접근·알람 및 리마�
 AirPods의 왼쪽·오른쪽·케이스 배터리를 앱과 홈·잠금화면 위젯에서 확인합니다.
 연결할 때는 제품이 회전하는 큰 카드도 띄울 수 있습니다.
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.3/airpods-glance-0.0.3.apk)** · [사용법](apps/airpods-glance/)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.4/airpods-glance-0.0.4.apk)** · [사용법](apps/airpods-glance/)
 
-Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신은 Android 17 이상<br>
+Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신·소음 제어는 Android 17 이상<br>
 근처 기기·알림 권한 필요 · 큰 연결 카드는 ‘다른 앱 위에 표시’도 필요
 
 ![이어버드와 케이스가 회전하는 에어팟 연결 카드](docs/images/airpods-card-demo.gif)
@@ -83,20 +83,20 @@ Fold8 연결 카드 미리보기 · 저장된 잔량
 
 배터리·설정 · 카드 닫는 방식 · 자동 닫기 시간
 
-### 소음 제어 — 다음 업데이트
+### 소음 제어
 
 노이즈 캔슬링·적응형·주변음 허용을 앱에서 선택할 수 있습니다.<br>
 갤럭시에 연결된 AirPods에서 응답을 받으면 현재 모드가 표시됩니다.
 
 <a href="docs/images/air-listening-adaptive.png"><img src="docs/images/air-listening-adaptive.png" width="600" alt="소음 제어 UI 예시: 적응형이 파란색으로 선택된 상태, 양옆에 노이즈 캔슬링과 주변음 허용 버튼"></a>
 
-실제 앱 UI의 선택 예시 · [세 모드와 사용법](apps/airpods-glance/#소음-제어--다음-업데이트)
+실제 앱 UI의 선택 예시 · [세 모드와 사용법](apps/airpods-glance/#소음-제어)
 
-**현재 다운로드 APK에는 아직 없습니다.** Fold8에서 구현·시험을 마쳤고, 다음 업데이트에 포함할 예정입니다.
+0.0.4부터 포함합니다. Fold8에서 앱 안의 세 모드 전환을 확인했습니다. 다른 기기·AirPods 모델은 확인이 필요합니다.
 
 ### 홈 공간에 맞게 위젯 고르기
 
-소음 제어 위젯도 별도로 준비하고 있습니다. **아래 소음 위젯은 아직 다운로드 APK에 없습니다.**
+배터리와 소음 제어 위젯을 따로 고를 수 있습니다. 아래 소음 제어 위젯은 0.0.4부터 포함합니다.
 
 <picture>
   <source media="(max-width: 600px)" srcset="docs/images/air-listening-widgets-light-stacked.png">
@@ -105,11 +105,11 @@ Fold8 연결 카드 미리보기 · 저장된 잔량
 
 3×1·2×1은 원하는 모드를 바로 선택하고, 1×1은 앱에서 정한 순서로 전환하도록 만들었습니다.
 한 목록에서 사용할 모드를 체크하고 손잡이를 끌어 순서를 바꿉니다. 노캔↔주변음 두 모드만 남길 수도 있습니다.
-[설정 화면과 확인한 범위](apps/airpods-glance/#소음-제어-위젯--개발-중)
+[설정 화면과 확인한 범위](apps/airpods-glance/#소음-제어-위젯)
 
 위 그림은 실제 UI에 예시 상태를 넣은 화면입니다. 실제 위젯 소음 전환·음악 유지·잠긴 화면 제어는 추가 확인이 필요합니다.
 
-**아래는 현재 APK에서 사용하는 배터리 위젯입니다.**
+배터리 위젯은 아래 세 크기 중에서 고릅니다.
 
 <p>
   <a href="docs/images/widget-wide.png"><img src="docs/images/widget-wide.png" width="320" alt="3×1 가로 원형 위젯: 왼쪽·오른쪽·케이스 잔량"></a>
