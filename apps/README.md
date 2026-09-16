@@ -5,13 +5,13 @@ Galaxy 설정과 Samsung 공식 도구, 이미 공개된 앱으로 원하는 동
 
 - [맨 위로 톡](tap-to-top/): 상태 표시줄을 누르면 현재 화면을 위로 한 번 움직입니다.
 - [공휴일 수면 연장](holiday-sleep/): 평일 법정공휴일에는 정한 시간까지 방해 금지를 이어 줍니다.
-- [에어팟 한눈에](airpods-glance/): 연결된 AirPods의 배터리와 큰 연결 화면을 보여줍니다.
+- [에어팟 한눈에](airpods-glance/): 배터리·연결 카드·홈과 잠금 위젯, 노캔·적응형·주변음 제어를 제공합니다.
 
 앱마다 빌드 방법과 필요한 권한, 저장하는 정보, 확인한 기기와 삭제 방법을 따로 적었습니다.
-여기에 있다고 해서 범용 배포가 끝났다는 뜻은 아닙니다. 세 앱 모두 현재 Galaxy Z Fold8 한 대를
-중심으로 시험했습니다.
+세 앱 모두 Galaxy Z Fold8 한 대를 중심으로 시험했습니다.
+다른 기기에서의 동작까지 확인한 것은 아닙니다.
 
-세 앱의 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.2)에서 받습니다.
+세 앱의 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/latest)에서 받습니다.
 [폰에서 설치하기](../docs/INSTALL.md)를 따라가면 USB와 개발자 옵션 없이 설치할 수 있습니다.
 직접 build.sh를 실행하면 공식 배포본과 서명이 다른 테스트용 APK가 만들어집니다.
 

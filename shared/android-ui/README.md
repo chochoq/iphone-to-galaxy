@@ -56,4 +56,5 @@ instrumentation을 사용합니다. 같은 패키지가 이미 있다면 덮어�
 `DensityChecks`는 실제 Android 레이아웃을 생성·측정하고, `PreviewExport`는 예시 잔량으로
 선택용 이미지를 만듭니다. 이것만으로 홈 런처의 탭 전달이나 재부팅 후 상태 유지를 확인할 수는 없습니다.
 
-[이번 소스 반영 범위와 검증 결과](../../docs/SOURCE-SNAPSHOT-2026-09-14.md)
+앱별 연결과 검사는 [기여 안내](../../CONTRIBUTING.md)에서 찾을 수 있습니다.
+확인한 환경과 아직 시험하지 않은 동작은 [호환성 안내](../../compatibility/README.md)에 구분합니다.

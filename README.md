@@ -211,13 +211,18 @@ Fold8·One UI 9.0에서 확인했으며, 다른 기기에서는 목록에 나오
 [기여 안내](CONTRIBUTING.md) · [로드맵](ROADMAP.md) · [문제별 해결 기록](problems/)
 
 <details>
-<summary>직접 빌드하기 · 설계와 검증 기록</summary>
+<summary>직접 빌드하기 · 개발과 검사</summary>
 
 JDK 17, Android SDK Platform 36과 Build Tools 36.0.0이 필요합니다.
 직접 빌드한 APK는 공식 배포본과 서명이 다른 테스트용 APK입니다.
 
 [빌드·USB 연결](docs/GETTING-STARTED.md) · [공통 UI](shared/android-ui/) ·
 [배포 절차](docs/RELEASING.md) · [변경 기록](CHANGELOG.md) · [비슷한 프로젝트](docs/LANDSCAPE.md)
+
+앱별 구조·실패한 접근·검사 방법:
+[맨 위로 톡](apps/tap-to-top/docs/DEVELOPMENT.md) ·
+[공휴일 수면 연장](apps/holiday-sleep/docs/DEVELOPMENT.md) ·
+[에어팟 한눈에](apps/airpods-glance/docs/DEVELOPMENT.md)
 
 </details>
 

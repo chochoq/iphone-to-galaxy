@@ -43,8 +43,7 @@ Samsung 모드에서 설정합니다.
 캘린더·권한·다음 예약은 ‘권한 및 상세 정보’에서 확인합니다.
 휴대폰의 대한민국 공휴일 캘린더가 동기화돼 있어야 합니다.
 
-[설계와 작업 기록](docs/design/INDEX.md) · [실기기 화면 검증](docs/results/2026-09-08-calm-interface.md)
-· [아이콘 제작 기록](assets/icon/README.md)
+[구조와 검사 방법](docs/DEVELOPMENT.md) · [아이콘 안내](../../docs/ICON-DESIGN.md)
 
 ## 확인한 환경
 
@@ -57,6 +56,8 @@ Samsung 모드에서 설정합니다.
 
 ## 빌드
 
+이 앱 폴더에서 실행합니다. [공통 빌드 준비](../../docs/GETTING-STARTED.md)가 필요합니다.
+
 ~~~sh
 sh test-core.sh
 ./build.sh
@@ -67,8 +68,7 @@ ANDROID_SDK_ROOT를 지정합니다. build/holiday-sleep.apk는 개발자의 테
 공식 APK는 [GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.4)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
-Android 15 이상이 필요합니다. 이전 빌드의 설치 조건은 Android 8 이상이었지만,
-실제로 사용하는 방해 금지 API의 버전에 맞춰 첫 APK 배포에서 바로잡았습니다.
+Android 15 이상이 필요합니다. 사용하는 방해 금지 API가 이전 OS에는 없습니다.
 
 ## 권한과 삭제 방법
 

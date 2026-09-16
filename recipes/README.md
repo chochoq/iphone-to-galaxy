@@ -1,12 +1,12 @@
 # 설정과 루틴
 
-Galaxy 설정과 Good Lock, 모드·루틴만으로 해결한 방법을 모았습니다. 앱을 설치하기 전에 먼저
-살펴볼 곳입니다.
+Galaxy 설정과 Good Lock, 모드·루틴을 활용한 방법입니다.
+공휴일 연장만 별도 보조 앱을 사용하며, 다른 항목은 설정부터 살펴볼 수 있습니다.
 
 | 하고 싶은 일 | 사용한 기능 | 현재 상태 |
 |---|---|---|
 | [평일과 주말의 수면 시간, 알람과 반복 전화 설정](sleep-schedule.md) | Samsung 수면 모드 | 한 기기에서 확인 |
-| [평일 법정공휴일에는 정오까지 자기](holiday-extension.md) | Samsung 수면 모드와 직접 만든 앱 | 한 기기에서 확인 |
+| [평일 법정공휴일의 방해 금지 연장하기](holiday-extension.md) | Samsung 수면 모드와 직접 만든 앱 | 한 기기에서 확인 |
 | [회의 전에 Bluetooth를 끄고 녹음 앱 열기](meeting-mode.md) | Samsung 모드·루틴 | 세부 설정 재확인 필요 |
 | [귀가·외출·저전력 상태에 맞춰 자동 전환](home-away-battery.md) | Samsung 루틴 | 개인정보를 뺀 예시 |
 | [Fold를 오른손으로 편하게 조작하기](one-hand-gestures.md) | Good Lock | 방향별 설정 재확인 필요 |

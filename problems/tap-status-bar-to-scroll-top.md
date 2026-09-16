@@ -14,8 +14,8 @@ Chrome처럼 앱마다 화면 구조도 달랐습니다.
 
 GitHub에는 같은 목적으로 만든
 [twelvehouse/TapToTop](https://github.com/twelvehouse/TapToTop)이 있습니다. 화면 위에 투명한
-터치 영역을 두고 위쪽 스와이프를 여러 번 반복하는 앱입니다. 현재 GitHub에서 라이선스를 확인할 수
-없어 코드는 사용하지 않았습니다.
+터치 영역을 두고 위쪽 스와이프를 여러 번 반복하는 앱입니다. 2026년 9월 7일 조사에서는 라이선스를 확인하지 못해
+코드는 사용하지 않았습니다.
 
 우리도 여러 방법을 시험했습니다.
 
@@ -54,4 +54,4 @@ Galaxy Z Fold8 SM-F971N, Android 17, One UI 9.0에서 X, YouTube, Chrome과 Sams
 시험했습니다.
 
 커버 화면과 펼친 화면을 나눈 전체 회귀 검사는 아직 하지 않았습니다. 자세한 시험 내용은
-[앱 설계 인덱스](../apps/tap-to-top/docs/design/INDEX.md)에 있습니다.
+[개발 안내](../apps/tap-to-top/docs/DEVELOPMENT.md)에 있습니다.
