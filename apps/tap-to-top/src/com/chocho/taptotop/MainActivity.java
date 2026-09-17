@@ -33,6 +33,8 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
     private SettingsPage.Segmented tapsControl;
     private SettingsUi ui;
     private android.widget.Switch enabledToggle;
+    private android.widget.Switch nativeToggle;
+    private TextView lastAttempt;
     private boolean syncing;
     private Button permissionButton;
 
@@ -66,6 +68,15 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
         });
         ui.footer("선택하면 바로 적용돼요.\n두 번 탭은 같은 곳을 0.35초 안에 눌러요.");
 
+        LinearLayout destination=ui.group("맨 위 이동 · 시험 중");
+        nativeToggle=ui.toggle(destination,"앱의 맨 위 이동 사용",settings.nativeTop(),value->{
+            if(syncing) return;
+            if(!settings.setNativeTop(value)) SettingsSheet.message(this,"저장하지 못했어요.");
+            refreshStatus();
+        });
+        ui.footer("지원하는 화면에서는 앱에 맨 위까지 이동을 요청해요.\n지원하지 않으면 기존처럼 한 번 쓸어 올려요.\n끄면 모든 화면에서 기존 방식으로 돌아가요.");
+        lastAttempt=ui.footer("");
+
         LinearLayout motion=ui.group("스크롤 조절");
         strengthValue=ui.setting(motion,"스크롤 세기",()->{
             EditorDialog.number(this,"strength","스크롤 세기",60,160,"%","100%는 기존 세기예요. 높일수록 빠르게 쓸어내려요.\n다음 탭부터 적용돼요.");
@@ -74,13 +85,13 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
         distanceValue=ui.setting(motion,"쓸어내리는 길이",()->{
             EditorDialog.number(this,"distance","쓸어내리는 길이",40,75,"%","대상 영역의 비율이에요. 실제 이동 거리는 앱마다 달라요.\n다음 탭부터 적용돼요.");
         });
-        ui.footer("다음 탭부터 적용돼요.\n한 번만 움직이며 자동으로 계속 반복하지 않아요.");
+        ui.footer("한 번 쓸어 올리는 기존 방식에만 적용돼요.\n앱 자체의 맨 위 이동 속도는 바꾸지 않아요.");
 
         LinearLayout tools=ui.group(null);
         ui.row(tools,"조절값 기본값으로",()->{ScrollOptions d=ScrollOptions.defaults();EditorDialog.reset(this,new int[]{d.taps,d.strength,d.distance},"한 번 탭 · 세기 100%\n길이 62%로 돌아가요.\n\n사용 여부와 권한은 유지해요.");}).setTextColor(Ui.RED);
         ui.separator(tools);
         ui.row(tools,"사용법 및 권한  ›",()->DetailsScreen.open(this));
-        ui.footer("아주 긴 피드는 한 번에 맨 위까지 가지 않을 수 있어요.");
+        ui.footer("지원하지 않는 긴 피드는 아직 맨 위까지 가지 않을 수 있어요.\n이동 중 멈추는 방식과 속도는 대상 앱에 따라 달라요.");
         return ui.page;
     }
 
@@ -103,7 +114,8 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
     private void refreshStatus() {
         AppSettings settings=new AppSettings(this);
         boolean permission=isServiceEnabled(),enabled=settings.enabled();
-        syncing=true; enabledToggle.setChecked(enabled); syncing=false;
+        syncing=true; enabledToggle.setChecked(enabled); nativeToggle.setChecked(settings.nativeTop()); syncing=false;
+        lastAttempt.setText("마지막 시도\n"+ScrollAttempt.summary());
         statusView.setText(!permission?"접근성 설정에서 ‘맨 위로 톡’을 켜 주세요."
                 : enabled?"사용 중 · 설정한 횟수로 상태 표시줄을 탭해 보세요."
                 : "잠시 멈췄어요. 다시 켜면 바로 사용할 수 있어요.");
@@ -154,9 +166,10 @@ public final class MainActivity extends Activity implements EditorDialog.Host,De
         content.action(permissions,"앱 정보 열기",()->startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,Uri.parse("package:"+getPackageName()))));
         LinearLayout usage=content.section("사용법");
         content.paragraph(usage,"알림창은 그대로 열 수 있어요","상단에서 아래로 끌면 기존처럼 알림창이 열려요.");
-        content.paragraph(usage,"앱마다 올라가는 방식이 달라요","아주 긴 피드는 한 번에 맨 위까지 가지 않을 수 있어요. 아이폰과 완전히 같지는 않아요.");
+        content.paragraph(usage,"지원하는 화면은 앱이 맨 위로 이동해요","앱이 제공하는 맨 위 이동 기능을 먼저 사용해요. 움직이는 속도와 중간에 멈추는 방식은 그 앱이 정해요. 아이폰과 완전히 같지는 않아요.");
+        content.paragraph(usage,"지원하지 않으면 한 번만 쓸어 올려요","긴 피드는 맨 위까지 가지 않을 수 있어요. 여러 번 자동으로 반복하지는 않아요. 새 방식이 맞지 않으면 ‘앱의 맨 위 이동 사용’을 꺼서 이전 방식으로 돌아갈 수 있어요.");
         LinearLayout privacy=content.section("개인정보");
-        content.paragraph(privacy,"화면 내용은 저장하지 않아요","화면 내용과 사용 기록을 저장하거나 전송하지 않아요. 접근성 권한은 스크롤 영역을 찾고 제스처를 실행하는 데만 사용해요.");return content;
+        content.paragraph(privacy,"화면 내용은 저장하지 않아요","접근성 권한으로 스크롤 영역과 지원 기능을 확인하고 이동을 요청해요. 화면 내용과 사용 기록은 저장하거나 전송하지 않아요. ‘마지막 시도’는 이동 방식만 잠시 메모리에 남기며 앱 프로세스가 종료되면 사라져요.");return content;
     }
 
     private LinearLayout.LayoutParams matchWrap(int bottomMargin) {

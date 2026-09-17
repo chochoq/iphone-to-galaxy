@@ -7,6 +7,12 @@ public final class AppSettings {
     final SharedPreferences prefs;
     public AppSettings(Context c) { prefs=c.getSharedPreferences("tap_settings",Context.MODE_PRIVATE); }
     public boolean enabled() { return prefs.getBoolean("enabled",true); }
+    public boolean nativeTop() { return prefs.getBoolean("native_top",true); }
+    public boolean setNativeTop(boolean value) {
+        boolean old=nativeTop();
+        if(prefs.edit().putBoolean("native_top",value).commit()) return true;
+        prefs.edit().putBoolean("native_top",old).apply(); return false;
+    }
     public boolean setEnabled(boolean value) {
         boolean old=enabled();
         if(prefs.edit().putBoolean("enabled",value).commit()) return true;

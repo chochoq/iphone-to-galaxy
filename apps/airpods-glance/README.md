@@ -2,7 +2,7 @@
 
 <img src="res/drawable-nodpi/ic_launcher_folded_v3.png" width="64" height="64" alt="에어팟 한눈에 아이콘">
 
-**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.4/airpods-glance-0.0.4.apk)** · [설치 안내](../../docs/INSTALL.md)
+**[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/download/v0.0.5/airpods-glance-0.0.5.apk)** · [설치 안내](../../docs/INSTALL.md)
 
 Android 12 이상 설치 가능 · 연결 후 AAP 잔량 수신·소음 제어는 Android 17 이상
 
@@ -212,7 +212,7 @@ Android SDK Platform 36, Build Tools 36.0.0, JDK, curl과 unzip이 필요합니�
 저작자 고지도 함께 들어갑니다.
 
 직접 빌드한 APK는 개발자의 테스트용 키로 서명됩니다. 공식 APK는
-[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.4)에서 받습니다.
+[GitHub Releases](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.5)에서 받습니다.
 [폰에서 설치하기](../../docs/INSTALL.md) · [배포용 서명과 업데이트](../../docs/RELEASING.md)
 
 APK는 Android 12 이상에 설치할 수 있지만, 연결 후 AAP 배터리를 읽는 경로는 Android 17 이상에서만

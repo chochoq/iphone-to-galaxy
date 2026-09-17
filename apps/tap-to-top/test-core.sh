@@ -6,5 +6,8 @@ mkdir -p "$OUT_DIR"
 javac -encoding UTF-8 -d "$OUT_DIR" \
   "$PROJECT_DIR/src/com/chocho/taptotop/ScrollOptions.java" \
   "$PROJECT_DIR/src/com/chocho/taptotop/TapTrigger.java" \
-  "$PROJECT_DIR/tests/com/chocho/taptotop/OptionsTests.java"
+  "$PROJECT_DIR/src/com/chocho/taptotop/ScrollPolicy.java" \
+  "$PROJECT_DIR/tests/com/chocho/taptotop/OptionsTests.java" \
+  "$PROJECT_DIR/tests/com/chocho/taptotop/PolicyTests.java"
 java -cp "$OUT_DIR" com.chocho.taptotop.OptionsTests
+java -cp "$OUT_DIR" com.chocho.taptotop.PolicyTests

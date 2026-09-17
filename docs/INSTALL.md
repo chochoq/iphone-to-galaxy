@@ -5,7 +5,7 @@ PC, USB 연결, 개발자 옵션이나 루팅 없이 설치할 수 있습니다.
 
 ## 1. APK 받기
 
-[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.4)에서
+[APK 다운로드](https://github.com/chochoq/iphone-to-galaxy/releases/tag/v0.0.5)에서
 원하는 앱의 `.apk` 파일을 받습니다. `Source code`는 개발용 소스이며 설치 파일이 아닙니다.
 
 | 파일 이름의 시작 | 앱 | APK 설치 조건 |

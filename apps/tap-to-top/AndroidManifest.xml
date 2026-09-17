@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chocho.taptotop"
-    android:versionCode="12"
-    android:versionName="0.0.4">
+    android:versionCode="13"
+    android:versionName="0.0.5">
 
     <application
         android:allowBackup="false"

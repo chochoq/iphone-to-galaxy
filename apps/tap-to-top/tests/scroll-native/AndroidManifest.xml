@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.chocho.scroll006test" android:versionCode="1" android:versionName="test">
+ <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="35" />
+ <instrumentation android:name=".Checks" android:targetPackage="com.chocho.scroll006test" />
+ <application android:theme="@android:style/Theme.Material.Light.NoActionBar" android:label="Scroll006 isolated test" android:debuggable="true">
+  <activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+ </application>
+</manifest>
